@@ -1,6 +1,6 @@
 ---
 name: Scenario request
-about: Suggest an Machine Learning scenario not covered by the tutorials
+about: Suggest a Machine Learning scenario not covered by the tutorials
 title: "[SCENARIO]"
 labels: ''
 assignees: ''

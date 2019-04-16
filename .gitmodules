@@ -13,3 +13,15 @@
 [submodule "DeployMLModelPipelines"]
 	path = DeployMLModelPipelines
 	url = https://github.com/Microsoft/AMLBatchScoringPipeline
+[submodule "TrainDistributedDeepModel"]
+	path = TrainDistributedDeepModel
+	url = https://github.com/Azure/DistributedDeepLearning/
+[submodule "DeployRMLModelBatch"]
+	path = DeployRMLModelBatch
+	url = https://github.com/Azure/RBatchScoring
+[submodule "DeployRMLModelKubernetes"]
+	path = DeployRMLModelKubernetes
+	url = https://github.com/Azure/RealtimeRDeployment
+[submodule "DeploySparkMLModelDatabricks"]
+	path = DeploySparkMLModelDatabricks
+	url = https://github.com/Azure/BatchSparkScoringPredictiveMaintenance
