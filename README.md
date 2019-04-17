@@ -5,11 +5,6 @@ For further documentation on the reference architectures please look [here](http
 
 # Getting Started
 This repository is arranged as submodules and therefore you can either pull all the tutorials or simply the ones you want. 
-
-<p align="center">
-  <img width="800" src="./images/demo.svg">
-</p>
-
 To pull all the tutorials simply run:
 
 ```bash
