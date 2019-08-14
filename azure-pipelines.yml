@@ -43,7 +43,7 @@ jobs:
           -p image_name $(aksimagename)
         displayName: '00_AML_Configuration.ipynb'
 
-  - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
+  - template: .ci/steps/papermill.yml
     parameters:
       notebook: 01_DataPrep.ipynb
       location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
@@ -56,17 +56,17 @@ jobs:
       cp data_folder/*.tsv aks/data_folder
     displayName: 'Copying data'
 
-  - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
+  - template: .ci/steps/papermill.yml
     parameters:
       notebook: 02_TrainOnLocal.ipynb
       location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
-  - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
+  - template: .ci/steps/papermill.yml
     parameters:
       notebook: 03_DevelopScoringScript.ipynb
       location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
-  - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
+  - template: .ci/steps/papermill.yml
     parameters:
       notebook: 04_CreateImage.ipynb
       location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
