@@ -3,12 +3,6 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-  batch: true
-  branches:
-    include:
-    - master
-
 jobs:
 - deployment: MLAKSDeployAMLJob
   timeoutInMinutes: 300
