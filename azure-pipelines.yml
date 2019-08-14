@@ -6,96 +6,94 @@
 trigger:
 - master
 
-stages:
-- stage: Deploy
-  jobs:
-  - deployment: MLAKSDeployAMLJob
-    timeoutInMinutes: 300
-    cancelTimeoutInMinutes: 2
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    environment: 'dev'
-    strategy:
-      rolling: 
-        deploy:            
-          steps:
-          - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
-            submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
+jobs:
+- deployment: MLAKSDeployAMLJob
+  timeoutInMinutes: 300
+  cancelTimeoutInMinutes: 2
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  environment: 'dev'
+  strategy:
+    rolling: 
+      deploy:            
+        steps:
+        - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+          submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
 
-          - task: AzureCLI@1
-            displayName: 'Add Conda to Path'
-            inputs:
-              azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-              scriptLocation: inlineScript
-              inlineScript: 'echo "##vso[task.prependpath]$CONDA/bin"'
+        - task: AzureCLI@1
+          displayName: 'Add Conda to Path'
+          inputs:
+            azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+            scriptLocation: inlineScript
+            inlineScript: 'echo "##vso[task.prependpath]$CONDA/bin"'
 
-          - task: AzureCLI@1
-            displayName: 'Setup Conda'
-            inputs:
-              azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-              scriptLocation: inlineScript
-              inlineScript: |
-                conda env create -f DeployMLModelKubernetes/{{cookiecutter.project_name}}/environment.yml
-                source activate MLAKSDeployAML
+        - task: AzureCLI@1
+          displayName: 'Setup Conda'
+          inputs:
+            azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+            scriptLocation: inlineScript
+            inlineScript: |
+              conda env create -f DeployMLModelKubernetes/{{cookiecutter.project_name}}/environment.yml
+              source activate MLAKSDeployAML
 
-          - task: AzureCLI@1
-            displayName: '00_AMLConfiguration.ipynb'
-            inputs:
-              azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                source activate MLAKSDeployAML && \
-                cd DeployMLModelKubernetes/{{cookiecutter.project_name}} && \
-                echo Execute 00_AMLConfiguration.ipynb && \
-                papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
-                  --log-output \
-                  --no-progress-bar \
-                  -k python3 \
-                  -p subscription_id $(azuresubscription) \
-                  -p resource_group $(azureresourcegroup) \
-                  -p workspace_name $(workspacename) \
-                  -p workspace_region $(azureregion) \
-                  -p image_name $(aksimagename)
+        - task: AzureCLI@1
+          displayName: '00_AMLConfiguration.ipynb'
+          inputs:
+            azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              source activate MLAKSDeployAML && \
+              cd DeployMLModelKubernetes/{{cookiecutter.project_name}} && \
+              echo Execute 00_AMLConfiguration.ipynb && \
+              papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
+                --log-output \
+                --no-progress-bar \
+                -k python3 \
+                -p subscription_id $(azuresubscription) \
+                -p resource_group $(azureresourcegroup) \
+                -p workspace_name $(workspacename) \
+                -p workspace_region $(azureregion) \
+                -p image_name $(aksimagename)
 
-          - template: .ci/steps/papermill.yml
-            parameters:
-              notebook: 01_DataPrep.ipynb
-              location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+        - template: .ci/steps/papermill.yml
+          parameters:
+            notebook: 01_DataPrep.ipynb
+            location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
-          - bash: |
-              mkdir -p DeployMLModelKubernetes/{{cookiecutter.project_name}}/iotedge/data_folder
-              mkdir -p DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks/data_folder
-              cd DeployMLModelKubernetes/{{cookiecutter.project_name}}
-              cp data_folder/*.tsv iotedge/data_folder
-              cp data_folder/*.tsv aks/data_folder
-            displayName: 'Copying data'
+        - bash: |
+            mkdir -p DeployMLModelKubernetes/{{cookiecutter.project_name}}/iotedge/data_folder
+            mkdir -p DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks/data_folder
+            cd DeployMLModelKubernetes/{{cookiecutter.project_name}}
+            cp data_folder/*.tsv iotedge/data_folder
+            cp data_folder/*.tsv aks/data_folder
+          displayName: 'Copying data'
 
-          - template: .ci/steps/papermill.yml
-            parameters:
-              notebook: 02_TrainOnLocal.ipynb
-              location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+        - template: .ci/steps/papermill.yml
+          parameters:
+            notebook: 02_TrainOnLocal.ipynb
+            location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
-          - template: .ci/steps/papermill.yml
-            parameters:
-              notebook: 03_DevelopScoringScript.ipynb
-              location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+        - template: .ci/steps/papermill.yml
+          parameters:
+            notebook: 03_DevelopScoringScript.ipynb
+            location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
-          - template: .ci/steps/papermill.yml
-            parameters:
-              notebook: 04_CreateImage.ipynb
-              location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+        - template: .ci/steps/papermill.yml
+          parameters:
+            notebook: 04_CreateImage.ipynb
+            location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
-          - bash: |
-              source /usr/share/miniconda/etc/profile.d/conda.sh
-              conda activate MLAKSDeployAML
-              echo Execute 05_DeployOnAKS.ipynb
-              export PYTHONPATH=$(pwd)/DeployMLModelKubernetes/{{cookiecutter.project_name}}:${PYTHONPATH}
-              cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks
-              papermill 05_DeployOnAKS.ipynb test.ipynb \
-                  --log-output \
-                  --no-progress-bar \
-                  -k python3 \
-                  -p aks_name $(aksname) \
-                  -p aks_location $(azureregion) \
-                  -p aks_service_name $(aksvcname)
-            displayName: '05_DeployOnAKS.ipynb'
+        - bash: |
+            source /usr/share/miniconda/etc/profile.d/conda.sh
+            conda activate MLAKSDeployAML
+            echo Execute 05_DeployOnAKS.ipynb
+            export PYTHONPATH=$(pwd)/DeployMLModelKubernetes/{{cookiecutter.project_name}}:${PYTHONPATH}
+            cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks
+            papermill 05_DeployOnAKS.ipynb test.ipynb \
+                --log-output \
+                --no-progress-bar \
+                -k python3 \
+                -p aks_name $(aksname) \
+                -p aks_location $(azureregion) \
+                -p aks_service_name $(aksvcname)
+          displayName: '05_DeployOnAKS.ipynb'
