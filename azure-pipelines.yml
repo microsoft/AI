@@ -18,3 +18,84 @@ steps:
     ls
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+
+jobs:
+- job: MLAKSDeployAMLJob
+  timeoutInMinutes: 300
+  cancelTimeoutInMinutes: 2
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  steps:
+  - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+    submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      which conda
+      conda env create -f {{cookiecutter.project_name}}/environment.yml
+      conda env list
+      conda activate MLAKSDeployAML
+      conda env list
+
+  - task: AzureCLI@1
+    inputs:
+      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        conda activate MLAKSDeployAML && \
+        cd {{cookiecutter.project_name}} && \
+        echo Execute 00_AMLConfiguration.ipynb && \
+        papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
+          --log-output \
+          --no-progress-bar \
+          -k python3 \
+          -p subscription_id $(azuresubscription) \
+          -p resource_group $(azureresourcegroup) \
+          -p workspace_name $(workspacename) \
+          -p workspace_region $(azureregion) \
+          -p image_name $(aksimagename)
+        displayName: '00_AML_Configuration.ipynb'
+
+  - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
+    parameters:
+      notebook: 01_DataPrep.ipynb
+      location: "{{cookiecutter.project_name}}"
+
+  - bash: |
+      mkdir -p {{cookiecutter.project_name}}/iotedge/data_folder
+      mkdir -p {{cookiecutter.project_name}}/aks/data_folder
+      cd {{cookiecutter.project_name}}
+      cp data_folder/*.tsv iotedge/data_folder
+      cp data_folder/*.tsv aks/data_folder
+    displayName: 'Copying data'
+
+  - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
+    parameters:
+      notebook: 02_TrainOnLocal.ipynb
+      location: "{{cookiecutter.project_name}}"
+
+  - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
+    parameters:
+      notebook: 03_DevelopScoringScript.ipynb
+      location: "{{cookiecutter.project_name}}"
+
+  - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
+    parameters:
+      notebook: 04_CreateImage.ipynb
+      location: "{{cookiecutter.project_name}}"
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLAKSDeployAML
+      echo Execute 05_DeployOnAKS.ipynb
+      export PYTHONPATH=$(pwd)/{{cookiecutter.project_name}}:${PYTHONPATH}
+      cd {{cookiecutter.project_name}}/aks
+      papermill 05_DeployOnAKS.ipynb test.ipynb \
+          --log-output \
+          --no-progress-bar \
+          -k python3 \
+          -p aks_name $(aksname) \
+          -p aks_location $(azureregion) \
+          -p aks_service_name $(aksvcname)
+    displayName: '05_DeployOnAKS.ipynb'
