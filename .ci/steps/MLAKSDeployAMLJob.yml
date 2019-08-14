@@ -17,7 +17,7 @@ steps:
 - task: AzureCLI@1
   displayName: 'Setup Conda'
   inputs:
-    azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+    azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
       conda env create -f DeployMLModelKubernetes/{{cookiecutter.project_name}}/environment.yml
@@ -26,12 +26,12 @@ steps:
 - task: AzureCLI@1
   displayName: '00_AMLConfiguration.ipynb'
   inputs:
-    azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+    azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: 'inlineScript'
     inlineScript: |
-      source activate MLAKSDeployAML && \
-      cd DeployMLModelKubernetes/{{cookiecutter.project_name}} && \
-      echo Execute 00_AMLConfiguration.ipynb && \
+      source activate MLAKSDeployAML
+      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}
+      echo Execute 00_AMLConfiguration.ipynb
       papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
         --log-output \
         --no-progress-bar \
@@ -46,6 +46,7 @@ steps:
   parameters:
     notebook: 01_DataPrep.ipynb
     location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+    azureSubscription: ${{parameters.azureSubscription}}
 
 - bash: |
     mkdir -p DeployMLModelKubernetes/{{cookiecutter.project_name}}/iotedge/data_folder
@@ -59,25 +60,34 @@ steps:
   parameters:
     notebook: 02_TrainOnLocal.ipynb
     location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+    azureSubscription: ${{parameters.azureSubscription}}
 
 - template: .ci/steps/azpapermill.yml
   parameters:
     notebook: 03_DevelopScoringScript.ipynb
     location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+    azureSubscription: ${{parameters.azureSubscription}}
 
 - template: .ci/steps/azpapermill.yml
   parameters:
     notebook: 04_CreateImage.ipynb
     location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+    azureSubscription: ${{parameters.azureSubscription}}
 
 - task: AzureCLI@1
   displayName: '05_DeployOnAKS.ipynb'
   inputs:
-    azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+    azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
-      source activate $(conda)
-      export PYTHONPATH=$(pwd)/DeployMLModelKubernetes/2{{cookiecutter.project_name}}:${PYTHONPATH}
-      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks && \
-      echo Execute 05_DeployOnAKS.ipynb && \
-      papermill 05_DeployOnAKS.ipynb test.ipynb --log-output --no-progress-bar -k python3 -p aks_name $(aks_name) -p aks_location $(region) -p aks_service_name $(aks_service_name)
+      source activate MLAKSDeployAML
+      export PYTHONPATH=$(pwd)/DeployMLModelKubernetes/{{cookiecutter.project_name}}:${PYTHONPATH}
+      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks
+      echo Execute 05_DeployOnAKS.ipynb
+      papermill 05_DeployOnAKS.ipynb test.ipynb \
+        --log-output \
+        --no-progress-bar \
+        -k python3 \
+        -p aks_name $(aks_name) \
+        -p aks_location $(region) \
+        -p aks_service_name $(aks_service_name)
