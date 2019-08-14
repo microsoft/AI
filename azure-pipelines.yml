@@ -41,7 +41,6 @@ jobs:
           -p workspace_name $(workspacename) \
           -p workspace_region $(azureregion) \
           -p image_name $(aksimagename)
-        displayName: '00_AML_Configuration.ipynb'
 
   - template: .ci/steps/papermill.yml
     parameters:
