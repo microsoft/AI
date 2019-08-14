@@ -29,7 +29,7 @@ steps:
     azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      source activate MLAKSDeployAML && \
+      source activate MLAKSDeployAML
       cd DeployMLModelKubernetes/{{cookiecutter.project_name}}
       echo Execute 00_AMLConfiguration.ipynb
       papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
@@ -77,7 +77,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate $(conda)
-      export PYTHONPATH=$(pwd)/DeployMLModelKubernetes/2{{cookiecutter.project_name}}:${PYTHONPATH}
+      export PYTHONPATH=$(pwd)/DeployMLModelKubernetes/{{cookiecutter.project_name}}:${PYTHONPATH}
       cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks
       echo Execute 05_DeployOnAKS.ipynb
       papermill 05_DeployOnAKS.ipynb test.ipynb \
