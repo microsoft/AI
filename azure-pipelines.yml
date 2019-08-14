@@ -16,14 +16,6 @@ jobs:
   - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
     submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
 
-  - bash: |
-      source /usr/share/miniconda/etc/profile.d/conda.sh
-      which conda
-      conda env create -f DeployMLModelKubernetes/{{cookiecutter.project_name}}/environment.yml
-      conda env list
-      conda activate MLAKSDeployAML
-      conda env list
-
   - task: AzureCLI@1
     displayName: 'Add Conda to Path'
     inputs:
