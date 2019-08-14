@@ -17,12 +17,6 @@ jobs:
         - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
           submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
 
-        - task: CacheBeta@0
-          inputs:
-            key: '$(Agent.OS)'
-            path: '$(Pipeline.Workspace)/.cache/pip'
-          displayName: 'Cache Python'
-
         - template: .ci/steps/MLAKSDeployAMLJob.yml
           parameters:
             azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
