@@ -30,8 +30,8 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       source activate MLAKSDeployAML && \
-      cd DeployMLModelKubernetes/{{cookiecutter.project_name}} && \
-      echo Execute 00_AMLConfiguration.ipynb && \
+      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}
+      echo Execute 00_AMLConfiguration.ipynb
       papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
         --log-output \
         --no-progress-bar \
@@ -78,6 +78,12 @@ steps:
     inlineScript: |
       source activate $(conda)
       export PYTHONPATH=$(pwd)/DeployMLModelKubernetes/2{{cookiecutter.project_name}}:${PYTHONPATH}
-      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks && \
-      echo Execute 05_DeployOnAKS.ipynb && \
-      papermill 05_DeployOnAKS.ipynb test.ipynb --log-output --no-progress-bar -k python3 -p aks_name $(aks_name) -p aks_location $(region) -p aks_service_name $(aks_service_name)
+      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks
+      echo Execute 05_DeployOnAKS.ipynb
+      papermill 05_DeployOnAKS.ipynb test.ipynb \
+        --log-output \
+        --no-progress-bar \
+        -k python3 \
+        -p aks_name $(aks_name) \
+        -p aks_location $(region) \
+        -p aks_service_name $(aks_service_name)
