@@ -1,1 +1,84 @@
 
+
+parameters:
+  azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+  azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+  azureresourcegroup: dciborowhp
+  workspacename: dciborowhpws
+  azureregion: westus2
+  aksimagename: dciborowhpaks
+
+steps:
+- task: AzureCLI@1
+  displayName: 'Add Conda to Path'
+  inputs:
+    azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+    scriptLocation: inlineScript
+    inlineScript: 'echo "##vso[task.prependpath]$CONDA/bin"'
+
+- task: AzureCLI@1
+  displayName: 'Setup Conda'
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    inlineScript: |
+      conda env create -f DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow/environment.yml
+      source activate deployment_aml
+
+- task: AzureCLI@1
+  displayName: '00_AMLConfiguration.ipynb'
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      source activate deployment_aml
+      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow
+      echo Execute 00_AMLSetup.ipynb
+      papermill 00_AMLSetup.ipynb 00_AMLSetup_output.ipynb \
+        --log-output \
+        --no-progress-bar \
+        -k python3 \
+        -p subscription_id ${{parameters.azure_subscription}} \
+        -p resource_group ${{parameters.azureresourcegroup}} \
+        -p workspace_name ${{parameters.workspacename}} \
+        -p workspace_region ${{parameters.azureregion}} \
+        -p image_name ${{parameters.aksimagename}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 01_DevelopModel.ipynb
+    location: "DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: deployment_aml
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 02_DevelopModelDriver.ipynb
+    location: "DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: deployment_aml
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 03_BuildImage.ipynb
+    location: "DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: deployment_aml
+
+- task: AzureCLI@1
+  displayName: '04_DeployOnAKS.ipynb'
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    inlineScript: |
+      source activate deployment_aml
+      export PYTHONPATH=$(pwd)/DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow:${PYTHONPATH}
+      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow/aks
+      echo Execute 04_DeployOnAKS.ipynb
+      papermill 04_DeployOnAKS.ipynb 04_DeployOnAKS_output.ipynb \
+        --log-output \
+        --no-progress-bar \
+        -k python3 \
+        -p aks_name $(aks_name) \
+        -p aks_location $(region) \
+        -p aks_service_name $(aks_service_name)
