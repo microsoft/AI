@@ -6,20 +6,6 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- checkout: self  # self represents the repo where the initial Pipelines YAML file was found
-  submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
-  
-- script: |
-    cd DeployMLModelKubernetes
-    ls
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-
-
 jobs:
 - job: MLAKSDeployAMLJob
   timeoutInMinutes: 300
@@ -33,7 +19,7 @@ jobs:
   - bash: |
       source /usr/share/miniconda/etc/profile.d/conda.sh
       which conda
-      conda env create -f {{cookiecutter.project_name}}/environment.yml
+      conda env create -f DeployMLModelKubernetes/{{cookiecutter.project_name}}/environment.yml
       conda env list
       conda activate MLAKSDeployAML
       conda env list
@@ -44,7 +30,7 @@ jobs:
       scriptLocation: 'inlineScript'
       inlineScript: |
         conda activate MLAKSDeployAML && \
-        cd {{cookiecutter.project_name}} && \
+        cd DeployMLModelKubernetes/{{cookiecutter.project_name}} && \
         echo Execute 00_AMLConfiguration.ipynb && \
         papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
           --log-output \
@@ -60,12 +46,12 @@ jobs:
   - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
     parameters:
       notebook: 01_DataPrep.ipynb
-      location: "{{cookiecutter.project_name}}"
+      location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
   - bash: |
-      mkdir -p {{cookiecutter.project_name}}/iotedge/data_folder
-      mkdir -p {{cookiecutter.project_name}}/aks/data_folder
-      cd {{cookiecutter.project_name}}
+      mkdir -p DeployMLModelKubernetes/{{cookiecutter.project_name}}/iotedge/data_folder
+      mkdir -p DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks/data_folder
+      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}
       cp data_folder/*.tsv iotedge/data_folder
       cp data_folder/*.tsv aks/data_folder
     displayName: 'Copying data'
@@ -73,24 +59,24 @@ jobs:
   - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
     parameters:
       notebook: 02_TrainOnLocal.ipynb
-      location: "{{cookiecutter.project_name}}"
+      location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
   - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
     parameters:
       notebook: 03_DevelopScoringScript.ipynb
-      location: "{{cookiecutter.project_name}}"
+      location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
   - template: DeployMLModelKubernetes/.ci/steps/papermill.yml
     parameters:
       notebook: 04_CreateImage.ipynb
-      location: "{{cookiecutter.project_name}}"
+      location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
   - bash: |
       source /usr/share/miniconda/etc/profile.d/conda.sh
       conda activate MLAKSDeployAML
       echo Execute 05_DeployOnAKS.ipynb
-      export PYTHONPATH=$(pwd)/{{cookiecutter.project_name}}:${PYTHONPATH}
-      cd {{cookiecutter.project_name}}/aks
+      export PYTHONPATH=$(pwd)/DeployMLModelKubernetes/{{cookiecutter.project_name}}:${PYTHONPATH}
+      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks
       papermill 05_DeployOnAKS.ipynb test.ipynb \
           --log-output \
           --no-progress-bar \
