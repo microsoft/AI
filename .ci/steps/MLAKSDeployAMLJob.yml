@@ -44,7 +44,7 @@ steps:
         -p workspace_region ${{parameters.azureregion}} \
         -p image_name ${{parameters.aksimagename}}
 
-- template: .ci/steps/azpapermill.yml
+- template: azpapermill.yml
   parameters:
     notebook: 01_DataPrep.ipynb
     location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
@@ -58,19 +58,19 @@ steps:
     cp data_folder/*.tsv aks/data_folder
   displayName: 'Copying data'
 
-- template: .ci/steps/azpapermill.yml
+- template: azpapermill.yml
   parameters:
     notebook: 02_TrainOnLocal.ipynb
     location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
     azureSubscription: ${{parameters.azureSubscription}}
 
-- template: .ci/steps/azpapermill.yml
+- template: azpapermill.yml
   parameters:
     notebook: 03_DevelopScoringScript.ipynb
     location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
     azureSubscription: ${{parameters.azureSubscription}}
 
-- template: .ci/steps/azpapermill.yml
+- template: azpapermill.yml
   parameters:
     notebook: 04_CreateImage.ipynb
     location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
