@@ -4,6 +4,7 @@ parameters:
   notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
   location: "{{cookiecutter.project_name}}"
   azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+  conda: MLAKSDeployAML
 
 
 steps:
@@ -13,7 +14,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
-      source activate MLAKSDeployAML
+      source activate ${{parameters.conda}}
       echo Execute ${{parameters.notebook}}
       papermill ${{parameters.notebook}} output.ipynb \
         --log-output \
