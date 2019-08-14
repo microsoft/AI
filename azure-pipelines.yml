@@ -31,14 +31,14 @@ jobs:
       scriptLocation: inlineScript
       inlineScript: 'echo "##vso[task.prependpath]$CONDA/bin"'
 
-- task: AzureCLI@1
-  displayName: 'Setup Conda'
-  inputs:
-    azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-    scriptLocation: inlineScript
-    inlineScript: |
-    conda env create -f {{cookiecutter.project_name}}/environment.yml && \
-    source activate MLAKSDeployAML
+  - task: AzureCLI@1
+    displayName: 'Setup Conda'
+    inputs:
+      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+      scriptLocation: inlineScript
+      inlineScript: |
+        conda env create -f {{cookiecutter.project_name}}/environment.yml && \
+        source activate MLAKSDeployAML
 
   - task: AzureCLI@1
     inputs:
