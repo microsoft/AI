@@ -1,0 +1,20 @@
+
+
+parameters:
+  notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
+  location: "{{cookiecutter.project_name}}"
+
+
+steps:
+- bash: |
+    source /usr/share/miniconda/etc/profile.d/conda.sh
+    conda activate MLAKSDeployAML
+    export PYTHONPATH=$(pwd)/{{cookiecutter.project_name}}:${PYTHONPATH}
+    cd ${{parameters.location}}
+    echo Execute ${{parameters.notebook}}
+    papermill ${{parameters.notebook}} output.ipynb \
+      --log-output \
+      --no-progress-bar \
+      -k python3
+    sleep 30
+  displayName: '${{parameters.notebook}}'
