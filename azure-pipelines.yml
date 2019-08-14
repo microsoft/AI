@@ -9,7 +9,7 @@ jobs:
   cancelTimeoutInMinutes: 2
   pool:
     vmImage: 'Ubuntu-16.04'
-  environment: 'dev'
+  environment: 'MLAKSDeployAMLJob'
   strategy:
     runOnce: 
       deploy:            
