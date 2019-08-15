@@ -7,6 +7,8 @@ parameters:
   workspacename: dciborowhpws
   azureregion: westus2
   aksimagename: dciborowhpaks
+  aks_name: dciborowhpaks
+  aks_service_name: dciborowhpaksapi  
 
 steps:
 - task: AzureCLI@1
@@ -90,6 +92,6 @@ steps:
         --log-output \
         --no-progress-bar \
         -k python3 \
-        -p aks_name $(aks_name) \
-        -p aks_location $(region) \
-        -p aks_service_name $(aks_service_name)
+        -p aks_name ${{parameters.aks_name}} \
+        -p aks_location ${{parameters.azureregion}} \
+        -p aks_service_name ${{parameters.aks_service_name}}
