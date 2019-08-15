@@ -1,6 +1,5 @@
 
 parameters:
-  notebook: #
   location: #
   azureSubscription: #
   conda: #
