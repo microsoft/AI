@@ -4,12 +4,12 @@ parameters:
   azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
   azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
   location: DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow
-  azureresourcegroup: dciborowhp
-  workspacename: dciborowhpws
+  azureresourcegroup: dciborowhpdl
+  workspacename: dciborowhpwsdl
   azureregion: westus2
-  aksimagename: dciborowhpaks
-  aks_name: #
-  aks_service_name: #
+  aksimagename: dciborowhpaksdl
+  aks_name: dciborowhpaksdl
+  aks_service_name: dciborowhpaksdlapi
 
 steps:
 
