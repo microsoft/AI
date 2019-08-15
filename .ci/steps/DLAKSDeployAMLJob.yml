@@ -60,5 +60,5 @@ steps:
     conda: deployment_aml
     aks_name: ${{parameters.aks_name}}
     aks_location: ${{parameters.azureregion}}
-    aks_service_name: ${{parameters.aks_service_name}
+    aks_service_name: ${{parameters.aks_service_name}}
     python_path:  $(System.DefaultWorkingDirectory)/DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow
