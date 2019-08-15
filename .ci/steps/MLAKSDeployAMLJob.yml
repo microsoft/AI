@@ -8,7 +8,8 @@ parameters:
   azureregion: westus2
   aksimagename: dciborowhpaks
   aks_name: dciborowhpaks
-  aks_service_name: dciborowhpaksapi  
+  aks_service_name: dciborowhpaksapi
+  location: DeployMLModelKubernetes/{{cookiecutter.project_name}}
 
 steps:
 - task: AzureCLI@1
@@ -24,7 +25,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
-      conda env create -f DeployMLModelKubernetes/{{cookiecutter.project_name}}/environment.yml
+      conda env create -f ${{location}}/environment.yml
       source activate MLAKSDeployAML
 
 - task: AzureCLI@1
@@ -34,7 +35,7 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       source activate MLAKSDeployAML
-      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}
+      cd ${{location}}
       echo Execute 00_AMLConfiguration.ipynb
       papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
         --log-output \
@@ -49,13 +50,13 @@ steps:
 - template: azpapermill.yml
   parameters:
     notebook: 01_DataPrep.ipynb
-    location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+    location: ${{location}}
     azureSubscription: ${{parameters.azureSubscription}}
 
 - bash: |
-    mkdir -p DeployMLModelKubernetes/{{cookiecutter.project_name}}/iotedge/data_folder
-    mkdir -p DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks/data_folder
-    cd DeployMLModelKubernetes/{{cookiecutter.project_name}}
+    mkdir -p ${{location}}/iotedge/data_folder
+    mkdir -p ${{location}}/aks/data_folder
+    cd ${{location}}
     cp data_folder/*.tsv iotedge/data_folder
     cp data_folder/*.tsv aks/data_folder
   displayName: 'Copying data'
@@ -63,19 +64,19 @@ steps:
 - template: azpapermill.yml
   parameters:
     notebook: 02_TrainOnLocal.ipynb
-    location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+    location: ${{location}}
     azureSubscription: ${{parameters.azureSubscription}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 03_DevelopScoringScript.ipynb
-    location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+    location: ${{location}}
     azureSubscription: ${{parameters.azureSubscription}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 04_CreateImage.ipynb
-    location: "DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+    location: ${{location}}
     azureSubscription: ${{parameters.azureSubscription}}
 
 - task: AzureCLI@1
@@ -85,8 +86,8 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate MLAKSDeployAML
-      export PYTHONPATH=$(pwd)/DeployMLModelKubernetes/{{cookiecutter.project_name}}:${PYTHONPATH}
-      cd DeployMLModelKubernetes/{{cookiecutter.project_name}}/aks
+      export PYTHONPATH=$(pwd)/${{location}}:${PYTHONPATH}
+      cd ${{location}}/aks
       echo Execute 05_DeployOnAKS.ipynb
       papermill 05_DeployOnAKS.ipynb test.ipynb \
         --log-output \
