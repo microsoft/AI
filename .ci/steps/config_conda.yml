@@ -1,1 +1,24 @@
 
+parameters:
+  notebook: #
+  location: #
+  azureSubscription: #
+  conda: #
+
+
+steps:
+- task: AzureCLI@1
+  displayName: 'Add Conda to Path'
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    inlineScript: 'echo "##vso[task.prependpath]$CONDA/bin"'
+
+- task: AzureCLI@1
+  displayName: 'Setup Conda'
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    inlineScript: |
+      conda env create -f ${{parameters.location}}/environment.yml
+      source activate ${{parameters.conda}}
