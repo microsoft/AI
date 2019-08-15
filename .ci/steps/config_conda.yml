@@ -20,4 +20,5 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       conda env create -f ${{parameters.location}}/environment.yml
+      export PYTHONPATH=$(System.DefaultWorkingDirectory)/${{parameters.location}}:${PYTHONPATH}
       source activate ${{parameters.conda}}
