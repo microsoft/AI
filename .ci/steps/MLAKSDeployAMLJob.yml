@@ -26,8 +26,8 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
-      conda env create -f ${{location}}/environment.yml
-      source activate ${{conda}}
+      conda env create -f ${{parameters.location}}/environment.yml
+      source activate ${{parameters.conda}}
 
 - task: AzureCLI@1
   displayName: '00_AMLConfiguration.ipynb'
@@ -35,8 +35,8 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: 'inlineScript'
     inlineScript: |
-      source activate ${{conda}}
-      cd ${{location}}
+      source activate ${{parameters.conda}}
+      cd ${{parameters.location}}
       echo Execute 00_AMLConfiguration.ipynb
       papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
         --log-output \
@@ -51,13 +51,14 @@ steps:
 - template: azpapermill.yml
   parameters:
     notebook: 01_DataPrep.ipynb
-    location: ${{location}}
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
 
 - bash: |
-    mkdir -p ${{location}}/iotedge/data_folder
-    mkdir -p ${{location}}/aks/data_folder
-    cd ${{location}}
+    mkdir -p ${{parameters.location}}/iotedge/data_folder
+    mkdir -p ${{parameters.location}}/aks/data_folder
+    cd ${{parameters.location}}
     cp data_folder/*.tsv iotedge/data_folder
     cp data_folder/*.tsv aks/data_folder
   displayName: 'Copying data'
@@ -65,23 +66,23 @@ steps:
 - template: azpapermill.yml
   parameters:
     notebook: 02_TrainOnLocal.ipynb
-    location: ${{location}}
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{conda}}
+    conda: ${{parameters.conda}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 03_DevelopScoringScript.ipynb
-    location: ${{location}}
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{conda}}
+    conda: ${{parameters.conda}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 04_CreateImage.ipynb
-    location: ${{location}}
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{conda}}
+    conda: ${{parameters.conda}}
 
 - task: AzureCLI@1
   displayName: '05_DeployOnAKS.ipynb'
@@ -89,9 +90,9 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
-      source activate ${{conda}}
-      export PYTHONPATH=$(pwd)/${{location}}:${PYTHONPATH}
-      cd ${{location}}/aks
+      source activate ${{parameters.conda}}
+      export PYTHONPATH=$(pwd)/${{parameters.location}}:${PYTHONPATH}
+      cd ${{parameters.location}}/aks
       echo Execute 05_DeployOnAKS.ipynb
       papermill 05_DeployOnAKS.ipynb test.ipynb \
         --log-output \
