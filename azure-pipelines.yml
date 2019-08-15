@@ -3,25 +3,49 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-jobs:
-- deployment: MLAKSDeployAMLJob
-  timeoutInMinutes: 300
-  cancelTimeoutInMinutes: 2
-  pool:
-    vmImage: 'Ubuntu-16.04'
-  environment: 'MLAKSDeployAMLJob'
-  strategy:
-    runOnce: 
-      deploy:            
-        steps:
-        - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
-          submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
+stages:
+- stage: dev
+  jobs:
+  - deployment: DLAKSDeployAMLJob
+    timeoutInMinutes: 300
+    cancelTimeoutInMinutes: 2
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    environment: 'DLAKSDeployAMLJob'
+    strategy:
+      runOnce: 
+        deploy:            
+          steps:
+          - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+            submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
 
-        - template: .ci/steps/MLAKSDeployAMLJob.yml
-          parameters:
-            azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-            azure_subscription: $(azuresubscription)
-            azureresourcegroup: $(azureresourcegroup)
-            workspacename: $(workspacename)
-            azureregion: $(azureregion) 
-            aksimagename: $(aksimagename)
+          - template: .ci/steps/DLAKSDeployAMLJob.yml
+            parameters:
+              azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+              azure_subscription: $(azuresubscription)
+              azureresourcegroup: $(azureresourcegroup)
+              workspacename: $(workspacename)
+              azureregion: $(azureregion) 
+              aksimagename: $(aksimagename)
+
+  - deployment: MLAKSDeployAMLJob
+    timeoutInMinutes: 300
+    cancelTimeoutInMinutes: 2
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    environment: 'MLAKSDeployAMLJob'
+    strategy:
+      runOnce: 
+        deploy:            
+          steps:
+          - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+            submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
+
+          - template: .ci/steps/MLAKSDeployAMLJob.yml
+            parameters:
+              azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+              azure_subscription: $(azuresubscription)
+              azureresourcegroup: $(azureresourcegroup)
+              workspacename: $(workspacename)
+              azureregion: $(azureregion) 
+              aksimagename: $(aksimagename)
