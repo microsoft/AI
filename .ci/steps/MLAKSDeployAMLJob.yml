@@ -11,6 +11,7 @@ parameters:
   aks_service_name: dciborowhpaksapi
   location: DeployMLModelKubernetes/{{cookiecutter.project_name}}
   conda: MLAKSDeployAML
+  pwd: $(System.DefaultWorkingDirectory)/_dciborow_MLAKSDeployAML
 
 steps:
 - template: config_conda.yml
@@ -81,7 +82,8 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}
-      export PYTHONPATH=$(pwd)/${{parameters.location}}:${PYTHONPATH}
+      pwd
+      export PYTHONPATH=${{parameters.location}}:${PYTHONPATH}
       cd ${{parameters.location}}/aks
       echo Execute 05_DeployOnAKS.ipynb
       papermill 05_DeployOnAKS.ipynb test.ipynb \
