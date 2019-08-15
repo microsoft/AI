@@ -20,24 +20,17 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
 
-- task: AzureCLI@1
-  displayName: '00_AMLConfiguration.ipynb'
-  inputs:
+- template: azpapermill.yml
+  parameters:
+    notebook:  00_AMLConfiguration.ipynb
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      source activate ${{parameters.conda}}
-      cd ${{parameters.location}}
-      echo Execute 00_AMLConfiguration.ipynb
-      papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
-        --log-output \
-        --no-progress-bar \
-        -k python3 \
-        -p subscription_id ${{parameters.azure_subscription}} \
-        -p resource_group ${{parameters.azureresourcegroup}} \
-        -p workspace_name ${{parameters.workspacename}} \
-        -p workspace_region ${{parameters.azureregion}} \
-        -p image_name ${{parameters.aksimagename}}
+    conda: ${{parameters.conda}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    aksimagename: ${{parameters.aksimagename}}
 
 - template: azpapermill.yml
   parameters:
@@ -75,21 +68,12 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
 
-- task: AzureCLI@1
-  displayName: '05_DeployOnAKS.ipynb'
-  inputs:
+- template: azpapermill.yml
+  parameters:
+    notebook: 05_DeployOnAKS.ipynb
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    scriptLocation: inlineScript
-    inlineScript: |
-      source activate ${{parameters.conda}}
-      pwd
-      export PYTHONPATH=$(System.DefaultWorkingDirectory)/${{parameters.location}}:${PYTHONPATH}
-      cd ${{parameters.location}}/aks
-      echo Execute 05_DeployOnAKS.ipynb
-      papermill 05_DeployOnAKS.ipynb test.ipynb \
-        --log-output \
-        --no-progress-bar \
-        -k python3 \
-        -p aks_name ${{parameters.aks_name}} \
-        -p aks_location ${{parameters.azureregion}} \
-        -p aks_service_name ${{parameters.aks_service_name}}
+    conda: ${{parameters.conda}}
+    aks_name: ${{parameters.aks_name}}
+    azureregion: ${{parameters.azureregion}}
+    aks_service_name: ${{parameters.aks_service_name}}
