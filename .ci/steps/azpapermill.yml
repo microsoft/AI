@@ -12,6 +12,7 @@ parameters:
   aksimagename: "-"
   aks_name: "-"
   aks_service_name: "-"
+  python_path: $(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}
 
 
 steps:
@@ -22,7 +23,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}
-      export PYTHONPATH=$(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}:${PYTHONPATH}      
+      export PYTHONPATH= ${{parameters.python_path}}:${PYTHONPATH}      
       cd ${{parameters.location}}
       echo Execute ${{parameters.notebook}}
       papermill ${{parameters.notebook}} output.ipynb \
