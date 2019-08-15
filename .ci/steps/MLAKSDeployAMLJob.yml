@@ -10,6 +10,7 @@ parameters:
   aks_name: dciborowhpaks
   aks_service_name: dciborowhpaksapi
   location: DeployMLModelKubernetes/{{cookiecutter.project_name}}
+  conda: MLAKSDeployAML
 
 steps:
 - task: AzureCLI@1
@@ -26,7 +27,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       conda env create -f ${{location}}/environment.yml
-      source activate MLAKSDeployAML
+      source activate ${{conda}}
 
 - task: AzureCLI@1
   displayName: '00_AMLConfiguration.ipynb'
@@ -34,7 +35,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: 'inlineScript'
     inlineScript: |
-      source activate MLAKSDeployAML
+      source activate ${{conda}}
       cd ${{location}}
       echo Execute 00_AMLConfiguration.ipynb
       papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
@@ -66,18 +67,21 @@ steps:
     notebook: 02_TrainOnLocal.ipynb
     location: ${{location}}
     azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{conda}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 03_DevelopScoringScript.ipynb
     location: ${{location}}
     azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{conda}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 04_CreateImage.ipynb
     location: ${{location}}
     azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{conda}}
 
 - task: AzureCLI@1
   displayName: '05_DeployOnAKS.ipynb'
@@ -85,7 +89,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
-      source activate MLAKSDeployAML
+      source activate ${{conda}}
       export PYTHONPATH=$(pwd)/${{location}}:${PYTHONPATH}
       cd ${{location}}/aks
       echo Execute 05_DeployOnAKS.ipynb
