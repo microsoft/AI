@@ -83,7 +83,7 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
       pwd
-      export PYTHONPATH=${{parameters.location}}:${PYTHONPATH}
+      export PYTHONPATH=$(System.DefaultWorkingDirectory)/${{parameters.location}}:${PYTHONPATH}
       cd ${{parameters.location}}/aks
       echo Execute 05_DeployOnAKS.ipynb
       papermill 05_DeployOnAKS.ipynb test.ipynb \
