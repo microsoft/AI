@@ -22,6 +22,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}
+      export PYTHONPATH=$(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}:${PYTHONPATH}      
       cd ${{parameters.location}}
       echo Execute ${{parameters.notebook}}
       papermill ${{parameters.notebook}} output.ipynb \
