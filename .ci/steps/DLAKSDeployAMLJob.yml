@@ -12,7 +12,6 @@ parameters:
   aks_service_name: dciborowhpaksdlapi
 
 steps:
-
 - template: config_conda.yml
   parameters:
     location: ${{parameters.location}}
