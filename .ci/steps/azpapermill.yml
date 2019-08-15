@@ -5,6 +5,13 @@ parameters:
   location: "{{cookiecutter.project_name}}"
   azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
   conda: MLAKSDeployAML
+  azure_subscription: #
+  azureresourcegroup: #
+  workspacename: #
+  azureregion: #
+  aksimagename: #
+  aks_name: #
+  aks_service_name: #
 
 
 steps:
@@ -20,4 +27,13 @@ steps:
       papermill ${{parameters.notebook}} output.ipynb \
         --log-output \
         --no-progress-bar \
-        -k python3
+        -k python3 \
+        -p subscription_id ${{parameters.azure_subscription}} \
+        -p resource_group ${{parameters.azureresourcegroup}} \
+        -p workspace_name ${{parameters.workspacename}} \
+        -p workspace_region ${{parameters.azureregion}} \
+        -p image_name ${{parameters.aksimagename}} \
+        -p aks_name ${{parameters.aks_name}} \
+        -p aks_location ${{parameters.azureregion}} \
+        -p aks_service_name ${{parameters.aks_service_name}}
+
