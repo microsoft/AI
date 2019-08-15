@@ -23,10 +23,10 @@ stages:
             parameters:
               azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
               azure_subscription: $(azuresubscription)
-              azureresourcegroup: $(azureresourcegroup)
-              workspacename: $(workspacename)
+              azureresourcegroup: $(azureresourcegroup)_dl
+              workspacename: $(workspacename)_dl
               azureregion: $(azureregion) 
-              aksimagename: $(aksimagename)
+              aksimagename: $(aksimagename)_dl
 
   - deployment: MLAKSDeployAMLJob
     timeoutInMinutes: 300
@@ -45,7 +45,7 @@ stages:
             parameters:
               azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
               azure_subscription: $(azuresubscription)
-              azureresourcegroup: $(azureresourcegroup)_dl
-              workspacename: $(workspacename)_dl
+              azureresourcegroup: $(azureresourcegroup)
+              workspacename: $(workspacename)
               azureregion: $(azureregion) 
-              aksimagename: $(aksimagename)_dl
+              aksimagename: $(aksimagename)
