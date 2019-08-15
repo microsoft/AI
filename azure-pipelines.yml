@@ -22,7 +22,6 @@ jobs:
             key: |
               pip
               $(Agent.OS)
-              $(Build.SourcesDirectory)/Pipfile.lock
             path: '$(Pipeline.Workspace)/.cache/pip'
           displayName: 'Cache Python'
 
