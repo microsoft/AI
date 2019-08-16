@@ -25,11 +25,11 @@ steps:
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
-    subscription_id: ${{parameters.azure_subscription}}
-    resource_group: ${{parameters.azureresourcegroup}}
-    workspace_name: ${{parameters.workspacename}}
-    workspace_region: ${{parameters.azureregion}}
-    image_name: ${{parameters.aksimagename}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    aksimagename: ${{parameters.aksimagename}}
 
 - template: azpapermill.yml
   parameters:
