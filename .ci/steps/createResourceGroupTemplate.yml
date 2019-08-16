@@ -3,7 +3,7 @@ parameters:
   conda: MLAKSDeployAML
   azureresourcegroup: "-"
   location : "eastus2"
-  alias : "dciborow"
+  alias : "-"
   project : "e2etestharness"
   expires : "2019-08-01"
 
