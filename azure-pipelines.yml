@@ -36,8 +36,8 @@ stages:
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
-      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+      azureSubscription: 'AG-AzureCAT-AIDevOps-Test-COGSNonProd-IO1685734 (0ca618d2-22a8-413a-96d0-0f1b531129c3)'
+      azure_subscription: 0ca618d2-22a8-413a-96d0-0f1b531129c3
       azureresourcegroup: staging-pydl
       workspacename: stagingpydl
       azureregion: $(azureregion) 
@@ -51,8 +51,8 @@ stages:
     parameters:
       deployment_name: DLAKSDeployAMLJob
       template: DLAKSDeployAMLJob.yml
-      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+      azureSubscription: 'AG-AzureCAT-AIDevOps-Test-COGSNonProd-IO1685734 (0ca618d2-22a8-413a-96d0-0f1b531129c3)'
+      azure_subscription: 0ca618d2-22a8-413a-96d0-0f1b531129c3
       azureresourcegroup: tridant-pydl
       workspacename: tridantpydl
       azureregion: $(azureregion) 
@@ -61,13 +61,13 @@ stages:
       project: "e2etestharness" 
       expires : "DnD"
       alias: $(Build.RequestedForId)
-  
+
   - template: .ci/steps/deploy.yml
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
-      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+      azureSubscription: 'AG-AzureCAT-AIDevOps-Test-COGSNonProd-IO1685734 (0ca618d2-22a8-413a-96d0-0f1b531129c3)'
+      azure_subscription: 0ca618d2-22a8-413a-96d0-0f1b531129c3
       azureresourcegroup: tridant-pyml
       workspacename: tridantpy
       azureregion: $(azureregion) 
