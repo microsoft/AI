@@ -36,28 +36,28 @@ steps:
     notebook: 01_DevelopModel.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
+    conda: ${{parameters.conda}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 02_DevelopModelDriver.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
+    conda: ${{parameters.conda}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 03_BuildImage.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
+    conda: ${{parameters.conda}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 04_DeployOnAKS.ipynb
     location: ${{parameters.location}}/aks
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
+    conda: ${{parameters.conda}}
     aks_name: ${{parameters.aks_name}}
     aks_location: ${{parameters.azureregion}}
     aks_service_name: ${{parameters.aks_service_name}}
