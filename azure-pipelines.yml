@@ -19,13 +19,11 @@ stages:
     strategy:
       matrix:
         DLAKSDeployAMLJob:
-          deployment_name: DLAKSDeployAMLJob
           template: DLAKSDeployAMLJob.yml
           azureresourcegroup: dcibhprgdl
           workspacename: dcibhpwsdl
           aksimagename: dcibhpaksdl
         MLAKSDeployAMLJob:
-          deployment_name: MLAKSDeployAMLJob
           template: MLAKSDeployAMLJob.yml
           azureresourcegroup: dcibhprg
           workspacename: dcibhpws
