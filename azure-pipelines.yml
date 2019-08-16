@@ -6,43 +6,29 @@
 stages:
 - stage: dev
   jobs:
-  - job: deploy
-    timeoutInMinutes: 300
-    cancelTimeoutInMinutes: 2
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    variables:
+  - template: .ci/steps/deploy.yml
+    parameters:
+      deployment_name: DLAKSDeployAMLJob
+      template: DLAKSDeployAMLJob.yml
       azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
       azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+      azureresourcegroup: dcibhprgdl
+      workspacename: dcibhpwsdl
       azureregion: $(azureregion) 
+      aksimagename: dcibhpaksdl
       project: "e2etestharness"
-    strategy:
-      matrix:
-        DLAKSDeployAMLJob:
-          deployment_name: DLAKSDeployAMLJob 
-          deploy_template: DLAKSDeployAMLJob.yml
-          azureresourcegroup: dcibhprgdl
-          workspacename: dcibhpwsdl
-          aksimagename: dcibhpaksdl
-        MLAKSDeployAMLJob:
-          deployment_name: MLAKSDeployAMLJob
-          deploy_template: MLAKSDeployAMLJob.yml
-          azureresourcegroup: dcibhprg
-          workspacename: dcibhpws
-          aksimagename:  dcibhpaks    
-    steps:
-    - template: .ci/steps/deploy_step.yml
-      parameters:
-        deployment_name: $(deployment_name)
-        template: $(deploy_template)
-        azureSubscription: $(azureSubscription)
-        azureresourcegroup: $(azureresourcegroup)
-        location: $(azureregion)
-        project : $(project)
-        azure_subscription: $(azure_subscription)
-        workspacename: $(workspacename)
-        azureregion: $(azureregion)
-        aksimagename: $(aksimagename)
+
+  - template: .ci/steps/deploy.yml
+    parameters:
+      deployment_name: MLAKSDeployAMLJob
+      template: MLAKSDeployAMLJob.yml
+      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+      azureresourcegroup: dcibhprg
+      workspacename: dcibhpws
+      azureregion: $(azureregion) 
+      aksimagename:  dcibhpaks
+      project: "e2etestharness" 
 
 - stage: staging
   jobs:
