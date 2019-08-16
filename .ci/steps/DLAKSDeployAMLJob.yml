@@ -24,7 +24,7 @@ steps:
     notebook: 00_AMLSetup.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
+    conda: ${{parameters.conda}}
     subscription_id: ${{parameters.azure_subscription}}
     resource_group: ${{parameters.azureresourcegroup}}
     workspace_name: ${{parameters.workspacename}}
