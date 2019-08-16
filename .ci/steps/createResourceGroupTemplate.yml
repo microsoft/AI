@@ -1,0 +1,23 @@
+parameters:
+  azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+  conda: MLAKSDeployAML
+  azureresourcegroup: "-"
+  location : "eastus2"
+  alias : "dciborow"
+  project : "e2etestharness"
+  expires : "2020-08-01"
+  python_path: $(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}
+
+
+steps:
+- task: AzureCLI@1
+  displayName: "Create Resource Group"
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    inlineScript: |
+      source activate ${{parameters.conda}}
+      export PYTHONPATH= ${{parameters.python_path}}:${PYTHONPATH}      
+
+      echo Execute Resource Group Delete
+      az group create -l ${{parameters.location}} -n ${{parameters.azureresourcegroup}} --tags alias='${{parameters.alias}}' project='${{parameters.project}}' expires='${{parameters.expires}}'
