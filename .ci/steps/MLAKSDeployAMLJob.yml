@@ -3,13 +3,13 @@
 parameters:
   azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
   azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+  location: DeployMLModelKubernetes/{{cookiecutter.project_name}}
   azureresourcegroup: dciborowhp
   workspacename: dciborowhpws
   azureregion: westus2
   aksimagename: dciborowhpaks
   aks_name: dciborowhpaks
   aks_service_name: dciborowhpaksapi
-  location: DeployMLModelKubernetes/{{cookiecutter.project_name}}
   conda: MLAKSDeployAML
 
 steps:
