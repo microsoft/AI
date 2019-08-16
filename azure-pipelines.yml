@@ -34,7 +34,7 @@ stages:
     - template: .ci/steps/deploy_step.yml
       parameters:
         deployment_name: $(deployment_name)
-        template: ${{template}}
+        template: $(template)
         azureSubscription: $(azureSubscription)
         azureresourcegroup: $(azureresourcegroup)
         location: $(azureregion)
