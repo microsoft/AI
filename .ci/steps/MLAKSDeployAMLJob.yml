@@ -11,7 +11,7 @@ parameters:
   aks_name: dciborowhpaks
   aks_service_name: dciborowhpaksapi
   conda: MLAKSDeployAML
-  doCleanup: True
+  doCleanup: true
 
 steps:
 - template: config_conda.yml
