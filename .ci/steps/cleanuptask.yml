@@ -1,0 +1,28 @@
+parameters:
+  azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+  conda: MLAKSDeployAML
+  azureresourcegroup: "-"
+  python_path: $(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}
+  doCleanup : true
+
+
+steps:
+- task: AzureCLI@1
+  displayName: "Cleanup Task"
+  condition:  and(always(), eq('${{parameters.doCleanup}}','true'))
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    inlineScript: |
+      source activate ${{parameters.conda}}
+      export PYTHONPATH= ${{parameters.python_path}}:${PYTHONPATH}      
+      echo Execute Resource Group Delete
+      existResponse=$(az group exists -n ${{parameters.azureresourcegroup}})
+      if [ "$existResponse" == "true" ]; then
+        echo Deleting project resource group
+        az group delete --name ${{parameters.azureresourcegroup}} --yes
+      else
+        echo Project resource group did not exist
+      fi
+      echo Done Cleanup
+

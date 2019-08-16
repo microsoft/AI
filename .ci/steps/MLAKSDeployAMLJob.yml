@@ -78,3 +78,9 @@ steps:
     aks_service_name: ${{parameters.aks_service_name}}
     aksimagename: ${{parameters.aksimagename}}
     python_path: "$(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}

@@ -62,3 +62,10 @@ steps:
     aks_location: ${{parameters.azureregion}}
     aks_service_name: ${{parameters.aks_service_name}}
     python_path: "$(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: deployment_aml
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    python_path: "$(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
