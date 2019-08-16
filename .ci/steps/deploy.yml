@@ -8,6 +8,7 @@ parameters:
   azureregion: ''
   aksimagename: ''
   environment: 'tridant-ai'
+  doCleanup: True
   
 
 jobs:
@@ -32,3 +33,4 @@ jobs:
               workspacename: ${{parameters.workspacename}}
               azureregion: ${{parameters.azureregion}}
               aksimagename: ${{parameters.aksimagename}}
+              doCleanup: ${{parameters.doCleanup}}
