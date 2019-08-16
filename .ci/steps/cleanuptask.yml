@@ -15,7 +15,6 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}
-      export PYTHONPATH= ${{parameters.python_path}}:${PYTHONPATH}      
       echo Execute Resource Group Delete
       existResponse=$(az group exists -n ${{parameters.azureresourcegroup}})
       if [ "$existResponse" == "true" ]; then
