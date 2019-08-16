@@ -5,16 +5,13 @@
 
 stages:
 - stage: dev  
-  variables:
-    azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-    azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
   jobs:
   - template: .ci/steps/deploy.yml
     parameters:
       deployment_name: DLAKSDeployAMLJob
       template: DLAKSDeployAMLJob.yml
-      azureSubscription: $(azure_subscription)
-      azure_subscription: $(azure_subscription)
+      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
       azureresourcegroup: dcibhpdl
       workspacename: dcibhpwsdl
       azureregion: $(azureregion) 
@@ -24,24 +21,21 @@ stages:
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
-      azureSubscription: $(azure_subscription)
-      azure_subscription: $(azure_subscription)
+      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
       azureresourcegroup: $(azureresourcegroup)
       workspacename: $(workspacename)
       azureregion: $(azureregion) 
       aksimagename:  $(aksimagename)
 
 - stage: tridant
-  variables:
-      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
   jobs:
   - template: .ci/steps/deploy.yml
     parameters:
       deployment_name: DLAKSDeployAMLJob
       template: DLAKSDeployAMLJob.yml
-      azureSubscription: $(azure_subscription)
-      azure_subscription: $(azure_subscription)
+      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
       azureresourcegroup: dcibhpdl
       workspacename: dcibhpwsdl
       azureregion: $(azureregion) 
@@ -51,8 +45,8 @@ stages:
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
-      azureSubscription: $(azure_subscription)
-      azure_subscription: $(azure_subscription)
+      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
       azureresourcegroup: $(azureresourcegroup)
       workspacename: $(workspacename)
       azureregion: $(azureregion) 
