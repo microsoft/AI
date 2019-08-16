@@ -16,7 +16,8 @@ stages:
       workspacename: dcibhpwsdl
       azureregion: $(azureregion) 
       aksimagename: dcibhpaksdl
-  
+      project: "e2etestharness"
+
   - template: .ci/steps/deploy.yml
     parameters:
       deployment_name: MLAKSDeployAMLJob
@@ -27,6 +28,7 @@ stages:
       workspacename: dcibhpws
       azureregion: $(azureregion) 
       aksimagename:  dcibhpaks
+      project: "e2etestharness" 
 
 - stage: tridant
   jobs:
@@ -41,6 +43,9 @@ stages:
       azureregion: $(azureregion) 
       aksimagename: tridantpydlaksimage
       doCleanup: False
+      project: "e2etestharness" 
+      expires : "DnD"
+      alias: $(Build.RequestedForId)
   
   - template: .ci/steps/deploy.yml
     parameters:
@@ -53,3 +58,6 @@ stages:
       azureregion: $(azureregion) 
       aksimagename:  tridantpymlaksimage
       doCleanup: False
+      project: "e2etestharness" 
+      expires : "DnD"
+      alias: $(Build.RequestedForId)
