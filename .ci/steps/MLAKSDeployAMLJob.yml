@@ -77,4 +77,4 @@ steps:
     azureregion: ${{parameters.azureregion}}
     aks_service_name: ${{parameters.aks_service_name}}
     aksimagename: ${{parameters.aksimagename}}
-    python_path: "{{cookiecutter.project_name}}"
+    python_path: "$(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
