@@ -28,9 +28,9 @@ jobs:
         azureSubscription: ${{parameters.azureSubscription}}
         azureresourcegroup: ${{parameters.azureresourcegroup}}
         location: ${{parameters.azureregion}}
-        alias : ${{parameters.azureresourcegroup}}
-        project : ${{parameters.azureresourcegroup}}
-        expires : ${{parameters.azureresourcegroup}}
+        alias : ${{parameters.alias}}
+        project : ${{parameters.project}}
+        expires : ${{parameters.expires}}
 
     - template: ${{parameters.template}}
       parameters:
