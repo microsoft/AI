@@ -12,7 +12,7 @@ parameters:
   aksimagename: "-"
   aks_name: "-"
   aks_service_name: "-"
-  python_path: {{cookiecutter.project_name}}
+  python_path: "{{cookiecutter.project_name}}"
 
 
 steps:
