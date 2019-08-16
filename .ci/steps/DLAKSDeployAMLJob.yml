@@ -9,7 +9,7 @@ parameters:
   azureregion: westus2
   aksimagename: dcibhpaksdl
   aks_name: dcibhpaksdl
-  aks_service_name: dciborowhpaksdlapi
+  aks_service_name: dcibhpaksdlapi
   conda: deployment_aml
 
 steps:
