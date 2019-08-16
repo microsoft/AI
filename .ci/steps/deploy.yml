@@ -9,6 +9,9 @@ parameters:
   aksimagename: ''
   environment: 'tridant-ai'
   doCleanup: True
+  alias: '-'
+  project: '-'
+  expires : "2019-08-01"
   
 
 jobs:
@@ -25,6 +28,15 @@ jobs:
           - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
             submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
 
+          - templates: createResourceGroupTemplate.yml
+            parameters:
+              azureSubscription: ${{parameters.azureSubscription}}
+              azureresourcegroup: ${{parameters.azureresourcegroup}}
+              location: ${{parameters.azureregion}}
+              alias : ${{parameters.azureresourcegroup}}
+              project : ${{parameters.azureresourcegroup}}
+              expires : ${{parameters.azureresourcegroup}}
+          
           - template: ${{parameters.template}}
             parameters:
               azureSubscription: ${{parameters.azureSubscription}}
