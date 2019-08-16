@@ -11,6 +11,7 @@ parameters:
   aks_name: dciborowhpaks
   aks_service_name: dciborowhpaksapi
   conda: MLAKSDeployAML
+  doCleanup: True
 
 steps:
 - template: config_conda.yml
@@ -84,3 +85,4 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
+    doCleanup: ${{parameteres.doCleanup}}
