@@ -7,7 +7,7 @@ parameters:
   conda: MLAKSDeployAML
   azure_subscription: "-"
   azureresourcegroup: "-"
-  workspacename: "-"
+  workspacename: "dcibws"
   azureregion: "-"
   aksimagename: "-"
   aks_name: "-"
