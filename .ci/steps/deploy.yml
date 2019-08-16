@@ -28,7 +28,7 @@ jobs:
           - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
             submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
 
-          - templates: createResourceGroupTemplate.yml
+          - template: createResourceGroupTemplate.yml
             parameters:
               azureSubscription: ${{parameters.azureSubscription}}
               azureresourcegroup: ${{parameters.azureresourcegroup}}
