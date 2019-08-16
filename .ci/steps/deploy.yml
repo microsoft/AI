@@ -12,7 +12,6 @@ parameters:
   alias: '-'
   project: '-'
   expires : "2019-08-01"
-  regions: ['westus']
 
 jobs:
   - job: ${{parameters.deployment_name}}
