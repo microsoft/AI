@@ -2,7 +2,7 @@ parameters:
   azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
   azureresourcegroup: "-"
   location : "eastus2"
-  alias : "-"
+  alias : $(Build.RequestedForId)
   project : "e2etestharness"
   expires : "2019-08-01"
 
