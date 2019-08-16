@@ -7,6 +7,7 @@ parameters:
   workspacename: ''
   azureregion: ''
   aksimagename: ''
+  environment: ''
   
 
 jobs:
@@ -15,7 +16,7 @@ jobs:
     cancelTimeoutInMinutes: 2
     pool:
       vmImage: 'Ubuntu-16.04'
-    environment: 'tridant-ai'
+    environment: ${{parameters.environment}}
     strategy:
       runOnce: 
         deploy:            
