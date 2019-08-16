@@ -32,7 +32,7 @@ stages:
           aksimagename:  dcibhpaks
     
     steps:
-    - template: ./ci/steps/deploy_step.yml
+    - template: .ci/steps/deploy_step.yml
       parameters:
         azureSubscription: $(azureSubscription)
         azureresourcegroup: $(azureresourcegroup)
