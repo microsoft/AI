@@ -23,10 +23,10 @@ stages:
             parameters:
               azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
               azure_subscription: $(azuresubscription)
-              azureresourcegroup: $(azureresourcegroup)dl
-              workspacename: $(workspacename)dl
+              azureresourcegroup: dciborowhpdl
+              workspacename: dciborowhpwsdl
               azureregion: $(azureregion) 
-              aksimagename: $(aksimagename)dl
+              aksimagename: dciborowhpaksdl
 
   - deployment: MLAKSDeployAMLJob
     timeoutInMinutes: 300
