@@ -11,7 +11,7 @@ parameters:
   aks_name: dcibhpaksdl
   aks_service_name: dcibhpaksdlapi
   conda: deployment_aml
-  doCleanup: True
+  doCleanup: true
 
 steps:
 - template: config_conda.yml
