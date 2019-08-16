@@ -23,7 +23,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}
-      export PYTHONPATH=$(pwd)/${{parameters.python_path}}:${PYTHONPATH}      
+      export PYTHONPATH=${{pwd}}/${{parameters.python_path}}:${PYTHONPATH}      
       cd ${{parameters.location}}
       echo Execute ${{parameters.notebook}}
       papermill ${{parameters.notebook}} output.ipynb \
