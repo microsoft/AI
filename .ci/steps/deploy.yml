@@ -7,7 +7,7 @@ parameters:
   workspacename: ''
   azureregion: ''
   aksimagename: ''
-  environment: ''
+  environment: 'tridant-ai'
   
 
 jobs:
