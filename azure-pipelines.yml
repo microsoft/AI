@@ -4,14 +4,17 @@
 # https://aka.ms/yaml
 
 stages:
-- stage: dev
+- stage: dev  
+  variables:
+    azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+    azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
   jobs:
   - deployment: DLAKSDeployAMLJob
     timeoutInMinutes: 300
     cancelTimeoutInMinutes: 2
     pool:
       vmImage: 'Ubuntu-16.04'
-    environment: 'DLAKSDeployAMLJob'
+    environment: 'tridant-ai-dev'
     strategy:
       runOnce: 
         deploy:            
@@ -21,8 +24,8 @@ stages:
 
           - template: .ci/steps/DLAKSDeployAMLJob.yml
             parameters:
-              azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-              azure_subscription: $(azuresubscription)
+              azureSubscription: $(azureSubscription)
+              azure_subscription: $(azure_subscription)
               azureresourcegroup: dcibhpdl
               workspacename: dcibhpwsdl
               azureregion: $(azureregion) 
@@ -33,7 +36,7 @@ stages:
     cancelTimeoutInMinutes: 2
     pool:
       vmImage: 'Ubuntu-16.04'
-    environment: 'MLAKSDeployAMLJob'
+    environment: 'tridant-ai-dev'
     strategy:
       runOnce: 
         deploy:            
@@ -43,8 +46,57 @@ stages:
 
           - template: .ci/steps/MLAKSDeployAMLJob.yml
             parameters:
-              azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-              azure_subscription: $(azuresubscription)
+              azureSubscription: $(azureSubscription)
+              azure_subscription: $(azure_subscription)
+              azureresourcegroup: $(azureresourcegroup)
+              workspacename: $(workspacename)
+              azureregion: $(azureregion) 
+              aksimagename: $(aksimagename)
+
+- stage: tridant
+  variables:
+      azureSubscription: 'AzureCAT E2E AI Workloads(9f29eb71-6e18-4f37-ba36-fc9080b94784)'
+      azure_subscription: 9f29eb71-6e18-4f37-ba36-fc9080b94784
+  jobs:
+  - deployment: DLAKSDeployAMLJob
+    timeoutInMinutes: 300
+    cancelTimeoutInMinutes: 2
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    environment: 'tridant-ai'
+    strategy:
+      runOnce: 
+        deploy:            
+          steps:
+          - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+            submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
+
+          - template: .ci/steps/DLAKSDeployAMLJob.yml
+            parameters:
+              azureSubscription: $(azureSubscription)
+              azure_subscription: $(azure_subscription)
+              azureresourcegroup: dcibhpdl
+              workspacename: dcibhpwsdl
+              azureregion: $(azureregion) 
+              aksimagename: dcibhpaksdl
+
+  - deployment: MLAKSDeployAMLJob
+    timeoutInMinutes: 300
+    cancelTimeoutInMinutes: 2
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    environment: 'tridant-ai'
+    strategy:
+      runOnce: 
+        deploy:            
+          steps:
+          - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+            submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
+
+          - template: .ci/steps/MLAKSDeployAMLJob.yml
+            parameters:
+              azureSubscription: $(azureSubscription)
+              azure_subscription: $(azure_subscription)
               azureresourcegroup: $(azureresourcegroup)
               workspacename: $(workspacename)
               azureregion: $(azureregion) 
