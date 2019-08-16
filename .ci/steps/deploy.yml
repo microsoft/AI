@@ -28,6 +28,6 @@ jobs:
               azureSubscription: ${{parameters.azureSubscription}}
               azure_subscription: ${{parameters.azure_subscription}}
               azureresourcegroup: ${{parameters.azureresourcegroup}}
-              workspacename: ${{workspacename}}
-              azureregion: ${{azureregion}}
-              aksimagename: ${{aksimagename}}
+              workspacename: ${{parameters.workspacename}}
+              azureregion: ${{parameters.azureregion}}
+              aksimagename: ${{parameters.aksimagename}}
