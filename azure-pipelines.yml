@@ -77,7 +77,7 @@ stages:
               azure_subscription: $(azure_subscription)
               azureresourcegroup: dcibhpdl
               workspacename: dcibhpwsdl
-              azureregion: $(azureregion) 
+              azureregion: $(azureregion)
               aksimagename: dcibhpaksdl
 
   - deployment: MLAKSDeployAMLJob
