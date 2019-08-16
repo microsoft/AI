@@ -10,8 +10,8 @@ stages:
     parameters:
       deployment_name: DLAKSDeployAMLJob
       template: DLAKSDeployAMLJob.yml
-      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+      azureSubscription: $(devsub)
+      azure_subscription: $(devsubid)
       azureresourcegroup: dcibhprgdl
       workspacename: dcibhpwsdl
       azureregion: $(azureregion) 
@@ -22,8 +22,8 @@ stages:
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
-      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+      azureSubscription: $(devsub)
+      azure_subscription: $(devsubid)
       azureresourcegroup: dcibhprg
       workspacename: dcibhpws
       azureregion: $(azureregion) 
