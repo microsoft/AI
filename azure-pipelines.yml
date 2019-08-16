@@ -9,6 +9,15 @@ stages:
     azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
     azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
   jobs:
+  - template: deploy.yml
+    parameters:
+      template: .ci/steps/DLAKSDeployAMLJob.yml
+      azureSubscription: $(azureSubscription)
+      azure_subscription: $(azure_subscription)
+      azureresourcegroup: dcibhpdl
+      workspacename: dcibhpwsdl
+      azureregion: $(azureregion) 
+      aksimagename: dcibhpaksdl
   - deployment: DLAKSDeployAMLJob
     timeoutInMinutes: 300
     cancelTimeoutInMinutes: 2
