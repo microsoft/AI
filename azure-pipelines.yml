@@ -33,8 +33,8 @@ stages:
 
 - stage: tridant
   variables:
-      azureSubscription: 'AzureCAT E2E AI Workloads(9f29eb71-6e18-4f37-ba36-fc9080b94784)'
-      azure_subscription: 9f29eb71-6e18-4f37-ba36-fc9080b94784
+      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
   jobs:
   - template: .ci/steps/deploy.yml
     parameters:
