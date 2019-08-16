@@ -85,5 +85,5 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
-    doCleanup: ${{parameteres.doCleanup}}
+    doCleanup: ${{parameters.doCleanup}}
 
