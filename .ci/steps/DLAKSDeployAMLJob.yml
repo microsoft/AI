@@ -11,6 +11,7 @@ parameters:
   aks_name: dcibhpaksdl
   aks_service_name: dcibhpaksdlapi
   conda: deployment_aml
+  doCleanup: True
 
 steps:
 - template: config_conda.yml
@@ -68,4 +69,4 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: deployment_aml
     azureresourcegroup: ${{parameters.azureresourcegroup}}
-    python_path: "$(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
+    doCleanup: ${{parameters.doCleanup}}
