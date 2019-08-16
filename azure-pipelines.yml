@@ -87,36 +87,3 @@ stages:
       project: "e2etestharness" 
       expires : "DnD"
       alias: $(Build.RequestedForId)
-
-  - deployment: ${{parameters.deployment_name}}
-    timeoutInMinutes: 300
-    cancelTimeoutInMinutes: 2
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    environment: ${{parameters.environment}}
-    strategy:
-
-      runOnce: 
-        deploy:            
-          steps:
-          - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
-            submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
-
-          - template: createResourceGroupTemplate.yml
-            parameters:
-              azureSubscription: ${{parameters.azureSubscription}}
-              azureresourcegroup: ${{parameters.azureresourcegroup}}
-              location: ${{parameters.azureregion}}
-              alias : ${{parameters.azureresourcegroup}}
-              project : ${{parameters.azureresourcegroup}}
-              expires : ${{parameters.azureresourcegroup}}
-          
-          - template: ${{parameters.template}}
-            parameters:
-              azureSubscription: ${{parameters.azureSubscription}}
-              azure_subscription: ${{parameters.azure_subscription}}
-              azureresourcegroup: ${{parameters.azureresourcegroup}}
-              workspacename: ${{parameters.workspacename}}
-              azureregion: ${{parameters.azureregion}}
-              aksimagename: ${{parameters.aksimagename}}
-              doCleanup: ${{parameters.doCleanup}}
