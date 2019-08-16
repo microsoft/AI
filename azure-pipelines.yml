@@ -20,13 +20,13 @@ stages:
       matrix:
         DLAKSDeployAMLJob:
           deployment_name: DLAKSDeployAMLJob 
-          template: DLAKSDeployAMLJob.yml
+          deploy_template: DLAKSDeployAMLJob.yml
           azureresourcegroup: dcibhprgdl
           workspacename: dcibhpwsdl
           aksimagename: dcibhpaksdl
         MLAKSDeployAMLJob:
           deployment_name: MLAKSDeployAMLJob
-          template: MLAKSDeployAMLJob.yml
+          deploy_template: MLAKSDeployAMLJob.yml
           azureresourcegroup: dcibhprg
           workspacename: dcibhpws
           aksimagename:  dcibhpaks    
@@ -34,7 +34,7 @@ stages:
     - template: .ci/steps/deploy_step.yml
       parameters:
         deployment_name: $(deployment_name)
-        template: $(template)
+        template: $(deploy_template)
         azureSubscription: $(azureSubscription)
         azureresourcegroup: $(azureresourcegroup)
         location: $(azureregion)
