@@ -4,31 +4,55 @@
 # https://aka.ms/yaml
 
 stages:
-- stage: dev  
+- stage: dev
   jobs:
-  - template: .ci/steps/deploy.yml
-    parameters:
-      deployment_name: DLAKSDeployAMLJob
-      template: DLAKSDeployAMLJob.yml
-      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
-      azureresourcegroup: dcibhprgdl
-      workspacename: dcibhpwsdl
-      azureregion: $(azureregion) 
-      aksimagename: dcibhpaksdl
-      project: "e2etestharness"
+  - job:
+    strategy:
+      maxParallel: 1
+      matrix:
+        WESTUS2: 
+          azureregion: westus2
+        WESTUS:
+          azureregion: westus
+    steps: 
+      - template: .ci/steps/deploy.yml
+        parameters:
+          deployment_name: DLAKSDeployAMLJob
+          template: DLAKSDeployAMLJob.yml
+          azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+          azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+          azureresourcegroup: dcibhprgdl
+          workspacename: dcibhpwsdl
+          azureregion: $(azureregion) 
+          aksimagename: dcibhpaksdl
+          project: "e2etestharness"
 
+      - template: .ci/steps/deploy.yml
+        parameters:
+          deployment_name: MLAKSDeployAMLJob
+          template: MLAKSDeployAMLJob.yml
+          azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+          azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+          azureresourcegroup: dcibhprg
+          workspacename: dcibhpws
+          azureregion: $(azureregion) 
+          aksimagename:  dcibhpaks
+          project: "e2etestharness" 
+
+- stage: staging
+  jobs:
   - template: .ci/steps/deploy.yml
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
       azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
       azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
-      azureresourcegroup: dcibhprg
-      workspacename: dcibhpws
+      azureresourcegroup: staging-pydl
+      workspacename: stagingpydl
       azureregion: $(azureregion) 
-      aksimagename:  dcibhpaks
+      aksimagename:  staginghpaks
       project: "e2etestharness" 
+
 
 - stage: tridant
   jobs:
