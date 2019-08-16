@@ -6,38 +6,42 @@
 stages:
 - stage: dev
   jobs:
-  - job:
+  - job: deploy
+    timeoutInMinutes: 300
+    cancelTimeoutInMinutes: 2
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    variables:
+      azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+      azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
+      azureregion: $(azureregion) 
+      project: "e2etestharness"
     strategy:
-      maxParallel: 1
       matrix:
-        WESTUS2: 
-          azureregion: westus2
-        WESTUS:
-          azureregion: westus
-    steps: 
-      - template: .ci/steps/deploy.yml
-        parameters:
+        DLAKSDeployAMLJob:
           deployment_name: DLAKSDeployAMLJob
           template: DLAKSDeployAMLJob.yml
-          azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-          azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
           azureresourcegroup: dcibhprgdl
           workspacename: dcibhpwsdl
-          azureregion: $(azureregion) 
           aksimagename: dcibhpaksdl
-          project: "e2etestharness"
-
-      - template: .ci/steps/deploy.yml
-        parameters:
+        MLAKSDeployAMLJob:
           deployment_name: MLAKSDeployAMLJob
           template: MLAKSDeployAMLJob.yml
-          azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
-          azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
           azureresourcegroup: dcibhprg
           workspacename: dcibhpws
-          azureregion: $(azureregion) 
           aksimagename:  dcibhpaks
-          project: "e2etestharness" 
+    
+    steps:
+    - template: ./ci/steps/deploy_step.yml
+      parameters:
+        azureSubscription: $(azureSubscription)
+        azureresourcegroup: $(azureresourcegroup)
+        location: $(azureregion)
+        project : $(project)
+        azure_subscription: $(azure_subscription)
+        workspacename: $(workspacename)
+        azureregion: $(azureregion)
+        aksimagename: $(aksimagename)
 
 - stage: staging
   jobs:
@@ -85,3 +89,36 @@ stages:
       project: "e2etestharness" 
       expires : "DnD"
       alias: $(Build.RequestedForId)
+
+  - deployment: ${{parameters.deployment_name}}
+    timeoutInMinutes: 300
+    cancelTimeoutInMinutes: 2
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    environment: ${{parameters.environment}}
+    strategy:
+
+      runOnce: 
+        deploy:            
+          steps:
+          - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+            submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
+
+          - template: createResourceGroupTemplate.yml
+            parameters:
+              azureSubscription: ${{parameters.azureSubscription}}
+              azureresourcegroup: ${{parameters.azureresourcegroup}}
+              location: ${{parameters.azureregion}}
+              alias : ${{parameters.azureresourcegroup}}
+              project : ${{parameters.azureresourcegroup}}
+              expires : ${{parameters.azureresourcegroup}}
+          
+          - template: ${{parameters.template}}
+            parameters:
+              azureSubscription: ${{parameters.azureSubscription}}
+              azure_subscription: ${{parameters.azure_subscription}}
+              azureresourcegroup: ${{parameters.azureresourcegroup}}
+              workspacename: ${{parameters.workspacename}}
+              azureregion: ${{parameters.azureregion}}
+              aksimagename: ${{parameters.aksimagename}}
+              doCleanup: ${{parameters.doCleanup}}
