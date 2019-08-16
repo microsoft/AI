@@ -9,10 +9,10 @@ stages:
     azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
     azure_subscription: 989b90f7-da4f-41f9-84c9-44848802052d
   jobs:
-  - template: deploy.yml
+  - template: .ci/steps/deploy.yml
     parameters:
       deployment_name: DLAKSDeployAMLJob
-      template: .ci/steps/DLAKSDeployAMLJob.yml
+      template: DLAKSDeployAMLJob.yml
       azureSubscription: $(azureSubscription)
       azure_subscription: $(azure_subscription)
       azureresourcegroup: dcibhpdl
@@ -20,10 +20,10 @@ stages:
       azureregion: $(azureregion) 
       aksimagename: dcibhpaksdl
   
-  - template: deploy.yml
+  - template: .ci/steps/deploy.yml
     parameters:
       deployment_name: MLAKSDeployAMLJob
-      template: .ci/steps/MLAKSDeployAMLJob.yml
+      template: MLAKSDeployAMLJob.yml
       azureSubscription: $(azureSubscription)
       azure_subscription: $(azure_subscription)
       azureresourcegroup: $(azureresourcegroup)
@@ -36,10 +36,10 @@ stages:
       azureSubscription: 'AzureCAT E2E AI Workloads(9f29eb71-6e18-4f37-ba36-fc9080b94784)'
       azure_subscription: 9f29eb71-6e18-4f37-ba36-fc9080b94784
   jobs:
-  - template: deploy.yml
+  - template: .ci/steps/deploy.yml
     parameters:
       deployment_name: DLAKSDeployAMLJob
-      template: .ci/steps/DLAKSDeployAMLJob.yml
+      template: DLAKSDeployAMLJob.yml
       azureSubscription: $(azureSubscription)
       azure_subscription: $(azure_subscription)
       azureresourcegroup: dcibhpdl
@@ -47,10 +47,10 @@ stages:
       azureregion: $(azureregion) 
       aksimagename: dcibhpaksdl
   
-  - template: deploy.yml
+  - template: .ci/steps/deploy.yml
     parameters:
       deployment_name: MLAKSDeployAMLJob
-      template: .ci/steps/MLAKSDeployAMLJob.yml
+      template: MLAKSDeployAMLJob.yml
       azureSubscription: $(azureSubscription)
       azure_subscription: $(azure_subscription)
       azureresourcegroup: $(azureresourcegroup)
