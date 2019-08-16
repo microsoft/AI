@@ -1,0 +1,22 @@
+jobs:
+  - deployment: DLAKSDeployAMLJob
+    timeoutInMinutes: 300
+    cancelTimeoutInMinutes: 2
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    environment: 'tridant-ai'
+    strategy:
+      runOnce: 
+        deploy:            
+          steps:
+          - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+            submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
+
+          - template: .ci/steps/DLAKSDeployAMLJob.yml
+            parameters:
+              azureSubscription: $(azureSubscription)
+              azure_subscription: $(azure_subscription)
+              azureresourcegroup: dcibhpdl
+              workspacename: dcibhpwsdl
+              azureregion: $(azureregion)
+              aksimagename: dcibhpaksdl
