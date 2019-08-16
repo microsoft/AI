@@ -12,6 +12,7 @@ parameters:
   alias: '-'
   project: '-'
   expires : "2019-08-01"
+  template: ""
 
 steps:
 - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
