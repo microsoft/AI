@@ -10,6 +10,7 @@ parameters:
   aksimagename: dciborowhpaksdl
   aks_name: dciborowhpaksdl
   aks_service_name: dciborowhpaksdlapi
+  conda: deployment_aml
 
 steps:
 - template: config_conda.yml
