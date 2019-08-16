@@ -40,6 +40,7 @@ stages:
       workspacename: tridantpydl
       azureregion: $(azureregion) 
       aksimagename: tridantpydlaksimage
+      doCleanup: False
   
   - template: .ci/steps/deploy.yml
     parameters:
@@ -51,3 +52,4 @@ stages:
       workspacename: tridantpy
       azureregion: $(azureregion) 
       aksimagename:  tridantpymlaksimage
+      doCleanup: False
