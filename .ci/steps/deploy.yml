@@ -1,5 +1,16 @@
+parameters:
+  deployment_name: ''
+  template: ''
+  azureSubscription: ''
+  azure_subscription: ''
+  azureresourcegroup: ''
+  workspacename: ''
+  azureregion: ''
+  aksimagename: ''
+  
+
 jobs:
-  - deployment: DLAKSDeployAMLJob
+  - deployment: ${{parameters.deployment_name}}
     timeoutInMinutes: 300
     cancelTimeoutInMinutes: 2
     pool:
@@ -12,11 +23,11 @@ jobs:
           - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
             submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
 
-          - template: .ci/steps/DLAKSDeployAMLJob.yml
+          - template: ${{parameters.template}}
             parameters:
-              azureSubscription: $(azureSubscription)
-              azure_subscription: $(azure_subscription)
-              azureresourcegroup: dcibhpdl
-              workspacename: dcibhpwsdl
-              azureregion: $(azureregion)
-              aksimagename: dcibhpaksdl
+              azureSubscription: ${{parameters.azureSubscription}}
+              azure_subscription: ${{parameters.azure_subscription}}
+              azureresourcegroup: ${{parameters.azureresourcegroup}}
+              workspacename: ${{workspacename}}
+              azureregion: ${{azureregion}}
+              aksimagename: ${{aksimagename}}
