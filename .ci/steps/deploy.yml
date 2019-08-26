@@ -18,7 +18,7 @@ jobs:
     timeoutInMinutes: 300
     cancelTimeoutInMinutes: 2
     pool:
-      vmImage: 'Ubuntu-16.04'          
+      name: 'AI-GPU'          
     steps:
     - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
       submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
