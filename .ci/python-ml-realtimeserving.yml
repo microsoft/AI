@@ -40,6 +40,7 @@ variables:
   project: '-'
   expires : "2019-08-01"
   agent: 'AI-GPU'
+  python_path: "$(System.DefaultWorkingDirectory)/Python-ML-RealTimeServing/{{cookiecutter.project_name}}/"
 
 
 jobs:
@@ -114,7 +115,7 @@ jobs:
       aks_name: ${{parameters.aks_name}}
       aks_location: ${{parameters.azureregion}}
       aks_service_name: ${{parameters.aks_service_name}}
-      python_path: "$(System.DefaultWorkingDirectory)/Python-ML-RealTimeServing/{{cookiecutter.project_name}}/"
+      python_path: $(python_path)
 
   - template: azpapermill.yml
     parameters:
