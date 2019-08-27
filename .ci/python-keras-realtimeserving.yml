@@ -5,10 +5,25 @@ trigger:
   branches:
     include:
     - master
-    - staging
+  paths:
+    include:
+      - Python-Keras-RealTimeServing/*
 
 variables:
-- group: AzureKeyVault
+  deployment_name: ''
+  template: ''
+  azureSubscription: ''
+  azure_subscription: ''
+  azureresourcegroup: ''
+  workspacename: ''
+  azureregion: ''
+  aksimagename: ''
+  environment: 'tridant-ai'
+  doCleanup: True
+  alias: '-'
+  project: '-'
+  expires : "2019-08-01"
+  agent: 'AI-GPU'
 
 jobs:
 - job: AKSDeployAMLJob
@@ -30,7 +45,7 @@ jobs:
       echo Login Azure Account
 
       az login -t $(sptenent) --service-principal -u $(spidentity) --password $(spsecret)
-      az account set --subscription $(subscriptionid)
+      az account set --subscription $(azure_subscription)
     displayName: 'Build Configuration'
 
   - bash: |
@@ -43,7 +58,7 @@ jobs:
                 -p resource_group $(azureresourcegroup) \
                 -p workspace_name $(workspacename) \
                 -p workspace_region  $(azureregion) \
-                -p subscription_id $(subscriptionid) \
+                -p subscription_id $(azure_subscription) \
                 -p image_name 'modelimg'
     displayName : '00_AMLSetup.ipynb'
   - template: steps/papermill.yml
