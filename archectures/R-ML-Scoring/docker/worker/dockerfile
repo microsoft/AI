@@ -1,0 +1,15 @@
+# Dockerfile for the worker image
+
+FROM rocker/tidyverse:3.5.1
+
+RUN install2.r --error --repos https://mran.microsoft.com/snapshot/2019-05-20 \
+  caret \
+  dotenv \
+  AzureStor
+
+RUN r -e 'devtools::install_github("gbm-developers/gbm", \
+  ref = "b59270a787202d7ba2de5f2af7032854691d2b10")'
+
+WORKDIR /job
+
+CMD ["R"]

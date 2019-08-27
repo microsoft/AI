@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mls-model-svc
+spec:
+  selector:
+    app: mls-model
+  ports:
+  - protocol: TCP
+    port: 12800

@@ -1,0 +1,16 @@
+{  
+  "project_name":"pythonmodeldeploy",
+  "subscription_id": "",
+  "resource_group": "aksdeployrg",
+  "workspace_name": "workspace",
+  "workspace_region": [
+    "eastus",
+    "eastus2"
+  ],
+  "image_name": "myimage",
+  "deployment_type": [
+      "aks",
+      "iotedge"
+  ]
+}
+

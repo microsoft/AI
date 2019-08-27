@@ -1,0 +1,160 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string"
+        },
+        "resource_group": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "subscription_id": {
+            "type": "string"
+        },
+        "storage_container_name": {
+            "type": "string"
+        },
+		"url_endpoint": {
+			"type": "string"
+		},
+		"aad_token": {
+			"type": "string"
+		},
+		"datastore_name": {
+			"type": "string"
+		},
+		"experiment_name": {
+			"type": "string"
+		}
+    },
+    "resources": [
+        {
+            "comments": "",
+            "type": "Microsoft.Logic/workflows",
+            "name": "[parameters('name')]",
+            "apiVersion": "2017-07-01",
+            "location": "[parameters('location')]",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "state": "Enabled",
+				"definition": {
+						"$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+						"actions": {
+							"Condition": {
+								"actions": {
+									"HTTP": {
+										"inputs": {
+											"body": {
+												"DataPathAssignments": {
+													"video_path": {
+														"DataStoreName": "[parameters('datastore_name')]",
+														"RelativePath": "@{triggerBody()?['Name']}"
+													}
+												},
+												"ExperimentName": "[parameters('experiment_name')]"
+											},
+											"headers": {
+												"Accept": "application/json",
+												"Content-Type": "application/json"
+											},
+											"authentication": {
+												"type": "Raw",
+												"value": "[parameters('aad_token')]"
+											},
+											"method": "POST",
+											"uri": "[parameters('url_endpoint')]"
+										},
+										"runAfter": {},
+										"type": "Http"
+									}
+								},
+								"else": {
+									"actions": {
+										"Terminate": {
+											"inputs": {
+												"runStatus": "Cancelled"
+											},
+											"runAfter": {},
+											"type": "Terminate"
+										}
+									}
+								},
+								"expression": {
+									"and": [
+										{
+											"endsWith": [
+												"@triggerBody()?['Name']",
+												".mp4"
+											]
+										},
+										{
+											"not": {
+												"contains": [
+													"@triggerBody()?['Name']",
+													"processed"
+												]
+											}
+										}
+									]
+								},
+								"runAfter": {},
+								"type": "If"
+							}
+						},
+						"contentVersion": "1.0.0.0",
+						"outputs": {},
+						"parameters": {
+							"$connections": {
+								"defaultValue": {},
+								"type": "Object"
+							}
+						},
+						"triggers": {
+							"When_a_blob_is_added_or_modified_(properties_only)": {
+								"inputs": {
+									"host": {
+										"connection": {
+											"name": "@parameters('$connections')['azureblob']['connectionId']"
+										}
+									},
+									"method": "get",
+									"path": "/datasets/default/triggers/batch/onupdatedfile",
+									"queries": {
+										"folderId": "JTJmYW1s",
+										"maxFileCount": 10
+									}
+								},
+								"metadata": {
+									"JTJmYW1s": "[concat('/', parameters('storage_container_name'))]"
+								},
+								"recurrence": {
+									"frequency": "Minute",
+									"interval": 1
+								},
+								"splitOn": "@triggerBody()",
+								"type": "ApiConnection"
+							}
+						}
+					},
+				"parameters": {
+					"$connections": {
+						"value": {
+							"azureblob": {
+								"connectionId": "[concat('/subscriptions/', parameters('subscription_id'), '/resourceGroups/', parameters('resource_group'), '/providers/microsoft.Web/connections/azureblob')]",
+								"connectionName": "azureblob",
+								"id": "[concat('/subscriptions/', parameters('subscription_id'), '/providers/Microsoft.Web/locations/', parameters('location'), '/managedApis/azureblob')]"
+							}
+						}
+					}
+				}
+            },
+            "dependsOn": [
+                
+            ]
+        }
+    ]
+}

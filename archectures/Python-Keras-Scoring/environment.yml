@@ -1,0 +1,26 @@
+name: batchscoringdl_aml
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ffmpeg=4.0.2
+  - nb_conda=2.2.1
+  - nb_conda_kernels=2.1.1
+  - tornado<6
+  - nbconvert=5.3.1
+  - pip=10.0.1
+  - python=3.6.7
+  - prompt_toolkit=1.0.15
+  - pip:
+    - azure
+    - azureml-sdk
+    - azure-cli
+    - azure.mgmt.common
+    - azure-mgmt-storage
+    - black==18.9b0
+    - python-dotenv==0.9.1
+    - torch==0.4.1
+    - torchvision==0.2.1
+    - ipykernel==4.10.0
+    - papermill==0.14.1
+    - urllib3<1.25

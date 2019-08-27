@@ -1,0 +1,223 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "connections_aci_name": {
+            "defaultValue": "aci",
+            "type": "string"
+        },
+        "workflows_{LOGIC_APP_NAME}_name": {
+            "defaultValue": "{LOGIC_APP_NAME}",
+            "type": "string"
+        },
+        "workflows_{LOGIC_APP_NAME}_path": {
+            "defaultValue": "/subscriptions/@{encodeURIComponent('{SUBSCRIPTION_ID}')}/resourceGroups/@{encodeURIComponent('{RESOURCE_GROUP}')}/providers/Microsoft.ContainerInstance/containerGroups/@{encodeURIComponent('{ACI_NAME}')}",
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/{SUBSCRIPTION_ID}/resourceGroups/{RESOURCE_GROUP}/providers/Microsoft.Logic/workflows/{LOGIC_APP_NAME}'.",
+            "type": "Microsoft.Logic/workflows",
+            "name": "{LOGIC_APP_NAME}",
+            "apiVersion": "2017-07-01",
+            "location": "{REGION}",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "state": "Disabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "Recurrence": {
+                            "recurrence": {
+                                "frequency": "Week",
+                                "interval": 1
+                            },
+                            "type": "Recurrence"
+                        }
+                    },
+                    "actions": {
+                        "Create_container_group": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "location": "{REGION}",
+                                    "properties": {
+                                        "containers": [
+                                            {
+                                                "name": "@{concat('job-', toLower(replace(replace(utcNow(), ':', '-'), '.', '-')))}",
+                                                "properties": {
+                                                    "environmentVariables": [
+                                                        {
+                                                            "name": "SUBSCRIPTION_ID",
+                                                            "value": "{SUBSCRIPTION_ID}"
+                                                        },
+                                                        {
+                                                            "name": "TENANT_ID",
+                                                            "value": "{TENANT_ID}"
+                                                        },
+                                                        {
+                                                            "name": "ACR_NAME",
+                                                            "value": "{ACR_NAME}"
+                                                        },
+                                                        {
+                                                            "name": "SERVICE_PRINCIPAL_NAME",
+                                                            "value": "{SERVICE_PRINCIPAL_NAME}"
+                                                        },
+                                                        {
+                                                            "name": "REGION",
+                                                            "value": "{REGION}"
+                                                        },
+                                                        {
+                                                            "name": "RESOURCE_GROUP",
+                                                            "value": "{RESOURCE_GROUP}"
+                                                        },
+                                                        {
+                                                            "name": "BATCH_ACCOUNT_NAME",
+                                                            "value": "{BATCH_ACCOUNT_NAME}"
+                                                        },
+                                                        {
+                                                            "name": "STORAGE_ACCOUNT_NAME",
+                                                            "value": "{STORAGE_ACCOUNT_NAME}"
+                                                        },
+                                                        {
+                                                            "name": "BLOB_CONTAINER_NAME",
+                                                            "value": "{BLOB_CONTAINER_NAME}"
+                                                        },
+                                                        {
+                                                            "name": "LOGIC_APP_NAME",
+                                                            "value": "{LOGIC_APP_NAME}"
+                                                        },
+                                                        {
+                                                            "name": "ACI_NAME",
+                                                            "value": "{ACI_NAME}"
+                                                        },
+                                                        {
+                                                            "name": "CLUSTER_NAME",
+                                                            "value": "{CLUSTER_NAME}"
+                                                        },
+                                                        {
+                                                            "name": "VM_SIZE",
+                                                            "value": "{VM_SIZE}"
+                                                        },
+                                                        {
+                                                            "name": "NUM_NODES",
+                                                            "value": "{NUM_NODES}"
+                                                        },
+                                                        {
+                                                            "name": "WORKER_CONTAINER_IMAGE",
+                                                            "value": "{WORKER_CONTAINER_IMAGE}"
+                                                        },
+                                                        {
+                                                            "name": "SCHEDULER_CONTAINER_IMAGE",
+                                                            "value": "{SCHEDULER_CONTAINER_IMAGE}"
+                                                        },
+                                                        {
+                                                            "name": "SERVICE_PRINCIPAL_APPID",
+                                                            "value": "{SERVICE_PRINCIPAL_APPID}"
+                                                        },
+                                                        {
+                                                            "name": "SERVICE_PRINCIPAL_CRED",
+                                                            "value": "{SERVICE_PRINCIPAL_CRED}"
+                                                        },
+                                                        {
+                                                            "name": "STORAGE_ACCOUNT_KEY",
+                                                            "value": "{STORAGE_ACCOUNT_KEY}"
+                                                        },
+                                                        {
+                                                            "name": "BLOB_CONTAINER_URL",
+                                                            "value": "{BLOB_CONTAINER_URL}"
+                                                        },
+                                                        {
+                                                            "name": "REGISTRY_USERNAME",
+                                                            "value": "{REGISTRY_USERNAME}"
+                                                        },
+                                                        {
+                                                            "name": "REGISTRY_PASSWORD",
+                                                            "value": "{REGISTRY_PASSWORD}"
+                                                        },
+                                                        {
+                                                            "name": "REGISTRY_URL",
+                                                            "value": "{REGISTRY_URL}"
+                                                        }
+                                                    ],
+                                                    "image": "{REGISTRY_URL}/{SCHEDULER_CONTAINER_IMAGE}:latest",
+                                                    "resources": {
+                                                        "requests": {
+                                                            "cpu": 2,
+                                                            "memoryInGB": 3.5
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "imageRegistryCredentials": [
+                                            {
+                                                "password": "{REGISTRY_PASSWORD}",
+                                                "server": "{REGISTRY_URL}",
+                                                "username": "{REGISTRY_USERNAME}"
+                                            }
+                                        ],
+                                        "osType": "Linux",
+                                        "restartPolicy": "OnFailure"
+                                    }
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['aci']['connectionId']"
+                                    }
+                                },
+                                "method": "put",
+                                "path": "[parameters('workflows_{LOGIC_APP_NAME}_path')]",
+                                "queries": {
+                                    "x-ms-api-version": "2017-10-01-preview"
+                                }
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "aci": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('connections_aci_name'))]",
+                                "connectionName": "aci",
+                                "id": "/subscriptions/{SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/{REGION}/managedApis/aci"
+                            }
+                        }
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/connections', parameters('connections_aci_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/{SUBSCRIPTION_ID}/resourceGroups/{REGION}/providers/Microsoft.Web/connections/aci'.",
+            "type": "Microsoft.Web/connections",
+            "name": "[parameters('connections_aci_name')]",
+            "apiVersion": "2016-06-01",
+            "location": "{REGION}",
+            "scale": null,
+            "properties": {
+                "displayName": "DefaultEndpointsProtocol=https;AccountName={STORAGE_ACCOUNT_NAME};AccountKey={STORAGE_ACCOUNT_KEY};EndpointSuffix=core.windows.net",
+                "customParameterValues": {},
+                "api": {
+                    "id": "[concat('/subscriptions/{SUBSCRIPTION_ID}/providers/Microsoft.Web/locations/{REGION}/managedApis/', parameters('connections_aci_name'))]"
+                }
+            },
+            "dependsOn": []
+        }
+    ]
+}

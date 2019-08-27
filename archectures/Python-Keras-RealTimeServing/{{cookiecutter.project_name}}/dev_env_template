@@ -1,0 +1,12 @@
+# Fill in the fields below and rename to .dev_env
+# TENANT_ID, SP_USERNAME and SP_PASSWORD are optional. If not supplied Azure cli will default to interactive login
+TENANT_ID=
+SP_USERNAME=
+SP_PASSWORD=
+SUBSCRIPTION_ID=
+RESOURCE_GROUP="deploykerasrg"
+WORKSPACE_NAME="workspace"
+WORKSPACE_REGION="eastus"
+IMAGE_NAME="deploykerasimg"
+AKS_NAME="deploykerasaks"
+AKS_SERVICE_NAME="deploykerasservice"
