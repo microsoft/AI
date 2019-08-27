@@ -25,12 +25,12 @@
 [submodule "DeploySparkMLModelDatabricks"]
 	path = DeploySparkMLModelDatabricks
 	url = https://github.com/Azure/BatchSparkScoringPredictiveMaintenance
-[submodule "recommenders"]
-	path = recommenders
+[submodule "practices/recommenders"]
+	path = practices/recommenders
 	url = https://github.com/microsoft/recommenders
-[submodule "nlp"]
-	path = nlp
+[submodule "practices/nlp"]
+	path = practices/nlp
 	url = https://github.com/microsoft/nlp
-[submodule "ComputerVision"]
-	path = ComputerVision
+[submodule "practices/ComputerVision"]
+	path = practices/ComputerVision
 	url = https://github.com/microsoft/ComputerVision
