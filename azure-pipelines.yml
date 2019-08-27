@@ -39,8 +39,8 @@ stages:
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
-      azureSubscription: 'AG-AzureCAT-AIDevOps-Test-COGSNonProd-IO1685734 (0ca618d2-22a8-413a-96d0-0f1b531129c3)'
-      azure_subscription: 0ca618d2-22a8-413a-96d0-0f1b531129c3
+      azureSubscription: $(devsub)
+      azure_subscription: $(devsubid)
       azureresourcegroup: staging-pydl
       workspacename: stagingpydl
       azureregion: $(azureregion) 
@@ -55,8 +55,8 @@ stages:
     parameters:
       deployment_name: DLAKSDeployAMLJob
       template: DLAKSDeployAMLJob.yml
-      azureSubscription: 'AG-AzureCAT-AIDevOps-Test-COGSNonProd-IO1685734 (0ca618d2-22a8-413a-96d0-0f1b531129c3)'
-      azure_subscription: 0ca618d2-22a8-413a-96d0-0f1b531129c3
+      azureSubscription: $(devsub)
+      azure_subscription: $(devsubid)
       azureresourcegroup: tridant-pydl
       workspacename: tridantpydl
       azureregion: $(azureregion) 
@@ -71,8 +71,8 @@ stages:
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
-      azureSubscription: 'AG-AzureCAT-AIDevOps-Test-COGSNonProd-IO1685734 (0ca618d2-22a8-413a-96d0-0f1b531129c3)'
-      azure_subscription: 0ca618d2-22a8-413a-96d0-0f1b531129c3
+      azureSubscription: $(devsub)
+      azure_subscription: $(devsubid)
       azureresourcegroup: tridant-pyml
       workspacename: tridantpy
       azureregion: $(azureregion) 
