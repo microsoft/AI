@@ -71,7 +71,7 @@ stages:
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
-      azureSubscription: $(devsub)
+      azureSubscription: $(devsub
       azure_subscription: $(devsubid)
       azureresourcegroup: tridant-pyml
       workspacename: tridantpy
