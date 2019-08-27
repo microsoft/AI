@@ -7,7 +7,7 @@ trigger:
     - master
   paths:
     include:
-    - Python-Keras-RealTimeServing/*
+    - architectures/Python-Keras-RealTimeServing/*
 
 pr:
   branches:    
@@ -15,7 +15,7 @@ pr:
     - master
   paths:
    include:
-     - Python-Keras-RealTimeServing/* 
+     - architectures/Python-Keras-RealTimeServing/* 
 
 schedules:
 - cron: "0 0 * * *"
@@ -40,7 +40,7 @@ variables:
   project: '-'
   expires : "2019-08-01"
   agent: 'AI-GPU'
-  python_path: "$(System.DefaultWorkingDirectory)/Python-Keras-RealTimeServing/{{cookiecutter.project_name}}/"
+  python_path: "$(System.DefaultWorkingDirectory)/architectures/Python-Keras-RealTimeServing/{{cookiecutter.project_name}}/"
 
 jobs:
 - job: AKSDeployAMLJob
