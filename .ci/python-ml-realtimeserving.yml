@@ -5,10 +5,22 @@ trigger:
   branches:
     include:
     - master
-    - staging
-    
+
 variables:
-- group: AzureKeyVault
+  deployment_name: ''
+  template: ''
+  azureSubscription: ''
+  azure_subscription: ''
+  azureresourcegroup: ''
+  workspacename: ''
+  azureregion: ''
+  aksimagename: ''
+  environment: 'tridant-ai'
+  doCleanup: True
+  alias: '-'
+  project: '-'
+  expires : "2019-08-01"
+  agent: 'AI-GPU'
 
 
 jobs:
@@ -33,7 +45,7 @@ jobs:
         --log-output \
         --no-progress-bar \
         -k python3 \
-        -p subscription_id $(azuresubscription) \
+        -p subscription_id $(azure_subscription) \
         -p resource_group $(azureresourcegroup) \
         -p workspace_name $(workspacename) \
         -p workspace_region $(azureregion) \
