@@ -7,10 +7,15 @@ trigger:
     - master
   paths:
     include:
-      - Python-Keras-RealTimeServing/*
+    - Python-Keras-RealTimeServing/*
 
 pr:
-- master
+  branches:    
+    include:
+    - master
+  paths:
+   include:
+     - Python-Keras-RealTimeServing/* 
 
 variables:
   deployment_name: ''
