@@ -4,7 +4,6 @@
 # https://aka.ms/yaml
 
 
-
 stages:
 - stage: dev
   jobs:
@@ -19,6 +18,7 @@ stages:
       azureregion: $(azureregion) 
       aksimagename: dcibhpaksdl
       project: "e2etestharness"
+      agent: $(agent)
 
   - template: .ci/steps/deploy.yml
     parameters:
@@ -31,6 +31,7 @@ stages:
       azureregion: $(azureregion) 
       aksimagename:  dcibhpaks
       project: "e2etestharness" 
+      agent: $(agent)
 
 - stage: staging
   jobs:
@@ -45,6 +46,7 @@ stages:
       azureregion: $(azureregion) 
       aksimagename:  staginghpaks
       project: "e2etestharness" 
+      agent: $(agent)
 
 
 - stage: tridant
@@ -63,6 +65,7 @@ stages:
       project: "e2etestharness" 
       expires : "DnD"
       alias: $(Build.RequestedForId)
+      agent: $(agent)
 
   - template: .ci/steps/deploy.yml
     parameters:
@@ -78,3 +81,4 @@ stages:
       project: "e2etestharness" 
       expires : "DnD"
       alias: $(Build.RequestedForId)
+      agent: $(agent)
