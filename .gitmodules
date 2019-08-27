@@ -1,29 +1,29 @@
 [submodule "DeployDeepModelKubernetes"]
-	path = DeployDeepModelKubernetes
+	path = submodules/DeployDeepModelKubernetes
 	url = https://github.com/Microsoft/AKSDeploymentTutorialAML
 [submodule "DeployMLModelKubernetes"]
-	path = DeployMLModelKubernetes
+	path = submodules/DeployMLModelKubernetes
 	url = https://github.com/Microsoft/MLAKSDeployAML
 [submodule "TrainMLModelHyperdrive"]
-	path = TrainMLModelHyperdrive
+	path = submodules/TrainMLModelHyperdrive
 	url = https://github.com/Microsoft/MLHyperparameterTuning
 [submodule "DeployDeepModelPipelines"]
-	path = DeployDeepModelPipelines
+	path = submodules/DeployDeepModelPipelines
 	url = https://github.com/Azure/Batch-Scoring-Deep-Learning-Models-With-AML
 [submodule "DeployMLModelPipelines"]
-	path = DeployMLModelPipelines
+	path = submodules/DeployMLModelPipelines
 	url = https://github.com/Microsoft/AMLBatchScoringPipeline
 [submodule "TrainDistributedDeepModel"]
-	path = TrainDistributedDeepModel
+	path = submodules/TrainDistributedDeepModel
 	url = https://github.com/Azure/DistributedDeepLearning/
 [submodule "DeployRMLModelBatch"]
-	path = DeployRMLModelBatch
+	path = submodules/DeployRMLModelBatch
 	url = https://github.com/Azure/RBatchScoring
 [submodule "DeployRMLModelKubernetes"]
-	path = DeployRMLModelKubernetes
+	path = submodules/DeployRMLModelKubernetes
 	url = https://github.com/Azure/RealtimeRDeployment
 [submodule "DeploySparkMLModelDatabricks"]
-	path = DeploySparkMLModelDatabricks
+	path = submodules/DeploySparkMLModelDatabricks
 	url = https://github.com/Azure/BatchSparkScoringPredictiveMaintenance
 [submodule "practices/recommenders"]
 	path = practices/recommenders
