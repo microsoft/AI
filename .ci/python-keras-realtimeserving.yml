@@ -9,6 +9,9 @@ trigger:
     include:
       - Python-Keras-RealTimeServing/*
 
+pr:
+- master
+
 variables:
   deployment_name: ''
   template: ''
