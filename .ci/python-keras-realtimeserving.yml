@@ -23,6 +23,7 @@ schedules:
   branches:
     include:
     - master
+  always: true
 
 variables:
   deployment_name: ''
