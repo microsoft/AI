@@ -27,7 +27,6 @@ schedules:
 
 variables:
   deployment_name: ''
-  template: ''
   azureSubscription: ''
   azure_subscription: ''
   azureresourcegroup: ''
