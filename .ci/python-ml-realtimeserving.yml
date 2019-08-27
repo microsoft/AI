@@ -9,6 +9,21 @@ trigger:
     include:
       - Python-ML-RealTimeServing/*
 
+pr:
+  branches:    
+    include:
+    - master
+  paths:
+   include:
+     - Python-Keras-RealTimeServing/* 
+
+schedules:
+- cron: "0 0 * * *"
+  displayName: Daily midnight build
+  branches:
+    include:
+    - master
+
 variables:
   deployment_name: ''
   template: ''
