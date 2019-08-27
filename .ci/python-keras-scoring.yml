@@ -1,0 +1,106 @@
+# BatchScoringDeepLearningModelsWithAML Pipeline 
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+    
+variables:
+- group: AzureKeyVault
+
+jobs:
+- job: BatchScoringDeepLearningModelsWithAMLJob
+  timeoutInMinutes: 300
+  cancelTimeoutInMinutes: 2
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      which conda
+      conda env create -f environment.yml
+      conda activate batchscoringdl_aml
+      conda env list  
+      echo Login Azure Account
+      az login -t $(sptenent) --service-principal -u $(spidentity) --password $(spsecret)
+    displayName: 'Initial Step'
+  
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate batchscoringdl_aml
+      conda env list  
+      cd notebooks
+      echo Execute 01_local_testing.ipynb
+      papermill 01_local_testing.ipynb 01_local_testing_output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '01_local_testing.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate batchscoringdl_aml
+      conda env list  
+      cd notebooks
+      echo Execute 02_setup_aml.ipynb
+      papermill 02_setup_aml.ipynb 02_setup_aml_output.ipynb --log-output --no-progress-bar -k python3 \
+      -p subscription_id $(subscriptionid) \
+      -p resource_group $(azurergname) \
+      -p workspace_name $(workspacename) \
+      -p workspace_region $(azureregion) \
+      -p storage_account_name $(azurestorage)
+    displayName: '02_setup_aml.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate batchscoringdl_aml
+      conda env list  
+      cd notebooks
+      echo Execute 03_develop_pipeline.ipynb
+      papermill 03_develop_pipeline.ipynb 03_develop_pipeline_output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '03_develop_pipeline.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate batchscoringdl_aml
+      conda env list
+      cd notebooks  
+      echo Execute 04_deploy_logic_apps.ipynb
+      papermill 04_deploy_logic_apps.ipynb 04_deploy_logic_apps_output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '04_deploy_logic_apps.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate batchscoringdl_aml
+      conda env list  
+      cd notebooks
+      echo Execute 05_clean_up.ipynb
+      papermill 05_clean_up.ipynb 05_clean_up_output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '05_clean_up.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate batchscoringdl_aml
+      echo Execute Resource Group Delete
+      existResponse=$(az group exists -n $(azurergname))
+      if [ "$existResponse" == "true" ]; then
+        echo Deleting project resource group  
+        az group delete --name $(azurergname) --yes
+      else
+        echo Project resource group did not exist
+      fi
+      echo Done Cleanup
+    displayName: 'Backup Cleanup'
+    condition: or(canceled(),failed())
+
+  - task: CreateWorkItem@1
+    inputs:
+      workItemType: 'Issue'
+      title: $(System.TeamProject) - Build $(Build.BuildNumber) Failed
+      assignedTo: 'JS <jiata@microsoft.com>'
+      associate: true
+      teamProject: $(System.TeamProject)
+    
+      fieldMappings: |
+        Description=Branch: Branch $(Build.SourceBranch) failed to build. Go to Boards>WorkItems and tag the failure type.
+    displayName: 'Create work item on failure'
+    condition: failed()    

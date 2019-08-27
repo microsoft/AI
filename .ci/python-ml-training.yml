@@ -1,0 +1,118 @@
+# MLHyperparameterTuning Pipeline 
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
+variables:
+- group: AzureKeyVault
+
+jobs:
+- job: MLHyperparameterTuningJob
+  timeoutInMinutes: 300
+  cancelTimeoutInMinutes: 2
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      which conda
+      conda env create -f environment.yml
+      conda env list
+      conda activate MLHyperparameterTuning
+      conda env list  
+      echo Login Azure Account
+      az login -t $(sptenent) --service-principal -u $(spidentity) --password $(spsecret)
+      echo Try and figure out what account set takes
+      az account set -h
+      echo Try and set it.
+      az account set --subscription $(subscriptionid)
+#      papermill 01_Data_Prep.ipynb 01_Data_Prep_Output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: 'Configuration'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLHyperparameterTuning
+      echo Executing 00_Data_Prep.ipynb
+      papermill 00_Data_Prep.ipynb 00_Data_Prep_Output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '00_Data_Prep.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLHyperparameterTuning
+      echo Executing 01_Training_Script.ipynb
+      papermill 01_Training_Script.ipynb 01_Training_Script_Output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '01_Training_Script.ipynb'
+ 
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLHyperparameterTuning
+      echo Executing 02_Testing_Script.ipynb
+      papermill 02_Testing_Script.ipynb 02_Testing_Script_Output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '02_Testing_Script.ipynb'
+ 
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLHyperparameterTuning
+      echo Executing 03_Run_Locally.ipynb
+      papermill 03_Run_Locally.ipynb 03_Run_Locally_Output.ipynb --log-output --no-progress-bar -k python3 -p selected_subscription $(subscriptionid) -p resource_group $(azurergname) 
+    displayName: '03_Run_Locally.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLHyperparameterTuning
+      echo Executing 04_Hyperparameter_Random_Search.ipynb
+      papermill 04_Hyperparameter_Random_Search.ipynb 04_Hyperparameter_Random_Search_Output.ipynb --log-output --no-progress-bar -k python3 -p max_total_runs $(dsmaxruns)
+    displayName: '04_Hyperparameter_Random_Search.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLHyperparameterTuning
+      echo Executing 05_Train_Best_Model.ipynb
+      papermill 05_Train_Best_Model.ipynb 05_Train_Best_Model_Output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '05_Train_Best_Model.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLHyperparameterTuning
+      echo Executing 06_Test_Best_Model.ipynb
+      papermill 06_Test_Best_Model.ipynb 06_Test_Best_Model_Output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '06_Test_Best_Model.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLHyperparameterTuning
+      echo Executing 07_Tear_Down.ipynb
+      papermill 07_Tear_Down.ipynb 07_Tear_Down_Output.ipynb --log-output --no-progress-bar -k python3 
+    displayName: '07_Tear_Down.ipynb'
+
+  - bash: |
+      source /usr/share/miniconda/etc/profile.d/conda.sh
+      conda activate MLHyperparameterTuning
+      echo Execute Resource Group Delete
+      existResponse=$(az group exists -n $(azurergname))
+      if [ "$existResponse" == "true" ]; then
+        echo Deleting project resource group  
+        az group delete --name $(azurergname) --yes
+      else
+        echo Project resource group did not exist
+      fi
+      echo Done Cleanup
+    displayName: 'Backup Cleanup'
+    condition: or(canceled(),failed())
+
+  - task: CreateWorkItem@1
+    inputs:
+      workItemType: 'Issue'
+      title: $(System.TeamProject) - Build $(Build.BuildNumber) Failed
+      assignedTo: 'Mario Bourgoin <mabou@microsoft.com>'
+      associate: true
+      teamProject: $(System.TeamProject)
+    
+      fieldMappings: |
+        Description=Branch: Branch $(Build.SourceBranch) failed to build. Go to Boards>WorkItems and tag the failure type.
+    displayName: 'Create work item on failure'
+    condition: failed()
