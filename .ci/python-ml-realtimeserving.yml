@@ -51,20 +51,20 @@ jobs:
   steps:
   - template: deploy_rts.yml
     parameters:
-      azureSubscription: ${{parameters.azureSubscription}}
-      azureresourcegroup: ${{parameters.azureresourcegroup}}
-      location: ${{parameters.azureregion}}
-      alias : ${{parameters.alias}}
-      project : ${{parameters.project}}
-      expires : ${{parameters.expires}}
-      conda: ${{parameters.conda}}
-      azure_subscription: ${{parameters.azure_subscription}}
-      workspacename: ${{parameters.workspacename}}
-      azureregion: ${{parameters.azureregion}}
-      aksimagename: ${{parameters.aksimagename}}
-      aks_name: ${{parameters.aks_name}}
-      aks_location: ${{parameters.azureregion}}
-      aks_service_name: ${{parameters.aks_service_name}}
+      azureSubscription: $(azureSubscription)
+      azureresourcegroup: $(azureresourcegroup)
+      location: $(azureregion)
+      alias : $(alias)
+      project : $(project)
+      expires : $(expires)
+      conda: $(conda)
+      azure_subscription: $(azure_subscription)
+      workspacename: $(workspacename)
+      azureregion: $(azureregion)
+      aksimagename: $(aksimagename)
+      aks_name: $(aks_name)
+      aks_location: $(aks_location)
+      aks_service_name: $(aks_service_name)
       python_path: $(python_path)
 
   - bash: |
