@@ -1,0 +1,106 @@
+parameters:
+  deployment_name: ''
+  template: ''
+  azureSubscription: ''
+  azure_subscription: ''
+  azureresourcegroup: ''
+  workspacename: ''
+  azureregion: ''
+  aksimagename: ''
+  environment: 'tridant-ai'
+  doCleanup: True
+  alias: '-'
+  project: '-'
+  expires : "2019-08-01"
+  agent: 'AI-GPU'
+  python_path: ''
+  
+steps:
+  
+  - template: createResourceGroupTemplate.yml
+    parameters:
+      azureSubscription: ${{parameters.azureSubscription}}
+      azureresourcegroup: ${{parameters.azureresourcegroup}}
+      location: ${{parameters.azureregion}}
+      alias : ${{parameters.alias}}
+      project : ${{parameters.project}}
+      expires : ${{parameters.expires}}
+
+  - template: config_conda.yml
+    parameters:
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 00_AMLSetup.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+      azure_subscription: ${{parameters.azure_subscription}}
+      azureresourcegroup: ${{parameters.azureresourcegroup}}
+      workspacename: ${{parameters.workspacename}}
+      azureregion: ${{parameters.azureregion}}
+      aksimagename: ${{parameters.aksimagename}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 01_DataPrep.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 02_TrainOnLocal.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 03_DevelopScoringScript.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 04_BuildImage.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 05_DeployOnAKS.ipynb
+      location: ${{parameters.location}}/aks
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+      aks_name: ${{parameters.aks_name}}
+      aks_location: ${{parameters.azureregion}}
+      aks_service_name: ${{parameters.aks_service_name}}
+      python_path: $(python_path)
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 06_SpeedTestWebApp.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 07_RealTimeScoring.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 08_TearDown.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+  
