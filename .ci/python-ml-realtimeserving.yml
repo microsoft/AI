@@ -26,19 +26,12 @@ schedules:
   always: true
 
 variables:
-  deployment_name: ''
-  azureSubscription: ''
-  azure_subscription: ''
-  azureresourcegroup: ''
-  workspacename: ''
-  azureregion: ''
-  aksimagename: ''
-  environment: 'tridant-ai'
-  doCleanup: True
-  alias: '-'
-  project: '-'
+  deployment_name: 'python-ml-rts'
+  azureresourcegroup: 'python-ml-rts-test'
+  workspacename: 'pythonmlrtsws'
+  azureregion: 'westus'
+  aksimagename: 'pythonmlrtsaksimg'
   expires : "2019-08-01"
-  agent: 'AI-GPU'
   python_path: "$(System.DefaultWorkingDirectory)/architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}/"
 
 jobs:
@@ -46,7 +39,7 @@ jobs:
   timeoutInMinutes: 300
   cancelTimeoutInMinutes: 2
   pool:
-    vmImage: 'Ubuntu-16.04'
+    name: $(agent)
   steps:
   - template: steps/deploy_rts.yml
     parameters:
