@@ -53,84 +53,93 @@ jobs:
   - script: echo Hello, AKSDeployment!
     displayName: 'Builds source for AKSDeploymentTutorialAML/Keras_Tensorflow'
 
-  - bash: |
-      cd {{cookiecutter.project_name}}/Keras_Tensorflow
-      conda env create -f environment.yml
-      source activate deployment_aml
-      conda env list
-      echo Login Azure Account
+  - template: createResourceGroupTemplate.yml
+    parameters:
+      azureSubscription: ${{parameters.azureSubscription}}
+      azureresourcegroup: ${{parameters.azureresourcegroup}}
+      location: ${{parameters.azureregion}}
+      alias : ${{parameters.alias}}
+      project : ${{parameters.project}}
+      expires : ${{parameters.expires}}
 
-      az login -t $(sptenent) --service-principal -u $(spidentity) --password $(spsecret)
-      az account set --subscription $(azure_subscription)
-    displayName: 'Build Configuration'
+  - template: config_conda.yml
+    parameters:
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
 
-  - bash: |
-      source activate deployment_aml
-      cd {{cookiecutter.project_name}}/Keras_Tensorflow
-      papermill 00_AMLSetup.ipynb 00_AMLSetup_output.ipynb \
-                --log-output \
-                --no-progress-bar \
-                -k python3 \
-                -p resource_group $(azureresourcegroup) \
-                -p workspace_name $(workspacename) \
-                -p workspace_region  $(azureregion) \
-                -p subscription_id $(azure_subscription) \
-                -p image_name 'modelimg'
-    displayName : '00_AMLSetup.ipynb'
-  - template: steps/papermill.yml
+  - template: azpapermill.yml
     parameters:
-      notebook: 01_DevelopModel.ipynb
-      location: "{{cookiecutter.project_name}}/Keras_Tensorflow"
-  - template: steps/papermill.yml
+      notebook: 00_AMLSetup.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+      azure_subscription: ${{parameters.azure_subscription}}
+      azureresourcegroup: ${{parameters.azureresourcegroup}}
+      workspacename: ${{parameters.workspacename}}
+      azureregion: ${{parameters.azureregion}}
+      aksimagename: ${{parameters.aksimagename}}
+
+  - template: azpapermill.yml
     parameters:
-      notebook: 02_DevelopModelDriver.ipynb
-      location: "{{cookiecutter.project_name}}/Keras_Tensorflow"
-  - template: steps/papermill.yml
+      notebook: 01_DataPrep.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
     parameters:
-      notebook: 03_BuildImage.ipynb
-      location: "{{cookiecutter.project_name}}/Keras_Tensorflow"
-  - bash: |
-      source activate deployment_aml
-      export PYTHONPATH=$(pwd)/{{cookiecutter.project_name}}/Keras_Tensorflow:${PYTHONPATH}
-      cd {{cookiecutter.project_name}}/Keras_Tensorflow/aks
-      papermill 04_DeployOnAKS.ipynb 04_DeployOnAKS_output.ipynb \
-                --log-output \
-                --no-progress-bar \
-                -k python3 \
-                -p aks_name 'aksdeployamlaks' \
-                -p aks_service_name 'aksamlsvc' \
-                -p aks_location $(azureregion)
-      sleep 1m
-    displayName : '04_DeployOnAKS.ipynb'
-  - template: steps/papermill.yml
+      notebook: 02_TrainOnLocal.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
     parameters:
-      notebook: 05_TestWebApp.ipynb
-      location: "{{cookiecutter.project_name}}/Keras_Tensorflow/aks"
-  - template: steps/papermill.yml
+      notebook: 03_DevelopScoringScript.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 04_BuildImage.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 05_DeployOnAKS.ipynb
+      location: ${{parameters.location}}/aks
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+      aks_name: ${{parameters.aks_name}}
+      aks_location: ${{parameters.azureregion}}
+      aks_service_name: ${{parameters.aks_service_name}}
+      python_path: "$(System.DefaultWorkingDirectory)/Python-Keras-RealTimeServing/{{cookiecutter.project_name}}/Keras_Tensorflow"
+
+  - template: azpapermill.yml
     parameters:
       notebook: 06_SpeedTestWebApp.ipynb
-      location: "{{cookiecutter.project_name}}/Keras_Tensorflow/aks"
-  - bash: |
-      source activate deployment_aml
-      export PYTHONPATH=$(pwd)/{{cookiecutter.project_name}}/Keras_Tensorflow:${PYTHONPATH}
-      cd {{cookiecutter.project_name}}/Keras_Tensorflow/iotedge
-      papermill 04_DeployOnIOTedge.ipynb 04_DeployOnIOTedge_output.ipynb \
-      	--log-output \
-      	--no-progress-bar \
-      	-k python3 \
-      	-p iot_hub_name fstlstnameiothub \
-      	-p device_id mygpudevice \
-      	-p module_name mygpumodule
-    displayName: '04_DeployOnIOTedge.ipynb'
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
 
-  - template: steps/papermill.yml
+  - template: azpapermill.yml
     parameters:
-      notebook: 07_TearDown.ipynb
-      location: "{{cookiecutter.project_name}}/Keras_Tensorflow/aks"
-  - template: steps/papermill.yml
+      notebook: 07_RealTimeScoring.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
     parameters:
-      notebook: 05_TearDown.ipynb
-      location: "{{cookiecutter.project_name}}/Keras_Tensorflow/iotedge"
+      notebook: 08_TearDown.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
   - bash: |
       echo Remove All Docker Containers
       docker stop $(docker ps -a -q)
@@ -156,16 +165,3 @@ jobs:
       echo Done Cleanup
     displayName: 'Cleanup Task'
     condition: always()
-
-  - task: CreateWorkItem@1
-    inputs:
-      workItemType: 'Issue'
-      title: $(System.TeamProject) - Build $(Build.BuildNumber) Failed
-      assignedTo: 'Yan Zhang <zhangya@microsoft.com>'
-      associate: true
-      teamProject: $(System.TeamProject)
-
-      fieldMappings: |
-        Description=Branch: Branch $(Build.SourceBranch) failed to build. Go to Boards>WorkItems and tag the failure type.
-    displayName: 'Create work item on failure'
-    condition: failed()
