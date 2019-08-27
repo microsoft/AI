@@ -49,105 +49,93 @@ jobs:
   pool:
     vmImage: 'Ubuntu-16.04'
   steps:
-  - bash: |
-      source /usr/share/miniconda/etc/profile.d/conda.sh
-      which conda
-      conda env create -f {{cookiecutter.project_name}}/environment.yml
-      conda env list
-      conda activate MLAKSDeployAML
-      conda env list
-      echo Login Azure Account
-      az login -t $(sptenent) --service-principal -u $(spidentity) --password $(spsecret)
-      cd {{cookiecutter.project_name}}
-      echo Execute 00_AMLConfiguration.ipynb
-      papermill 00_AMLConfiguration.ipynb 00_AMLConfiguration_Output.ipynb \
-        --log-output \
-        --no-progress-bar \
-        -k python3 \
-        -p subscription_id $(azure_subscription) \
-        -p resource_group $(azureresourcegroup) \
-        -p workspace_name $(workspacename) \
-        -p workspace_region $(azureregion) \
-        -p image_name $(aksimagename)
-    displayName: '00_AML_Configuration.ipynb'
+  
+  - template: createResourceGroupTemplate.yml
+    parameters:
+      azureSubscription: ${{parameters.azureSubscription}}
+      azureresourcegroup: ${{parameters.azureresourcegroup}}
+      location: ${{parameters.azureregion}}
+      alias : ${{parameters.alias}}
+      project : ${{parameters.project}}
+      expires : ${{parameters.expires}}
 
-  - template: steps/papermill.yml
+  - template: config_conda.yml
+    parameters:
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 00_AMLSetup.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+      azure_subscription: ${{parameters.azure_subscription}}
+      azureresourcegroup: ${{parameters.azureresourcegroup}}
+      workspacename: ${{parameters.workspacename}}
+      azureregion: ${{parameters.azureregion}}
+      aksimagename: ${{parameters.aksimagename}}
+
+  - template: azpapermill.yml
     parameters:
       notebook: 01_DataPrep.ipynb
-      location: "{{cookiecutter.project_name}}"
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
 
-  - bash: |
-      mkdir -p {{cookiecutter.project_name}}/iotedge/data_folder
-      mkdir -p {{cookiecutter.project_name}}/aks/data_folder
-      cd {{cookiecutter.project_name}}
-      cp data_folder/*.tsv iotedge/data_folder
-      cp data_folder/*.tsv aks/data_folder
-    displayName: 'Copying data'
-
-  - template: steps/papermill.yml
+  - template: azpapermill.yml
     parameters:
       notebook: 02_TrainOnLocal.ipynb
-      location: "{{cookiecutter.project_name}}"
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
 
-  - template: steps/papermill.yml
+  - template: azpapermill.yml
     parameters:
       notebook: 03_DevelopScoringScript.ipynb
-      location: "{{cookiecutter.project_name}}"
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
 
-  - template: steps/papermill.yml
+  - template: azpapermill.yml
     parameters:
-      notebook: 04_CreateImage.ipynb
-      location: "{{cookiecutter.project_name}}"
+      notebook: 04_BuildImage.ipynb
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
 
-  - bash: |
-      source /usr/share/miniconda/etc/profile.d/conda.sh
-      conda activate MLAKSDeployAML
-      echo Execute 05_DeployOnAKS.ipynb
-      export PYTHONPATH=$(pwd)/{{cookiecutter.project_name}}:${PYTHONPATH}
-      cd {{cookiecutter.project_name}}/aks
-      papermill 05_DeployOnAKS.ipynb test.ipynb \
-          --log-output \
-          --no-progress-bar \
-          -k python3 \
-          -p aks_name $(aksname) \
-          -p aks_location $(azureregion) \
-          -p aks_service_name $(aksvcname)
-    displayName: '05_DeployOnAKS.ipynb'
+  - template: azpapermill.yml
+    parameters:
+      notebook: 05_DeployOnAKS.ipynb
+      location: ${{parameters.location}}/aks
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
+      aks_name: ${{parameters.aks_name}}
+      aks_location: ${{parameters.azureregion}}
+      aks_service_name: ${{parameters.aks_service_name}}
+      python_path: "$(System.DefaultWorkingDirectory)/Python-ML-RealTimeServing/{{cookiecutter.project_name}}/"
 
-  - template: steps/papermill.yml
+  - template: azpapermill.yml
     parameters:
       notebook: 06_SpeedTestWebApp.ipynb
-      location: "{{cookiecutter.project_name}}/aks"
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
 
-  - template: steps/papermill.yml
+  - template: azpapermill.yml
     parameters:
       notebook: 07_RealTimeScoring.ipynb
-      location: "{{cookiecutter.project_name}}/aks"
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
 
-  - bash: |
-      source /usr/share/miniconda/etc/profile.d/conda.sh
-      conda activate MLAKSDeployAML
-      export PYTHONPATH=$(pwd)/{{cookiecutter.project_name}}:${PYTHONPATH}
-      cd {{cookiecutter.project_name}}/iotedge
-      echo Execute 05_DeployOnIOTedge.ipynb
-      papermill 05_DeployOnIOTedge.ipynb test.ipynb \
-          --log-output \
-          --no-progress-bar \
-          -k python3 \
-          -p iot_hub_name fstlstnameiothub \
-          -p device_id mydevice \
-          -p module_name mymodule
-    displayName: '05_DeployOnIOTedge.ipynb'
-
-  - template: steps/papermill.yml
+  - template: azpapermill.yml
     parameters:
       notebook: 08_TearDown.ipynb
-      location: "{{cookiecutter.project_name}}/aks"
-
-  - template: steps/papermill.yml
-    parameters:
-      notebook: 06_TearDown.ipynb
-      location: "{{cookiecutter.project_name}}/iotedge"
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      conda: ${{parameters.conda}}
 
   - bash: |
       source /usr/share/miniconda/etc/profile.d/conda.sh
