@@ -49,7 +49,7 @@ jobs:
   pool:
     vmImage: 'Ubuntu-16.04'
   steps:
-  - template: deploy_rts.yml
+  - template: steps/deploy_rts.yml
     parameters:
       azureSubscription: $(azureSubscription)
       azureresourcegroup: $(azureresourcegroup)
