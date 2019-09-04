@@ -1,6 +1,20 @@
 # AI Architectures & Practices
 Official Azure Reference Architectures and Best Practices for AI workloads 
 
+# Getting Started
+This repository is arranged as submodules and therefore you can either pull all the tutorials or simply the ones you want. 
+To pull all the tutorials simply run:
+
+```bash
+git clone --recurse-submodules https://github.com/dciborow/AIArchitecturesAndPractices.git
+```
+
+if you have git older than 2.13 run:
+
+```bash
+git clone --recursive https://github.com/dciborow/AIArchitecturesAndPractices.git
+```
+
 # Architectures <a name="Architectures"></a>
 | Title                                     | Language | Environment | Design | Description                                                                       | Status                                                                                                                                                                                                                                                                                                              |
 |----------------------------------------------|-------------|-------------|-------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
