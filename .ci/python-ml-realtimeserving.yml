@@ -33,6 +33,7 @@ variables:
   aksimagename: 'pythonmlrtsaksimg'
   expires : "2019-08-01"
   python_path: "$(System.DefaultWorkingDirectory)/architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}/"
+  conda: "deployment_aml"
 
 jobs:
 - job: MLAKSDeployAMLJob
