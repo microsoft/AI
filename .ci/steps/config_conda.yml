@@ -1,6 +1,6 @@
   
 parameters:
-  location: #
+  conda_location: #
   azureSubscription: #
   conda: #
 
@@ -19,5 +19,5 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
-      conda env create -f ${{parameters.location}}/environment.yml
+      conda env create -f ${{parameters.conda_location}}/environment.yml
       source activate ${{parameters.conda}}
