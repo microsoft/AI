@@ -15,7 +15,7 @@ pr:
     - master
   paths:
    include:
-     - architectures/Python-Keras-RealTimeServing/* 
+     - architectures/Python-ML-RealTimeServing/* 
 
 schedules:
 - cron: "0 0 * * *"
