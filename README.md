@@ -11,7 +11,7 @@ Official Azure Reference Architectures and Best Practices for AI workloads
 | Title | Description | 
 |-------|-------------|
 |[Computer Vision](https://github.com/microsoft/computervision)| Accelerate the development of computer vision applications with examples and best practice guidelines for building computer vision systems
-|[Nature Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
+|[Naturel Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
 |[Recommenders](github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
 
 ## Recommend a Scenario
