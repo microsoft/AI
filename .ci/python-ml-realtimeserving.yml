@@ -58,7 +58,7 @@ jobs:
       aks_location: $(aks_location)
       aks_service_name: $(aks_service_name)
       python_path: $(python_path)
-      conda_location: "architecutres/Python-ML-RealTimeServing/{{cookiecutter.project_name}}/"
+      conda_location: "architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}"
 
   - bash: |
       source /usr/share/miniconda/etc/profile.d/conda.sh
