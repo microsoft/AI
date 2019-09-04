@@ -39,7 +39,7 @@ jobs:
   timeoutInMinutes: 300
   cancelTimeoutInMinutes: 2
   pool:
-    name: $(agent)
+    vmImage: 'Ubuntu-16.04'
   steps:
   - template: steps/deploy_rts.yml
     parameters:
