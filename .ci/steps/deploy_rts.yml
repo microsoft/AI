@@ -14,7 +14,8 @@ parameters:
   expires : "2019-08-01"
   agent: 'AI-GPU'
   python_path: ''
-  
+  conda_location: ''
+
 steps:
   
   - template: createResourceGroupTemplate.yml
@@ -28,7 +29,7 @@ steps:
 
   - template: config_conda.yml
     parameters:
-      location: ${{parameters.location}}
+      conda_location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
