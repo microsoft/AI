@@ -52,10 +52,10 @@ jobs:
       azure_subscription: $(azure_subscription)
       workspacename: 'pythonmlrtsws'
       azureregion: 'westus'
-      aksimagename: $(aksimagename)
-      aks_name: $(aks_name)
-      aks_location: $(aks_location)
-      aks_service_name: $(aks_service_name)
+      aksimagename: "pythonmlrtsaksimg"
+      aks_name: "pythonmlaks"
+      aks_location: "westus"
+      aks_service_name: "pythonmlaksservice"
       python_path: $(python_path)
       conda_location: "architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}"
 
