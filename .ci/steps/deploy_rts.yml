@@ -15,6 +15,7 @@ parameters:
   agent: 'AI-GPU'
   python_path: ''
   conda_location: ''
+  conda: ''
 
 steps:
   
