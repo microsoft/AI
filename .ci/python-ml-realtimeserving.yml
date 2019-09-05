@@ -44,14 +44,14 @@ jobs:
     parameters:
       azureSubscription: $(azureSubscription)
       azureresourcegroup: $(azureresourcegroup)
-      location: $(azureregion)
+      location: "architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}"
       alias : $(alias)
       project : $(project)
-      expires : $(expires)
+      expires : "2019-08-01"
       conda: "MLAKSDeployAML"
       azure_subscription: $(azure_subscription)
-      workspacename: $(workspacename)
-      azureregion: $(azureregion)
+      workspacename: 'pythonmlrtsws'
+      azureregion: 'westus'
       aksimagename: $(aksimagename)
       aks_name: $(aks_name)
       aks_location: $(aks_location)
