@@ -1,4 +1,4 @@
-# AI Reference Architectures & Best Practices
+# Azure AI Reference Architectures & Best Practices
 Official Azure Reference Architectures and Best Practices for AI workloads 
 
 # Getting Started
