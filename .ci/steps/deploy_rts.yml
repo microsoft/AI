@@ -37,7 +37,7 @@ steps:
   - template: azpapermill.yml
     parameters:
       notebook: 00_AMLSetup.ipynb
-      location: ${{parameters.location}}
+      location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
       azure_subscription: ${{parameters.azure_subscription}}
@@ -49,35 +49,35 @@ steps:
   - template: azpapermill.yml
     parameters:
       notebook: 01_DataPrep.ipynb
-      location: ${{parameters.location}}
+      location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 02_TrainOnLocal.ipynb
-      location: ${{parameters.location}}
+      location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 03_DevelopScoringScript.ipynb
-      location: ${{parameters.location}}
+      location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 04_BuildImage.ipynb
-      location: ${{parameters.location}}
+      location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 05_DeployOnAKS.ipynb
-      location: ${{parameters.location}}/aks
+      location: ${{parameters.conda_location}}/aks
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
       aks_name: ${{parameters.aks_name}}
@@ -88,21 +88,21 @@ steps:
   - template: azpapermill.yml
     parameters:
       notebook: 06_SpeedTestWebApp.ipynb
-      location: ${{parameters.location}}
+      location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 07_RealTimeScoring.ipynb
-      location: ${{parameters.location}}
+      location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 08_TearDown.ipynb
-      location: ${{parameters.location}}
+      location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
   
