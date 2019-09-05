@@ -20,5 +20,4 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       conda env create -f ${{parameters.conda_location}}/environment.yml
-      source ~/anaconda3/etc/profile.d/conda.sh
-      conda activate ${{parameters.conda}}
+      source activate ${{parameters.conda}}
