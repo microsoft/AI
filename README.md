@@ -28,6 +28,13 @@ git clone --recursive https://github.com/dciborow/AIArchitecturesAndPractices.gi
 |[Naturel Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
 |[Recommenders](github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
 
+
+# Practices with Architectures <a name="Architectures"></a>
+| Title                                     | Practice | Language | Environment | Design | Description                                                                       | Status                                                                                                                                                                                                                                                                                                              |
+|-------------------------------------------|----------|----------|-------------|-------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Building a Real-time Recommendation API](https://github.com/microsoft/recommenders/blob/master/notebooks/05_operationalize/als_movie_o16n.ipynb)       						   | Recommenders | PySpark | CPU  | Real-Time Scoring| Walks through the creation of appropriate azure resources, training a recommendation model using Azure Databricks and deploying it as an API.|
+
+
 ## Recommend a Scenario
 If there is a particular scenario you are interested in seeing a tutorial for please fill in a [scenario suggestion](https://github.com/Microsoft/AIReferenceArchitectures/issues/new?assignees=&labels=&template=scenario_request.md&title=%5BSCENARIO%5D)
 
