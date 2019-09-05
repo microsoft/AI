@@ -33,7 +33,6 @@ variables:
   aksimagename: 'pythonmlrtsaksimg'
   expires : "2019-08-01"
   python_path: "$(System.DefaultWorkingDirectory)/architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}/"
-  conda: "MLAKSDeployAML"
 
 jobs:
 - job: MLAKSDeployAMLJob
@@ -50,7 +49,7 @@ jobs:
       alias : $(alias)
       project : $(project)
       expires : $(expires)
-      conda: $(conda)
+      conda: "MLAKSDeployAML"
       azure_subscription: $(azure_subscription)
       workspacename: $(workspacename)
       azureregion: $(azureregion)
