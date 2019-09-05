@@ -5,7 +5,7 @@ parameters:
   location: "{{cookiecutter.project_name}}"
   azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
   conda: MLAKSDeployAML
-  azure_subscription: "-"
+  azure_subscription: "989b90f7-da4f-41f9-84c9-44848802052d"
   azureresourcegroup: "dcibrg"
   workspacename: "dcibws"
   azureregion: "westus"
