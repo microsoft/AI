@@ -20,4 +20,4 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       conda env create -f ${{parameters.conda_location}}/environment.yml
-      source activate ${{parameters.conda}}
+      conda activate ${{parameters.conda}}
