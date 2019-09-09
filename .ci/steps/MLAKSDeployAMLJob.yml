@@ -12,6 +12,7 @@ parameters:
   aks_service_name: dciborowhpaksapi
   conda: MLAKSDeployAML
   doCleanup: true
+  python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
 steps:
 - template: config_conda.yml
@@ -38,7 +39,6 @@ steps:
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
-    python_path:"$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
 - bash: |
     mkdir -p ${{parameters.location}}/iotedge/data_folder
