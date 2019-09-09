@@ -38,6 +38,7 @@ steps:
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
+    python_path:"$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
 - bash: |
     mkdir -p ${{parameters.location}}/iotedge/data_folder
@@ -78,7 +79,7 @@ steps:
     azureregion: ${{parameters.azureregion}}
     aks_service_name: ${{parameters.aks_service_name}}
     aksimagename: ${{parameters.aksimagename}}
-    python_path: "$(System.DefaultWorkingDirectory)/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+    python_path: ${{parameters.python_path}}
 
 - template: cleanuptask.yml
   parameters:
