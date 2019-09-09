@@ -17,7 +17,7 @@ stages:
       azureresourcegroup: dcibhprg
       workspacename: dcibhpws
       azureregion: $(azureregion) 
-      aksimagename:  dcibhpaks
+      aksimagename:  myimage
       project: "e2etestharness" 
       agent: $(agent)
 
