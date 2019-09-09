@@ -7,7 +7,7 @@
 stages:
 - stage: dev
   jobs:
-  - template: .ci/steps/deploy.yml
+  - template: steps/deploy.yml
     parameters:
       deployment_name: DLAKSDeployAMLJob
       template: DLAKSDeployAMLJob.yml
@@ -20,7 +20,7 @@ stages:
       project: "e2etestharness"
       agent: $(agent)
 
-  - template: .ci/steps/deploy.yml
+  - template: steps/deploy.yml
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
@@ -35,7 +35,7 @@ stages:
 
 - stage: staging
   jobs:
-  - template: .ci/steps/deploy.yml
+  - template: steps/deploy.yml
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
@@ -51,7 +51,7 @@ stages:
 
 - stage: tridant
   jobs:
-  - template: .ci/steps/deploy.yml
+  - template: steps/deploy.yml
     parameters:
       deployment_name: DLAKSDeployAMLJob
       template: DLAKSDeployAMLJob.yml
@@ -67,7 +67,7 @@ stages:
       alias: $(Build.RequestedForId)
       agent: $(agent)
 
-  - template: .ci/steps/deploy.yml
+  - template: steps/deploy.yml
     parameters:
       deployment_name: MLAKSDeployAMLJob
       template: MLAKSDeployAMLJob.yml
