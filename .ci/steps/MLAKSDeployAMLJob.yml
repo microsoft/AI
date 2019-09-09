@@ -9,7 +9,7 @@ parameters:
   azureregion: westus2
   aksimagename: dciborowhpaks
   aks_name: dciborowhpaks
-  aks_service_name: dciborowhpaksapi
+  aks_service_name: myimage
   conda: MLAKSDeployAML
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
