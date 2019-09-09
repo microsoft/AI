@@ -3,7 +3,7 @@
 parameters:
   azureSubscription: ''
   azure_subscription: ''
-  location: DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow
+  location: submodules/DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow
   azureresourcegroup: dcibhpdl
   workspacename: dcibhpwsdl
   azureregion: westus2
