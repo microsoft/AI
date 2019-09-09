@@ -18,7 +18,7 @@ steps:
   parameters:
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
+    conda_location: ${{parameters.conda}}
 
 - template: azpapermill.yml
   parameters:
