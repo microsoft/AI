@@ -7,18 +7,6 @@
 stages:
 - stage: dev
   jobs:
-  - template: steps/deploy.yml
-    parameters:
-      deployment_name: DLAKSDeployAMLJob
-      template: DLAKSDeployAMLJob.yml
-      azureSubscription: $(devsub)
-      azure_subscription: $(devsubid)
-      azureresourcegroup: dcibhprgdl
-      workspacename: dcibhpwsdl
-      azureregion: $(azureregion) 
-      aksimagename: dcibhpaksdl
-      project: "e2etestharness"
-      agent: $(agent)
 
   - template: steps/deploy.yml
     parameters:
