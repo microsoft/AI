@@ -3,7 +3,7 @@
 parameters:
   azureSubscription: ''
   azure_subscription: ''
-  location: DeployMLModelKubernetes/{{cookiecutter.project_name}}
+  location: submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}
   azureresourcegroup: dciborowhp
   workspacename: dciborowhpws
   azureregion: westus2
