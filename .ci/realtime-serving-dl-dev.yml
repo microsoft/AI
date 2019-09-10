@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+stages:
+- stage: dev
+  jobs:
+  - template: steps/deploy.yml
+    parameters:
+      deployment_name: DLAKSDeployAMLJob
+      template: DLAKSDeployAMLJob.yml
+      azureSubscription: $(devsub)
+      azure_subscription: $(devsubid)
+      azureresourcegroup: tridant-pydl
+      workspacename: tridantpydl
+      azureregion: $(azureregion) 
+      aksimagename: tridantpydlaksimage
+      doCleanup: False
+      project: "e2etestharness" 
+      expires : "DnD"
+      alias: $(Build.RequestedForId)
+      agent: $(agent)
