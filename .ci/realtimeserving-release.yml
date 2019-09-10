@@ -20,7 +20,7 @@ stages:
       aksimagename:  myimage
       project: "e2etestharness" 
       agent: $(agent)
-      doCleanup: False
+      doCleanup: True
 
 - stage: staging
   jobs:
