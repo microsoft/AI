@@ -31,3 +31,7 @@
 [submodule "practices/ComputerVision"]
 	path = practices/ComputerVision
 	url = https://github.com/microsoft/ComputerVision
+[submodule "submodules/DeployMLModelKubernetes"]
+	path = submodules/DeployMLModelKubernetes
+	url = https://github.com/microsoft/MLAKSDeployAML
+	branch = mabou/instrument
