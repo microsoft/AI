@@ -16,7 +16,7 @@ parameters:
 steps:
 - template: config_conda.yml
   parameters:
-    location: ${{parameters.location}}
+    conda_location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
 
