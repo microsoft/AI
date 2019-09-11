@@ -35,3 +35,7 @@
 	path = submodules/DeployMLModelKubernetes
 	url = https://github.com/microsoft/MLAKSDeployAML
 	branch = mabou/instrument
+[submodule "submodules/DeployDeepModelKubernetes"]
+	path = submodules/DeployDeepModelKubernetes
+	url = https://github.com/microsoft/AKSDeploymentTutorialAML
+	branch = mabou/instrument
