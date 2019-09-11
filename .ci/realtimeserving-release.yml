@@ -54,7 +54,7 @@ stages:
       project: "e2etestharness" 
       expires : "DnD"
       alias: $(Build.RequestedForId)
-      agent: $(agent)
+      agent: "AI-GPU"
 
   - template: steps/deploy.yml
     parameters:
