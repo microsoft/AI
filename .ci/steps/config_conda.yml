@@ -19,5 +19,5 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
-      conda env create -f ${{parameters.conda_location}}/environment.yml
+      conda env create -f ${{parameters.conda_location}}/environment.yml --force
       source activate ${{parameters.conda}}
