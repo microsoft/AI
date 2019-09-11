@@ -1,5 +1,0 @@
-{ENVIRONMENT_PREFIX} is what we discussed earlier in regards to adding a new parameter. 
-This will give us a way to easily identify the appropriate connection string to reference late in our steps.
-
-
-set_secret.py -n "{ENVIRONMENT_PREFIX}-key" -v "{STORAGE_CONNECTIONSTRING}"

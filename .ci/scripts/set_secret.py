@@ -7,12 +7,17 @@ from azure.common.client_factory import get_client_from_cli_profile
 
 def set_secret(kv_endpoint, secret_name, secret_value):
     client = get_client_from_cli_profile(KeyVaultClient)
-    client.set_secret(kv_endpoint, secret_name, secret_value)
+
+    try:
+        client.set_secret(kv_endpoint, secret_name, secret_value)
+        return "Successfully created secret: {secret_name} in keyvault: {kv_endpoint}".format(
+            secret_name=secret_name, kv_endpoint=kv_endpoint)
+    except Exception as ex:
+        return "Failed to create secret: {secret_name} in keyvault: {kv_endpoint}".format(
+            secret_name=secret_name, kv_endpoint=kv_endpoint)
 
 
-if __name__ == "__main__":
-    # hard coded for now
-    kv_endpoint = "https://t3scriptkeyvault.vault.azure.net/"
+def parse_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-n', '--secretName', required=True,
@@ -20,6 +25,14 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--secretValue', required=True,
                         help="The value of the secret")
 
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    set_secret(kv_endpoint, args.secretName, args.secretValue)
+
+if __name__ == "__main__":
+    # hard coded for now
+    kv_endpoint = "https://t3scriptkeyvault.vault.azure.net/"
+    args = parse_args()
+    message = set_secret(
+        kv_endpoint, args.secretName, args.secretValue)
+
+    print(message)
