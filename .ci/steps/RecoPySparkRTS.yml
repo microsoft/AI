@@ -1,0 +1,31 @@
+
+parameters:
+  azureSubscription: ''
+  azure_subscription: ''
+  location: practices/recommendations/
+  azureresourcegroup: dciborowreco
+  workspacename: dciborowrecows
+  azureregion: westus2
+  aksimagename: dciborowrecoaks
+  aks_name: dciborowrecoaks
+  aks_service_name: myimage
+  conda: nightly_reco_pyspark
+  doCleanup: true
+
+steps:
+- task: AzureCLI@1
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    inlineScript: |
+      python ./scripts/generate_conda_file.py --pyspark --name nightly_reco_pyspark
+      conda env create --quiet -f nightly_reco_pyspark.yaml 2> log
+
+- task: AzureCLI@1
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    inlineScript: |
+      source activate ${{parameters.conda}}
+      unset SPARK_HOME
+      pytest tests/harness -m "harness and spark and not gpu" --junitxml=reports/test-harness.xml
