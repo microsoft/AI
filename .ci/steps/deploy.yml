@@ -15,6 +15,7 @@ parameters:
   agent: 'AI-GPU'
   ENVIRONMENT_PREFIX: "ml-rts-"
   deploymentguidtag: "ABC123"
+  aks_name: ""
 
 jobs:
   - job: ${{parameters.deployment_name}}
@@ -44,6 +45,7 @@ jobs:
         azureregion: ${{parameters.azureregion}}
         aksimagename: ${{parameters.aksimagename}}
         doCleanup: ${{parameters.doCleanup}}
+        aks_name: ${{parameters.aks_name}}
        
     - task: AzureCLI@1
       inputs:
