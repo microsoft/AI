@@ -55,45 +55,45 @@ jobs:
           cd ../../../.ci/scripts
           python set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
 
-  - task: PowerShell@2
-    inputs:
-      scriptLocation: inlineScript
-      inlineScript: |
-       $resourceGroupName = ${{parameters.azureresourcegroup}}
+    - task: PowerShell@2
+      inputs:
+        scriptLocation: inlineScript
+        inlineScript: |
+         $resourceGroupName = ${{parameters.azureresourcegroup}}
 
-       $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
-       $projectTags.Add("deployment-id", ${{parameters.deploymentguidtag}})
+         $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
+         $projectTags.Add("deployment-id", ${{parameters.deploymentguidtag}})
 
-       function Update-GroupResources 
-       {
-           param( [string]$resGroup, $tags )
-           Write-Host("Updating resources in " + $resGroup)
-           $resources = Get-AzureRmResource -ResourceGroupName $resGroup 
+         function Update-GroupResources 
+         {
+             param( [string]$resGroup, $tags )
+             Write-Host("Updating resources in " + $resGroup)
+             $resources = Get-AzureRmResource -ResourceGroupName $resGroup 
 
-           $resources | ForEach-Object { 
-               if($_.Tags -eq $null)
-               {
-                   $_.Tags = $projectTags
-               }
-               else {
-                   $rsrc = $_
-                   $tags.Keys | Foreach {
-                       $rsrc.Tags[$_] = $tags[$_] 
-                       Write-Host($rsrc.Id)
-                   }
-               }
-           }
+             $resources | ForEach-Object { 
+                 if($_.Tags -eq $null)
+                 {
+                     $_.Tags = $projectTags
+                 }
+                 else {
+                     $rsrc = $_
+                     $tags.Keys | Foreach {
+                         $rsrc.Tags[$_] = $tags[$_] 
+                         Write-Host($rsrc.Id)
+                     }
+                 }
+             }
 
-           $resources | ForEach-Object {
-               Set-AzureRmResource -ResourceId $_.Id -Tag $_.Tags -Force
-           }
-       }
+             $resources | ForEach-Object {
+                 Set-AzureRmResource -ResourceId $_.Id -Tag $_.Tags -Force
+             }
+         }
 
-       Update-GroupResources -resGroup $resourceGroupName -tags $projectTags
+         Update-GroupResources -resGroup $resourceGroupName -tags $projectTags
 
-       $clusterResources = Get-AzureRmResource -ResourceType "Microsoft.ContainerService/managedClusters" -ResourceGroupName $resourceGroupName -ExpandProperties
-       foreach($cluster in $clusterResources)
-       {
-           Update-GroupResources -resGroup $cluster.Properties.nodeResourceGroup -tags $projectTags
-       }   
-      displayName: 'Tag All Resources'
+         $clusterResources = Get-AzureRmResource -ResourceType "Microsoft.ContainerService/managedClusters" -ResourceGroupName $resourceGroupName -ExpandProperties
+         foreach($cluster in $clusterResources)
+         {
+             Update-GroupResources -resGroup $cluster.Properties.nodeResourceGroup -tags $projectTags
+         }   
+        displayName: 'Tag All Resources'
