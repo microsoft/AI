@@ -51,9 +51,7 @@ jobs:
         scriptLocation: inlineScript
         inlineScript: |
           source activate ${{parameters.conda}}
-          cd ${{parameters.location}}
-          cd ../../../.ci/scripts
-          python set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
+          python .ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
 
     - powershell: |
        $resourceGroupName = ${{parameters.azureresourcegroup}}
