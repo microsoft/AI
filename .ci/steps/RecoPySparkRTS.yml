@@ -18,6 +18,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
+      cd practices/recommenders
       python ./scripts/generate_conda_file.py --pyspark --name nightly_reco_pyspark
       conda env create --quiet -f nightly_reco_pyspark.yaml 2> log
 
@@ -26,6 +27,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
+      cd practices/recommenders
       source activate ${{parameters.conda}}
       unset SPARK_HOME
       pytest tests/harness -m "harness and spark and not gpu" --junitxml=reports/test-harness.xml
