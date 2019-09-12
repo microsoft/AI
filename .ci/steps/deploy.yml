@@ -14,7 +14,7 @@ parameters:
   expires : "2019-08-01"
   agent: 'AI-GPU'
   ENVIRONMENT_PREFIX: "ml-rts-"
-  deployment_guid: "ABC123"
+  deploymentguidtag: "ABC123"
 
 jobs:
   - job: ${{parameters.deployment_name}}
@@ -59,7 +59,7 @@ jobs:
      $resourceGroupName = ${{parameters.azureresourcegroup}}
 
      $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
-     $projectTags.Add("DeploymentGuid", ${{parameteres.deployment_guid}})
+     $projectTags.Add("deployment-id", ${{parameters.deploymentguidtag}})
 
      function Update-GroupResources 
      {
