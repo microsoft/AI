@@ -42,3 +42,13 @@ jobs:
         azureregion: ${{parameters.azureregion}}
         aksimagename: ${{parameters.aksimagename}}
         doCleanup: ${{parameters.doCleanup}}
+        
+    - task: AzureCLI@1
+      inputs:
+        azureSubscription: ${{parameters.azureSubscription}}
+        scriptLocation: inlineScript
+        inlineScript: |
+          source activate ${{parameters.conda}}
+          cd ${{parameters.location}}
+          cd ../../../.ci/scripts
+          python set_secret.py -n "{ENVIRONMENT_PREFIX}-key" -v "{STORAGE_CONNECTIONSTRING}"
