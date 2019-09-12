@@ -25,6 +25,7 @@
 [submodule "practices/recommenders"]
 	path = practices/recommenders
 	url = https://github.com/microsoft/recommenders
+	branch = dciborow/test-harness
 [submodule "practices/nlp"]
 	path = practices/nlp
 	url = https://github.com/microsoft/nlp
