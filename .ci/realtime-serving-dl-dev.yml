@@ -1,3 +1,4 @@
+
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
@@ -16,7 +17,7 @@ stages:
       azureresourcegroup: tridant-pydl
       workspacename: tridantpydl
       azureregion: $(azureregion) 
-      aksimagename: tridantpydlaksimage-$(Build.BuildId)
+      aksimagename: tridantpydlaksimage
       doCleanup: True
       project: "e2etestharness" 
       expires : "DnD"
