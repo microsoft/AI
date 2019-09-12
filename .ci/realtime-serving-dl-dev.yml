@@ -16,7 +16,7 @@ stages:
       azureresourcegroup: tridant-pydl
       workspacename: tridantpydl
       azureregion: $(azureregion) 
-      aksimagename: tridantpydlaksimage
+      aksimagename: tridantpydlaksimage-$(Build.BuildNumber)
       doCleanup: True
       project: "e2etestharness" 
       expires : "DnD"
