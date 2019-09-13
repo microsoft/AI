@@ -36,7 +36,7 @@ steps:
 
   - template: azpapermill.yml
     parameters:
-      notebook: 00_AMLSetup.ipynb
+      notebook: 00_AMLConfiguration.ipynb
       location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
