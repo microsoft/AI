@@ -62,7 +62,7 @@ jobs:
     displayName: 'Backup Cleanup'
     condition: or(canceled(),failed())
     inputs:
-      azureSubscription: ${{parameters.azureSubscription}}
+      azureSubscription: $(azureSubscription)
       scriptLocation: inlineScript
       inlineScript: |
         source /usr/share/miniconda/etc/profile.d/conda.sh
