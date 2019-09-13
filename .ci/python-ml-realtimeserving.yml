@@ -52,7 +52,7 @@ jobs:
       azure_subscription: $(azure_subscription)
       workspacename: 'pythonmlrtsws'
       azureregion: 'westus'
-      aksimagename: "pythonmlrtsaksimg"
+      aksimagename: "myimage"
       aks_name: "pythonmlaks"
       aks_location: "westus"
       aks_service_name: "pythonmlaksservice"
