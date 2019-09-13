@@ -12,7 +12,7 @@ parameters:
   aks_service_name: dcibhpaksdlapi
   conda: deployment_aml
   doCleanup: true
-  python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
+  python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
 
 steps:
 - template: config_conda.yml

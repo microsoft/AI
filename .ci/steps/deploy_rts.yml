@@ -13,9 +13,10 @@ parameters:
   project: '-'
   expires : "2019-08-01"
   agent: 'AI-GPU'
-  python_path: ''
-  conda_location: ''
   conda: ''
+  python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+  location: submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}
+  aks_name: "aksdl"
 
 steps:
   
@@ -30,14 +31,14 @@ steps:
 
   - template: config_conda.yml
     parameters:
-      conda_location: ${{parameters.conda_location}}
+      conda_location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
-      notebook: 00_AMLSetup.ipynb
-      location: ${{parameters.conda_location}}
+      notebook: 00_AMLConfiguration.ipynb
+      location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
       azure_subscription: ${{parameters.azure_subscription}}
@@ -49,61 +50,62 @@ steps:
   - template: azpapermill.yml
     parameters:
       notebook: 01_DataPrep.ipynb
-      location: ${{parameters.conda_location}}
+      location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 02_TrainOnLocal.ipynb
-      location: ${{parameters.conda_location}}
+      location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 03_DevelopScoringScript.ipynb
-      location: ${{parameters.conda_location}}
+      location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
-      notebook: 04_BuildImage.ipynb
-      location: ${{parameters.conda_location}}
+      notebook: 04_CreateImage.ipynb
+      location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
-      aksimagename: ${{parameters.aksimagename}}
+      aksimagename: "myimage"
 
   - template: azpapermill.yml
     parameters:
       notebook: 05_DeployOnAKS.ipynb
-      location: ${{parameters.conda_location}}/aks
+      location: ${{parameters.location}}/aks
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
       aks_name: ${{parameters.aks_name}}
-      aks_location: ${{parameters.azureregion}}
+      azureregion: ${{parameters.azureregion}}
       aks_service_name: ${{parameters.aks_service_name}}
-      python_path: $(python_path)
+      python_path: ${{parameters.python_path}}
+      aksimagename: "myimage"
 
   - template: azpapermill.yml
     parameters:
       notebook: 06_SpeedTestWebApp.ipynb
-      location: ${{parameters.conda_location}}
+      location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 07_RealTimeScoring.ipynb
-      location: ${{parameters.conda_location}}
+      location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
 
   - template: azpapermill.yml
     parameters:
       notebook: 08_TearDown.ipynb
-      location: ${{parameters.conda_location}}
+      location: ${{parameters.location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
   

@@ -7,7 +7,7 @@ trigger:
     - master
   paths:
     include:
-      - architectures/Python-ML-RealTimeServing/*
+      - submodules/DeployMLModelKubernetes/*
 
 pr:
   branches:    
@@ -15,10 +15,10 @@ pr:
     - master
   paths:
    include:
-     - architectures/Python-ML-RealTimeServing/* 
+     - submodules/DeployMLModelKubernetes/* 
 
 schedules:
-- cron: "0 0 * * *"
+- cron: "0 * * * *"
   displayName: Daily midnight build
   branches:
     include:
@@ -31,7 +31,7 @@ variables:
   workspacename: 'pythonmlrtsws'
   azureregion: 'westus'
   expires : "2019-08-01"
-  python_path: "$(System.DefaultWorkingDirectory)/architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}/"
+  python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}/"
 
 jobs:
 - job: MLAKSDeployAMLJob
@@ -44,7 +44,7 @@ jobs:
     parameters:
       azureSubscription: $(azureSubscription)
       azureresourcegroup: $(azureresourcegroup)
-      location: "architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}"
+      location: "submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
       alias : $(alias)
       project : $(project)
       expires : "2019-08-01"
@@ -52,24 +52,27 @@ jobs:
       azure_subscription: $(azure_subscription)
       workspacename: 'pythonmlrtsws'
       azureregion: 'westus'
-      aksimagename: "pythonmlrtsaksimg"
+      aksimagename: "myimage"
       aks_name: "pythonmlaks"
       aks_location: "westus"
       aks_service_name: "pythonmlaksservice"
       python_path: $(python_path)
-      conda_location: "architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}"
 
-  - bash: |
-      source /usr/share/miniconda/etc/profile.d/conda.sh
-      conda activate MLAKSDeployAML
-      echo Execute Resource Group Delete
-      existResponse=$(az group exists -n $(azureresourcegroup))
-      if [ "$existResponse" == "true" ]; then
-        echo Deleting project resource group
-        az group delete --name $(azureresourcegroup) --yes
-      else
-        echo Project resource group did not exist
-      fi
-      echo Done Cleanup
+  - task: AzureCLI@1
     displayName: 'Backup Cleanup'
     condition: or(canceled(),failed())
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptLocation: inlineScript
+      inlineScript: |
+        source /usr/share/miniconda/etc/profile.d/conda.sh
+        conda activate MLAKSDeployAML
+        echo Execute Resource Group Delete
+        existResponse=$(az group exists -n $(azureresourcegroup))
+        if [ "$existResponse" == "true" ]; then
+          echo Deleting project resource group
+          az group delete --name $(azureresourcegroup) --yes
+        else
+          echo Project resource group did not exist
+        fi
+        echo Done Cleanup
