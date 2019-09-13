@@ -57,7 +57,7 @@ jobs:
       aks_location: "westus"
       aks_service_name: "pythonmlaksservice"
       python_path: $(python_path)
-      conda_location: "submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+
   - task: AzureCLI@1
     displayName: 'Backup Cleanup'
     condition: or(canceled(),failed())
