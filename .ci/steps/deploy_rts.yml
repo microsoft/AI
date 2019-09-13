@@ -16,6 +16,7 @@ parameters:
   conda: ''
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
   location: submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}
+  aks_name: "aksdl"
 
 steps:
   
