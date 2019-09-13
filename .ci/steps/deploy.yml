@@ -15,7 +15,7 @@ parameters:
   agent: 'AI-GPU'
   ENVIRONMENT_PREFIX: "ml-rts-"
   deploymentguidtag: "ABC123"
-  aks_name: ""
+  aks_name: "mlaks"
 
 jobs:
   - job: ${{parameters.deployment_name}}
