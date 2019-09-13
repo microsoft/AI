@@ -35,7 +35,7 @@ stages:
       azureresourcegroup: staging-pydl
       workspacename: stagingpydl
       azureregion: $(azureregion) 
-      aksimagename:  staginghpaks
+      aksimagename:  myimage
       project: "e2etestharness" 
       agent: $(agent)
 
@@ -51,7 +51,7 @@ stages:
       azureresourcegroup: tridant-pydl
       workspacename: tridantpydl
       azureregion: $(azureregion) 
-      aksimagename: tridantpydlaksimage
+      aksimagename: myimage
       doCleanup: False
       project: "e2etestharness" 
       expires : "DnD"
@@ -67,7 +67,7 @@ stages:
       azureresourcegroup: tridant-pyml
       workspacename: tridantpy
       azureregion: $(azureregion) 
-      aksimagename:  tridantpymlaksimage
+      aksimagename:  myimage
       doCleanup: False
       project: "e2etestharness" 
       expires : "DnD"
