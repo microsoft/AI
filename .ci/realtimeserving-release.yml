@@ -18,6 +18,7 @@ stages:
       azure_subscription: $(devsubid)
       azureresourcegroup: dcibhprg
       workspacename: dcibhpws
+      aksname: dcibaks
       azureregion: $(azureregion) 
       aksimagename:  myimage
       project: "e2etestharness" 
@@ -33,43 +34,45 @@ stages:
       azureSubscription: $(devsub)
       azure_subscription: $(devsubid)
       azureresourcegroup: staging-pydl
-      workspacename: stagingpydl
+      workspacename: stagingpyml
+      aksname: stagingpymlaks
       azureregion: $(azureregion) 
       aksimagename:  myimage
       project: "e2etestharness" 
       agent: $(agent)
 
 
-- stage: tridant
-  jobs:
-  - template: steps/deploy.yml
-    parameters:
-      deployment_name: DLAKSDeployAMLJob
-      template: DLAKSDeployAMLJob.yml
-      azureSubscription: $(devsub)
-      azure_subscription: $(devsubid)
-      azureresourcegroup: tridant-pydl
-      workspacename: tridantpydl
-      azureregion: $(azureregion) 
-      aksimagename: myimage
-      doCleanup: False
-      project: "e2etestharness" 
-      expires : "DnD"
-      alias: $(Build.RequestedForId)
-      agent: "AI-GPU"
+# - stage: tridant
+#   jobs:
+#   - template: steps/deploy.yml
+#     parameters:
+#       deployment_name: DLAKSDeployAMLJob
+#       template: DLAKSDeployAMLJob.yml
+#       azureSubscription: $(devsub)
+#       azure_subscription: $(devsubid)
+#       azureresourcegroup: tridant-pydl
+#       workspacename: tridantpydl
+#       azureregion: $(azureregion) 
+#       aksname: tridant-pydl
+#       aksimagename: myimage
+#       doCleanup: False
+#       project: "e2etestharness" 
+#       expires : "DnD"
+#       alias: $(Build.RequestedForId)
+#       agent: "AI-GPU"
 
-  - template: steps/deploy.yml
-    parameters:
-      deployment_name: MLAKSDeployAMLJob
-      template: MLAKSDeployAMLJob.yml
-      azureSubscription: $(devsub)
-      azure_subscription: $(devsubid)
-      azureresourcegroup: tridant-pyml
-      workspacename: tridantpy
-      azureregion: $(azureregion) 
-      aksimagename:  myimage
-      doCleanup: False
-      project: "e2etestharness" 
-      expires : "DnD"
-      alias: $(Build.RequestedForId)
-      agent: AI-GPU
+#   - template: steps/deploy.yml
+#     parameters:
+#       deployment_name: MLAKSDeployAMLJob
+#       template: MLAKSDeployAMLJob.yml
+#       azureSubscription: $(devsub)
+#       azure_subscription: $(devsubid)
+#       azureresourcegroup: tridant-pyml
+#       workspacename: tridantpy
+#       azureregion: $(azureregion) 
+#       aksimagename:  myimage
+#       doCleanup: False
+#       project: "e2etestharness" 
+#       expires : "DnD"
+#       alias: $(Build.RequestedForId)
+#       agent: AI-GPU
