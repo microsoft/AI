@@ -69,7 +69,7 @@ steps:
 
   - template: azpapermill.yml
     parameters:
-      notebook: 04_BuildImage.ipynb
+      notebook: 04_CreateImage.ipynb
       location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
