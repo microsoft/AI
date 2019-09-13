@@ -84,7 +84,8 @@ steps:
       aks_name: ${{parameters.aks_name}}
       aks_location: ${{parameters.azureregion}}
       aks_service_name: ${{parameters.aks_service_name}}
-      python_path: $(python_path)
+      python_path: ${{parameters.python_path}}
+      aksimagename: "myimage"
 
   - template: azpapermill.yml
     parameters:
