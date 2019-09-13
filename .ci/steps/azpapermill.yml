@@ -9,7 +9,7 @@ parameters:
   azureresourcegroup: "dcibrg"
   workspacename: "dcibws"
   azureregion: "westus"
-  aksimagename: "dcibaksimg"
+  aksimagename: "myimage"
   aks_name: "dcibaksname"
   aks_service_name: "dcibaksserv"
   python_path: "{{cookiecutter.project_name}}"
