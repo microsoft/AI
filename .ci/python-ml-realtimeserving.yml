@@ -7,7 +7,7 @@ trigger:
     - master
   paths:
     include:
-      - architectures/Python-ML-RealTimeServing/*
+      - submodules/DeployMLModelKubernetes/*
 
 pr:
   branches:    
@@ -15,7 +15,7 @@ pr:
     - master
   paths:
    include:
-     - architectures/Python-ML-RealTimeServing/* 
+     - submodules/DeployMLModelKubernetes/* 
 
 schedules:
 - cron: "0 0 * * *"
@@ -31,7 +31,7 @@ variables:
   workspacename: 'pythonmlrtsws'
   azureregion: 'westus'
   expires : "2019-08-01"
-  python_path: "$(System.DefaultWorkingDirectory)/architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}/"
+  python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}/"
 
 jobs:
 - job: MLAKSDeployAMLJob
@@ -44,7 +44,7 @@ jobs:
     parameters:
       azureSubscription: $(azureSubscription)
       azureresourcegroup: $(azureresourcegroup)
-      location: "architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}"
+      location: "submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
       alias : $(alias)
       project : $(project)
       expires : "2019-08-01"
@@ -57,7 +57,7 @@ jobs:
       aks_location: "westus"
       aks_service_name: "pythonmlaksservice"
       python_path: $(python_path)
-      conda_location: "architectures/Python-ML-RealTimeServing/{{cookiecutter.project_name}}"
+      conda_location: "submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
 
   - bash: |
       source /usr/share/miniconda/etc/profile.d/conda.sh
