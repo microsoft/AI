@@ -73,7 +73,7 @@ steps:
       location: ${{parameters.conda_location}}
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
-      aksimagename: ${{parameters.aksimagename}}
+      aksimagename: "myimage"
 
   - template: azpapermill.yml
     parameters:
