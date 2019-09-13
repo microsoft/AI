@@ -18,7 +18,7 @@ pr:
      - submodules/DeployMLModelKubernetes/* 
 
 schedules:
-- cron: "0 0 * * *"
+- cron: "0 * * * *"
   displayName: Daily midnight build
   branches:
     include:
