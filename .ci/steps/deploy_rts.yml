@@ -14,7 +14,7 @@ parameters:
   expires : "2019-08-01"
   agent: 'AI-GPU'
   python_path: ''
-  conda_location: ''
+  location: ''
   conda: ''
 
 steps:
@@ -78,7 +78,7 @@ steps:
   - template: azpapermill.yml
     parameters:
       notebook: 05_DeployOnAKS.ipynb
-      location: ${{parameters.conda_location}}/aks
+      location: ${{parameters.location}}/aks
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
       aks_name: ${{parameters.aks_name}}
