@@ -82,7 +82,7 @@ steps:
       azureSubscription: ${{parameters.azureSubscription}}
       conda: ${{parameters.conda}}
       aks_name: ${{parameters.aks_name}}
-      aks_location: ${{parameters.azureregion}}
+      azureregion: ${{parameters.azureregion}}
       aks_service_name: ${{parameters.aks_service_name}}
       python_path: ${{parameters.python_path}}
       aksimagename: "myimage"
