@@ -13,8 +13,6 @@ parameters:
   project: '-'
   expires : "2019-08-01"
   agent: 'AI-GPU'
-  python_path: ''
-  location: ''
   conda: ''
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
   location: submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}
