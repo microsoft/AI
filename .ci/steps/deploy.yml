@@ -60,7 +60,7 @@ jobs:
        $resourceGroupName = ${{parameters.azureresourcegroup}}
 
        $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
-       $projectTags.Add("deployment-id", ${{parameters.deploymentguidtag}})
+       $projectTags.Add("deployment-id", "${{parameters.deploymentguidtag}}")
 
        function Update-GroupResources 
        {
