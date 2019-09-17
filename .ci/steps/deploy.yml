@@ -53,6 +53,7 @@ jobs:
         scriptLocation: inlineScript
         inlineScript: |
           source activate ${{parameters.conda}}
+          pip install azure
           python .ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
 
     - powershell: |
