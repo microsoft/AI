@@ -16,6 +16,8 @@ parameters:
   ENVIRONMENT_PREFIX: "ml-rts-"
   deploymentguidtag: "ABC123"
   aks_name: "mlaks"
+  location: "" #Root Dir of Project
+  python_path: "" #Root Dir of Python Env
 
 
 steps:
@@ -41,6 +43,8 @@ steps:
     aksimagename: ${{parameters.aksimagename}}
     doCleanup: ${{parameters.doCleanup}}
     aks_name: ${{parameters.aks_name}}
+    location: ${{parameters.location}}
+    python_path: ${{parameters.python_path}}
 
 - task: AzureCLI@1
   inputs:
