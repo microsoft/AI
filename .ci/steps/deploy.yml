@@ -57,7 +57,7 @@ jobs:
           python .ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
 
     - powershell: |
-       $resourceGroupName = ${{parameters.azureresourcegroup}}
+       $resourceGroupName = "${{parameters.azureresourcegroup}}"
 
        $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
        $projectTags.Add("deployment-id", "${{parameters.deploymentguidtag}}")
