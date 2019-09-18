@@ -59,6 +59,7 @@ steps:
     FailOnStandardError: true
     azurePowerShellVersion: 'LatestVersion'
     Inline: |      
+     Install-Module -Name AzureRM.Resources -RequiredVersion 1.0.3
      $resourceGroupName = "${{parameters.azureresourcegroup}}"
 
      $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
