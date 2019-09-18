@@ -41,7 +41,6 @@ steps:
     aksimagename: ${{parameters.aksimagename}}
     doCleanup: ${{parameters.doCleanup}}
     aks_name: ${{parameters.aks_name}}
-    location: ${{parameters.location}}
 
 - task: AzureCLI@1
   inputs:
