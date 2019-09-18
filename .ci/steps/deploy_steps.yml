@@ -53,7 +53,7 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
       pip install azure azure-cli
-      python ../../.ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
+      python AIArchitecturesAndPractices/.ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
 
 
 - task: AzurePowerShell@4
