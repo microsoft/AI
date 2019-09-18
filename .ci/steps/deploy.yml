@@ -29,6 +29,7 @@ jobs:
 
     - template: deploy_steps.yml
       parameters:
+        template: ${{parameters.template}}
         azureSubscription: ${{parameters.azureSubscription}}
         azure_subscription: ${{parameters.azure_subscription}}
         azureresourcegroup: ${{parameters.azureresourcegroup}}
