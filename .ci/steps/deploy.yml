@@ -36,11 +36,7 @@ jobs:
         azureregion: ${{parameters.azureregion}}
         alias : ${{parameters.alias}}
         project : ${{parameters.project}}
-        expires : ${{parameters.expires}}
-        doCleanup: {{{parameters.doCleanup}}
-        
-        
-        
+        expires : ${{parameters.expires}}        
         aksimagename: ${{parameters.aksimagename}}
         doCleanup: ${{parameters.doCleanup}}
         aks_name: ${{parameters.aks_name}}
