@@ -32,6 +32,7 @@ steps:
     alias : ${{parameters.alias}}
     project : ${{parameters.project}}
     expires : ${{parameters.expires}}
+    deploymentguidtag: ${{parameters.deploymentguidtag}}
 
 - template: ${{parameters.template}}
   parameters:
