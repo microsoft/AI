@@ -32,7 +32,6 @@ steps:
     alias : ${{parameters.alias}}
     project : ${{parameters.project}}
     expires : ${{parameters.expires}}
-    deploymentguidtag: ${{parameters.deploymentguidtag}}
 
 - template: ${{parameters.template}}
   parameters:
@@ -54,7 +53,7 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
       pip install azure azure-cli
-      python AIArchitecturesAndPractices/.ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
+      python .ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
 
 
 - task: AzurePowerShell@4
@@ -62,9 +61,8 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     ScriptType: 'InlineScript'
     FailOnStandardError: true
-    azurePowerShellVersion: 'latestVersion'
-    Inline: |
-
+    azurePowerShellVersion: 'LatestVersion'
+    Inline: |      
      $resourceGroupName = "${{parameters.azureresourcegroup}}"
 
      $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
