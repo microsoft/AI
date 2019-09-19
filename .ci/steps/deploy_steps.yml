@@ -62,8 +62,7 @@ steps:
     ScriptType: 'InlineScript'
     FailOnStandardError: true
     azurePowerShellVersion: 'LatestVersion'
-    Inline: |      
-     Install-Module -Name AzureRM.Resources -RequiredVersion 1.0.3
+    Inline: |
      $resourceGroupName = "${{parameters.azureresourcegroup}}"
 
      $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
@@ -73,7 +72,7 @@ steps:
      {
          param( [string]$resGroup, $tags )
          Write-Host("Updating resources in " + $resGroup)
-         $resources = Get-AzureRmResource -ResourceGroupName $resGroup 
+         $resources = Get-AzResource -ResourceGroupName $resGroup 
 
          $resources | ForEach-Object { 
              if($_.Tags -eq $null)
@@ -90,13 +89,13 @@ steps:
          }
 
          $resources | ForEach-Object {
-             Set-AzureRmResource -ResourceId $_.Id -Tag $_.Tags -Force
+             Set-AzResource -ResourceId $_.Id -Tag $_.Tags -Force
          }
      }
 
      Update-GroupResources -resGroup $resourceGroupName -tags $projectTags
 
-     $clusterResources = Get-AzureRmResource -ResourceType "Microsoft.ContainerService/managedClusters" -ResourceGroupName $resourceGroupName -ExpandProperties
+     $clusterResources = Get-AzResource -ResourceType "Microsoft.ContainerService/managedClusters" -ResourceGroupName $resourceGroupName -ExpandProperties
      foreach($cluster in $clusterResources)
      {
          Update-GroupResources -resGroup $cluster.Properties.nodeResourceGroup -tags $projectTags
