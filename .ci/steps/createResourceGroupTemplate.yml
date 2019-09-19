@@ -5,6 +5,8 @@ parameters:
   alias : $(Build.RequestedForId)
   project : "e2etestharness"
   expires : "2019-08-01"
+  deploymentguidtag: "ABC123
+
 
 steps:
 - task: AzureCLI@1
@@ -14,4 +16,4 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       echo Execute Resource Group Delete
-      az group create -l ${{parameters.location}} -n ${{parameters.azureresourcegroup}} --tags alias='${{parameters.alias}}' project='${{parameters.project}}' expires='${{parameters.expires}}'
+      az group create -l ${{parameters.location}} -n ${{parameters.azureresourcegroup}} --tags deployment-id='${{parameters.deploymentguidtag}}' alias='${{parameters.alias}}' project='${{parameters.project}}' expires='${{parameters.expires}}'

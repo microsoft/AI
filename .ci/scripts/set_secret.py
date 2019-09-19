@@ -14,8 +14,7 @@ def set_secret(kv_endpoint, secret_name, secret_value):
 def parse_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-n', '--secretName', required=True,
-                        help="The name of the secret")
+    parser.add_argument('-n', '--secretName', required=True, help="The name of the secret")
 
     return parser.parse_args()
 
