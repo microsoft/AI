@@ -64,6 +64,10 @@ steps:
     FailOnStandardError: true
     azurePowerShellVersion: 'latestVersion'
     Inline: |
+
+     $secretvalue = ConvertTo-SecureString -String "$env:storage_conn_string" -AsPlainText -Force
+     Set-AzKeyVaultSecret -VaultName 't3scriptkeyvault' -Name "${{parameters.ENVIRONMENT_PREFIX}}-key" -SecretValue $secretvalue
+
      $resourceGroupName = "${{parameters.azureresourcegroup}}"
 
      $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
