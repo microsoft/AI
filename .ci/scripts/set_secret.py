@@ -13,8 +13,8 @@ def set_secret(kv_endpoint, secret_name, secret_value):
         return "Successfully created secret: {secret_name} in keyvault: {kv_endpoint}".format(
             secret_name=secret_name, kv_endpoint=kv_endpoint)
     except Exception as ex:
-        return "Failed to create secret: {secret_name} in keyvault: {kv_endpoint}".format(
-            secret_name=secret_name, kv_endpoint=kv_endpoint)
+        return "Failed to create secret: {secret_name} in keyvault: {kv_endpoint} because exception: {kv_exception}".format(
+            secret_name=secret_name, kv_endpoint=kv_endpoint, kv_exception=ex)
 
 
 def parse_args():
