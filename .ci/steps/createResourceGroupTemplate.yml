@@ -5,7 +5,7 @@ parameters:
   alias : $(Build.RequestedForId)
   project : "e2etestharness"
   expires : "2019-08-01"
-  deploymentguidtag: "ABC123
+  deploymentguidtag: "ABC123"
 
 
 steps:
