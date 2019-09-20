@@ -18,6 +18,7 @@ parameters:
   aks_name: "mlaks"
   location: "" #Root Dir of Project
   python_path: "" #Root Dir of Python Env
+  python_secret_root: "./"
 
 
 steps:
@@ -53,7 +54,7 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
       pip install azure azure-cli
-      python .ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
+      python ${{parameters.python_secret_root}}.ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
 
 
 - task: AzurePowerShell@4
