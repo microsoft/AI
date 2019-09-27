@@ -82,20 +82,17 @@ steps:
          Write-Host("Updating resources in " + $resGroup)
          $resources = Get-AzResource -ResourceGroupName $resGroup 
 
-         $resources | ForEach-Object { 
-             if($_.Tags -eq $null)
-             {
-                 $_.Tags = $projectTags
-             }
-             else {
-                 $rsrc = $_
-                 $tags.Keys | Foreach {
-                     $rsrc.Tags[$_] = $tags[$_] 
-                     Write-Host($rsrc.Id)
-                 }
-             }
+         $resources | ForEach-Object {
+            Write-Host("*************** Updating resources " + $_.Id)
+            if($_.type -eq "Microsoft.MachineLearningServices/workspaces")
+            {
+              Set-AzResource -ResourceId $_.Id -Tag $_.Tags -ApiVersion 2019-06-01 -Force
+            }
+            else
+            { 
+            Set-AzResource -ResourceId $_.Id -Tag $_.Tags -Force
+            }
          }
-
          $resources | ForEach-Object {
              Set-AzResource -ResourceId $_.Id -Tag $_.Tags -Force
          }
