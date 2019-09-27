@@ -69,7 +69,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     ScriptType: 'InlineScript'
     FailOnStandardError: true
-    azurePowerShellVersion: 'LatestVersion'
+    azurePowerShellVersion: '4.157.4'
     Inline: |      
      $resourceGroupName = "${{parameters.azureresourcegroup}}"
 
