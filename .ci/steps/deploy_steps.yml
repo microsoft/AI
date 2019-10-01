@@ -86,7 +86,7 @@ steps:
             Write-Host("*************** Updating resources " + $_.Id)
             if($_.type -eq "Microsoft.MachineLearningServices/workspaces")
             {
-              Set-AzResource -ResourceId $_.Id -Tag $_.Tags -ApiVersion 2019-06-01 -Force
+              Write-Host("*************** Can not update resource " + $_.Id)
             }
             else
             { 
