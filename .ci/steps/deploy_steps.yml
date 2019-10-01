@@ -60,7 +60,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}
-      pip install azure azure-cli
+      pip install azure azure-cli azure-keyvault
       python ${{parameters.python_secret_root}}.ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
 
 
