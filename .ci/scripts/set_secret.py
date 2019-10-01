@@ -8,14 +8,9 @@ import os
 def set_secret(kv_endpoint, secret_name, secret_value):
     client = get_client_from_cli_profile(KeyVaultClient)
 
-    try:
-        client.set_secret(kv_endpoint, secret_name, secret_value)
-        return "Successfully created secret: {secret_name} in keyvault: {kv_endpoint}".format(
-            secret_name=secret_name, kv_endpoint=kv_endpoint)
-    except Exception as ex:
-        return "Failed to create secret: {secret_name} in keyvault: {kv_endpoint}".format(
-            secret_name=secret_name, kv_endpoint=kv_endpoint)
-
+    client.set_secret(kv_endpoint, secret_name, secret_value)
+    return "Successfully created secret: {secret_name} in keyvault: {kv_endpoint}".format(
+        secret_name=secret_name, kv_endpoint=kv_endpoint)    
 
 def parse_args():
     parser = argparse.ArgumentParser()
