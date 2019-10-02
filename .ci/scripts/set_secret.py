@@ -27,6 +27,7 @@ if __name__ == "__main__":
     kv_endpoint = "https://t3scriptkeyvault.vault.azure.net/"
     args = parse_args()
     key = os.getenv("storage_conn_string")
+    print(key)
     message = set_secret(kv_endpoint, args.secretName, key)
 
     print(message)
