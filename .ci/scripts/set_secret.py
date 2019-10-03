@@ -24,7 +24,7 @@ def parse_args():
 
 if __name__ == "__main__":
 
-    load_dotenv()
+    load_dotenv(override=True)
     
     # hard coded for now
     kv_endpoint = "https://t3scriptkeyvault.vault.azure.net/"
