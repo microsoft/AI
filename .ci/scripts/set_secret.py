@@ -3,6 +3,7 @@
 import argparse
 from azure.keyvault import KeyVaultClient
 from azure.common.client_factory import get_client_from_cli_profile
+from dotenv import load_dotenv
 import os
 
 def set_secret(kv_endpoint, secret_name, secret_value):
@@ -22,7 +23,9 @@ def parse_args():
 
 
 if __name__ == "__main__":
-       
+
+    load_dotenv()
+    
     # hard coded for now
     kv_endpoint = "https://t3scriptkeyvault.vault.azure.net/"
     args = parse_args()
