@@ -52,3 +52,6 @@
 [submodule "architectures/DeployMLModelPipelines"]
 	path = architectures/DeployMLModelPipelines
 	url = https://github.com/microsoft/AMLBatchScoringPipeline
+[submodule "architectures/MLOpsPython"]
+	path = architectures/MLOpsPython
+	url = https://github.com/Microsoft/MLOpsPython
