@@ -40,3 +40,15 @@
 	path = submodules/DeployDeepModelKubernetes
 	url = https://github.com/microsoft/AKSDeploymentTutorialAML
 	branch = mabou/instrument
+[submodule "architectures/DeployDeepModelKubernetes"]
+	path = architectures/DeployDeepModelKubernetes
+	url = https://github.com/microsoft/AKSDeploymentTutorialAML
+[submodule "architectures/DeployDeepModelPipelines"]
+	path = architectures/DeployDeepModelPipelines
+	url = https://github.com/Azure/Batch-Scoring-Deep-Learning-Models-With-AML
+[submodule "architectures/DeployMLModelKubernetes"]
+	path = architectures/DeployMLModelKubernetes
+	url = https://github.com/microsoft/MLAKSDeployAML
+[submodule "architectures/DeployMLModelPipelines"]
+	path = architectures/DeployMLModelPipelines
+	url = https://github.com/microsoft/AMLBatchScoringPipeline
