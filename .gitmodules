@@ -55,3 +55,6 @@
 [submodule "architectures/MLOpsPython"]
 	path = architectures/MLOpsPython
 	url = https://github.com/Microsoft/MLOpsPython
+[submodule "samples"]
+	path = samples
+	url = https://github.com/Azure/MachineLearningNotebooks/
