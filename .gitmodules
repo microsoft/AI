@@ -59,5 +59,5 @@
 	path = ai100-samples
 	url = https://github.com/Azure/MachineLearningNotebooks/
 [submodule "ai-utilities"]
-	path = ai-utilities
+	path = utilities
 	url = https://github.com/microsoft/ai-utilities
