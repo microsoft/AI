@@ -56,7 +56,7 @@
 	path = ai200-architectures/MLOpsPython
 	url = https://github.com/Microsoft/MLOpsPython
 [submodule "samples"]
-	path = ai100-samples
+	path = ai100-samples/azure-machinelearning-examples
 	url = https://github.com/Azure/MachineLearningNotebooks/
 [submodule "ai-utilities"]
 	path = utilities
