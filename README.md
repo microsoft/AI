@@ -2,25 +2,33 @@
 Official Azure Reference Architectures and Best Practices for AI workloads 
 
 # Getting Started
-This repository is arranged as submodules and therefore you can either pull all the tutorials or simply the ones you want. 
-To pull all the tutorials simply run:
+This repository is arranged as submodules so you can either pull all the tutorials or simply the ones you want. 
+To pull all the tutorials run:
 
 ```bash
-git clone --recurse-submodules https://github.com/dciborow/AIArchitecturesAndPractices.git
+git clone --recurse-submodules https://github.com/microsoft/ai
 ```
 
 if you have git older than 2.13 run:
 
 ```bash
-git clone --recursive https://github.com/dciborow/AIArchitecturesAndPractices.git
+git clone --recursive https://github.com/microsoft/ai.git
+```
+
+To pull a single submodule (e.g. DeployDeepModelKubernetes) run:
+```
+git clone https://github.com/microsoft/ai
+cd ai
+git submodule init submodules/DeployDeepModelKubernetes
+git submodule update
 ```
 
 # Best Practices <a name="Best Practices"></a>
 | Title | Description | 
 |-------|-------------|
 |[Computer Vision](https://github.com/microsoft/computervision)| Accelerate the development of computer vision applications with examples and best practice guidelines for building computer vision systems
-|[Naturel Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
-|[Recommenders](github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
+|[Natural Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
+|[Recommenders](https://github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
 
 # Reference Architectures <a name="Reference Architectures"></a>
 | Title                                     | Language | Environment | Design | Description                                                                       | Status                                                                                                                                                                                                                                                                                                              |
