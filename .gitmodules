@@ -67,3 +67,6 @@
 [submodule "ai100-samples/cognitive-samples-intelligentkiosk"]
 	path = ai100-samples/cognitive-samples-intelligentkiosk
 	url = https://github.com/Microsoft/Cognitive-Samples-IntelligentKiosk
+[submodule "ai100-samples/cognitive-services-samples"]
+	path = ai100-samples/cognitive-services-samples
+	url = https://github.com/Azure-Samples/cognitive-services-python-sdk-samples
