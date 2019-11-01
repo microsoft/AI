@@ -64,3 +64,6 @@
 [submodule "ai300-practices/mlops"]
 	path = ai300-practices/mlops
 	url = https://github.com/microsoft/MLOps
+[submodule "ai100-samples/cognitive-samples-intelligentkiosk"]
+	path = ai100-samples/cognitive-samples-intelligentkiosk
+	url = https://github.com/Microsoft/Cognitive-Samples-IntelligentKiosk
