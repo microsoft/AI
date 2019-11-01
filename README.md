@@ -2,36 +2,39 @@
 Official Azure Reference Architectures and Best Practices for AI workloads 
 
 # Getting Started
-This repository is arranged as submodules and therefore you can either pull all the tutorials or simply the ones you want. 
-To pull all the tutorials simply run:
+This repository is arranged as submodules so you can either pull all the tutorials or simply the ones you want. 
+To pull all the tutorials run:
 
 ```bash
-git clone --recurse-submodules https://github.com/dciborow/AIArchitecturesAndPractices.git
+git clone --recurse-submodules https://github.com/microsoft/ai
 ```
 
 if you have git older than 2.13 run:
 
 ```bash
-git clone --recursive https://github.com/dciborow/AIArchitecturesAndPractices.git
+git clone --recursive https://github.com/microsoft/ai.git
+```
+
+To pull a single submodule (e.g. DeployDeepModelKubernetes) run:
+```
+git clone https://github.com/microsoft/ai
+cd ai
+git submodule init submodules/DeployDeepModelKubernetes
+git submodule update
 ```
 
 # Best Practices <a name="Best Practices"></a>
 | Title | Description | 
 |-------|-------------|
 |[Computer Vision](https://github.com/microsoft/computervision)| Accelerate the development of computer vision applications with examples and best practice guidelines for building computer vision systems
-|[Naturel Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
-|[Recommenders](github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
+|[Natural Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
+|[Recommenders](https://github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
 
 # Reference Architectures <a name="Reference Architectures"></a>
 | Title                                     | Language | Environment | Design | Description                                                                       | Status                                                                                                                                                                                                                                                                                                              |
 |----------------------------------------------|-------------|-------------|-------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Deploy Classic ML Model on Kubernetes](https://github.com/dciborow/AIArchitecturesAndPractices/tree/master/architectures/Python-ML-RealTimeServing)       						   | Python | CPU  | Real-Time Scoring| Train LightGBM model locally using Azure ML, deploy on Kubernetes or IoT Edge for _real-time_ scoring                         | [![Build Status](https://dev.azure.com/AZGlobal/Azure%20Global%20CAT%20Engineering/_apis/build/status/AI%20CAT/Python-ML-RealTimeServing?branchName=master)](https://dev.azure.com/AZGlobal/Azure%20Global%20CAT%20Engineering/_build/latest?definitionId=21&branchName=master)
 | [Deploy Deep Learning Model on Kubernetes](https://github.com/dciborow/AIArchitecturesAndPractices/tree/master/architectures/Python-Keras-RealTimeServing)    				   | Python | Keras | Real-Time Scoring| Deploy image classification model on Kubernetes or IoT Edge for _real-time_ scoring using Azure ML             | [![Build Status](https://dev.azure.com/AZGlobal/Azure%20Global%20CAT%20Engineering/_apis/build/status/AI%20CAT/Python-Keras-RealTimeServing?branchName=master)](https://dev.azure.com/AZGlobal/Azure%20Global%20CAT%20Engineering/_build/latest?definitionId=17&branchName=master)
-
-# Best Practices with Reference Architectures <a name="Architectures"></a>
-| Title                                     | Practice | Language | Environment | Design | Description                                                                       | Status                                                                                                                                                                                                                                                                                                              |
-|-------------------------------------------|----------|----------|-------------|-------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Building a Real-time Recommendation API](https://github.com/microsoft/recommenders/blob/master/notebooks/05_operationalize/als_movie_o16n.ipynb)       						   | Recommenders | PySpark | CPU  | Real-Time Scoring| Walks through the creation of appropriate azure resources, training a recommendation model using Azure Databricks and deploying it as an API.|
 
 
 ## Recommend a Scenario
