@@ -68,7 +68,7 @@ steps:
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     ScriptType: 'FilePath'
-    ScriptPath: '../scripts/SetResource.ps1'
+    ScriptPath: 'SetResource.ps1'
     ScriptArguments: '-resourceGroupName ''${{parameters.azureresourcegroup}}'' -tagId ''deployment-id'' -deploymentId ''${{parameters.deploymentguidtag}}'''
     azurePowerShellVersion: 'LatestVersion'
   displayName: 'Tag All Resources'
