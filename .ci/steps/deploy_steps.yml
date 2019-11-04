@@ -67,50 +67,9 @@ steps:
 - task: AzurePowerShell@4
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
-    ScriptType: 'InlineScript'
-    FailOnStandardError: true
-    azurePowerShellVersion: '4.157.4'
-    Inline: |      
-     $resourceGroupName = "${{parameters.azureresourcegroup}}"
-
-     $projectTags = New-Object 'System.Collections.Generic.Dictionary[String,String]'
-     $projectTags.Add("deployment-id", "${{parameters.deploymentguidtag}}")
-
-     function Update-GroupResources 
-     {
-         param( [string]$resGroup, $tags )
-         Write-Host("*************** Updating resources in " + $resGroup)
-         $resources = Get-AzResource -ResourceGroupName $resGroup 
-         $resources | ForEach-Object {
-             if($_.Tags -eq $null)
-             {
-                 $_.Tags = $projectTags
-             }
-             else {
-                 $rsrc = $_
-                 $tags.Keys | Foreach {
-                     $rsrc.Tags[$_] = $tags[$_] 
-                 }
-             }
-         }
-         $resources | ForEach-Object {
-             Write-Host("*************** Updating resource " + $_.Id)
-             if($_.type -eq "Microsoft.MachineLearningServices/workspaces")
-             {
-                 Set-AzResource -ResourceId $_.Id -Tag $_.Tags -ApiVersion 2019-06-01 -Force
-             }
-             else
-             {
-                 Set-AzResource -ResourceId $_.Id -Tag $_.Tags -Force
-             }
-         }
-     }
-
-     Update-GroupResources -resGroup $resourceGroupName -tags $projectTags
-
-     $clusterResources = Get-AzResource -ResourceType "Microsoft.ContainerService/managedClusters" -ResourceGroupName $resourceGroupName -ExpandProperties
-     foreach($cluster in $clusterResources)
-     {
-         Update-GroupResources -resGroup $cluster.Properties.nodeResourceGroup -tags $projectTags
-     }   
-    displayName: 'Tag All Resources'
+    ScriptType: 'FilePath'
+    ScriptPath: '../scripts/SetResource.ps1'
+    ScriptArguments: '-resourceGroupName ''${{parameters.azureresourcegroup}}'' -tagId ''deployment-id'' -deploymentId ''${{parameters.deploymentguidtag}}'''
+    azurePowerShellVersion: 'LatestVersion'
+  displayName: 'Tag All Resources'
+  
