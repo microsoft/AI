@@ -70,3 +70,18 @@
 [submodule "ai100-samples/cognitive-services-samples"]
 	path = ai100-samples/cognitive-services-samples
 	url = https://github.com/Azure-Samples/cognitive-services-python-sdk-samples
+[submodule "ai200-architectures/DeployRMLModelBatch"]
+	path = ai200-architectures/DeployRMLModelBatch
+	url = https://github.com/Azure/RBatchScoring
+[submodule "ai200-architectures/RealtimeRDeployment"]
+	path = ai200-architectures/DeployRMLModelKubernetes
+	url = https://github.com/Azure/RealtimeRDeployment
+[submodule "ai200-architectures/BatchSparkScoringPredictiveMaintenance"]
+	path = ai200-architectures/DeploySparkMLModelDatabricks
+	url = https://github.com/Azure/BatchSparkScoringPredictiveMaintenance
+[submodule "ai200-architectures/TrainDistributedDeepModel"]
+	path = ai200-architectures/TrainDistributedDeepModel
+	url = https://github.com/Azure/DistributedDeepLearning
+[submodule "ai200-architectures/TrainMLModelHyperdrive"]
+	path = ai200-architectures/TrainMLModelHyperdrive
+	url = https://github.com/microsoft/MLHyperparameterTuning
