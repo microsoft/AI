@@ -1,6 +1,9 @@
 # Azure AI Reference Architectures & Best Practices
 Official Azure Reference Architectures and Best Practices for AI workloads 
 
+# Keywords
+batch scoring, realtime scoring, model training, MLOps, Azure Machine Learning, computer vision, natural language processing, recommenders
+
 # Getting Started
 This repository is arranged as submodules so you can either pull all the tutorials or simply the ones you want. 
 To pull all the tutorials run:
