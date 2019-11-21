@@ -42,6 +42,8 @@ Our reference architectures are arranged by scenario. Each architecture includes
 | [Train Distributed Deep Leaning Model](https://github.com/Azure/DistributedDeepLearning/)         				   | Python | GPU  | Training | Distributed training of ResNet50 model using Batch AI |                                                                                                                                                                                  |
 
 # AI300 - Best Practices <a name="Best Practices"></a>
+Our best practices are arranged by topic. Each best pratice repository includes open source methods, along with considerations for scalability, availability, manageability, and security.
+
 | Title | Description | 
 |-------|-------------|
 |[Computer Vision](https://github.com/microsoft/computervision)| Accelerate the development of computer vision applications with examples and best practice guidelines for building computer vision systems
