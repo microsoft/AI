@@ -25,6 +25,14 @@ cd ai
 git submodule init submodules/DeployDeepModelKubernetes
 git submodule update
 ```
+# AI100 - Samples
+
+|Title|Description|
+|-|-|
+|Azure ML Python SDK|Python notebooks with ML and deep learning examples with Azure Machine Learning|
+|Azure Cognitive Services Python SDK|Learn how to use the Cognitive Services Python SDK with these samples |
+|Azure Intelligent Kiosk|Here you will find several demos showcasing workflows and experiences built on top of the Microsoft Cognitive Services.|
+
 
 # AI200 - Reference Architectures <a name="Reference Architectures"></a>
 Our reference architectures are arranged by scenario. Each architecture includes open source practices, along with considerations for scalability, availability, manageability, and security.
