@@ -17,6 +17,7 @@ steps:
   displayName: 'Setup Conda'
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
     scriptLocation: inlineScript
     inlineScript: |
       conda env create -f ${{parameters.conda_location}}/environment.yml --force
