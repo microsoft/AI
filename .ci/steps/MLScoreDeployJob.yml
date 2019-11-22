@@ -19,7 +19,6 @@ steps:
     conda_location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
-  displayName: "Configure Conda"
 
 - template: azpapermill.yml
   parameters:
