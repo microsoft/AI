@@ -13,6 +13,7 @@ parameters:
   aks_name: "mlaks"
   location: "" #Root Dir of Project
   python_path: "" #Root Dir of Python Env
+  conda: "deployment_aml"
 
 steps:
 # - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
@@ -21,7 +22,7 @@ steps:
 - template: cleanuptask.yml
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
+    conda: ${{parameters.conda}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: True
 
