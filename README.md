@@ -33,6 +33,7 @@ Samples are a collection of open source Python repositories created by the Micro
 | [Azure ML Python SDK](https://github.com/Azure/MachineLearningNotebooks)|Python notebooks with ML and deep learning examples with Azure Machine Learning|
 | [Azure Cognitive Services Python SDK](https://github.com/Azure-Samples/cognitive-services-python-sdk-samples)|Learn how to use the Cognitive Services Python SDK with these samples |
 | [Azure Intelligent Kiosk](https://github.com/Azure-Samples/cognitive-services-python-sdk-samples)|Here you will find several demos showcasing workflows and experiences built on top of the Microsoft Cognitive Services.|
+| [MML Spark Samples](https://github.com/Azure/mmlspark/tree/master/notebooks/samples)|MMLSpark is an ecosystem of tools aimed towards expanding the distributed computing framework Apache Spark in several new directions.|
 
 # AI200 - Reference Architectures <a name="Reference Architectures"></a>
 Our reference architectures are arranged by scenario. Each architecture includes open source practices, along with considerations for scalability, availability, manageability, and security.
