@@ -25,35 +25,22 @@ steps:
 # - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
 #   submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
 
-- template: cleanuptask.yml
+- template: deploy_notebook_steps.yml
   parameters:
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    doCleanup: True
-
-- template: createResourceGroupTemplate.yml
-  parameters:
-    azureSubscription: ${{parameters.azureSubscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    location: ${{parameters.azureregion}}
-    alias : ${{parameters.alias}}
-    project : ${{parameters.project}}
-    expires : ${{parameters.expires}}
-
-- template: ${{parameters.template}}
-  parameters:
+    template: ${{parameters.template}}
     azureSubscription: ${{parameters.azureSubscription}}
     azure_subscription: ${{parameters.azure_subscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-    aksimagename: ${{parameters.aksimagename}}
-    doCleanup: ${{parameters.doCleanup}}
+    doCleanup: True
+    alias : ${{parameters.alias}}
+    project : ${{parameters.project}}
+    expires : ${{parameters.expires}}    
     aks_name: ${{parameters.aks_name}}
     location: ${{parameters.location}}
     python_path: ${{parameters.python_path}}
-
+    conda: deployment_aml
+    
 - task: AzureCLI@1
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
