@@ -36,7 +36,7 @@ Samples are a collection of open source Python repositories created by the Micro
 | [Azure Intelligent Kiosk](https://github.com/Azure-Samples/cognitive-services-python-sdk-samples)|Here you will find several demos showcasing workflows and experiences built on top of the Microsoft Cognitive Services.|
 | [MML Spark Samples](https://github.com/Azure/mmlspark/tree/master/notebooks/samples)|MMLSpark is an ecosystem of tools aimed towards expanding the distributed computing framework Apache Spark in several new directions.|
 
-# AI200 - Reference Architectures <a name="Reference Architectures"></a>
+# [AI200 - Reference Architectures](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/machine-learning-at-scale) <a name="Reference Architectures"></a>
 Our reference architectures are arranged by scenario. Each architecture includes open source practices, along with considerations for scalability, availability, manageability, and security.
 
 | Title                                     | Language | Environment | Design | Description                                                                       | Status                                                                                                                                                                                                                                                                                                              |
@@ -61,7 +61,7 @@ Our best practices are arranged by topic. Each best pratice repository includes 
 |[Recommenders](https://github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
 |[MLOps](https://github.com/microsoft/MLOps)| MLOps empowers data scientists and app developers to help bring ML models to production. |
 
-# AI400 - Labs <a name="Labs"></a>
+# [AI400 - Labs](https://www.microsoft.com/en-us/ai/ai-lab) <a name="Labs"></a>
 AI Lab helps our large fast-growing community of developers get started on AI. You can experience, learn and code the latest and greatest innovations from Microsoft AI here. AI Lab currently houses eight projects that showcase the latest in custom vision, attnGAN, Visual Studio tools for AI, Cognitive Search, Machine Reading Comprehension and more. Each lab gives you access to the experimentation playground, source code on GitHub, a crisp developer-friendly video, and insights into the underlying developer/ organizational challenge and solution.
 
 
