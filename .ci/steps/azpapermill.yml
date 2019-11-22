@@ -38,6 +38,6 @@ steps:
         -p image_name ${{parameters.aksimagename}} \
         -p aks_name ${{parameters.aks_name}} \
         -p aks_location ${{parameters.azureregion}} \
-        -p aks_service_name ${{parameters.aks_service_name}}
+        -p aks_service_name ${{parameters.aks_service_name}} \
         -p max_total_runs ${{parameters.max_total_runs}}
 
