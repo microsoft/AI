@@ -1,0 +1,42 @@
+
+parameters:
+  notebooks: []  # defaults for any parameters that aren't specified
+  location: "{{cookiecutter.project_name}}"
+  azureSubscription: ''
+  conda: MLAKSDeployAML
+  azure_subscription: ''
+  azureresourcegroup: "dcibrg"
+  workspacename: "dcibws"
+  azureregion: "westus"
+  aksimagename: "myimage"
+  aks_name: "dcibaksname"
+  aks_service_name: "dcibaksserv"
+  python_path: "{{cookiecutter.project_name}}"
+  max_total_runs: 1
+
+steps:
+- task: AzureCLI@1
+- ${{ each notebook in paremeters.notebooks }}
+  displayName: ${{notebook}}
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    timeoutInMinutes: 120
+    inlineScript: |
+      source activate ${{parameters.conda}}
+      export PYTHONPATH=${{parameters.python_path}}:${PYTHONPATH}      
+      cd ${{parameters.location}}
+      echo Execute ${{notebook}}
+      papermill ${{notebook}} output.ipynb \
+        --log-output \
+        --no-progress-bar \
+        -k python3 \
+        -p subscription_id ${{parameters.azure_subscription}} \
+        -p resource_group ${{parameters.azureresourcegroup}} \
+        -p workspace_name ${{parameters.workspacename}} \
+        -p workspace_region ${{parameters.azureregion}} \
+        -p image_name ${{parameters.aksimagename}} \
+        -p aks_name ${{parameters.aks_name}} \
+        -p aks_location ${{parameters.azureregion}} \
+        -p aks_service_name ${{parameters.aks_service_name}} \
+        -p max_total_runs ${{parameters.max_total_runs}}
