@@ -26,7 +26,7 @@ cd ai
 git submodule init submodules/DeployDeepModelKubernetes
 git submodule update
 ```
-# AI100 - Samples
+# [AI100 - Samples](https://azure.microsoft.com/en-us/overview/ai-platform/)
 Samples are a collection of open source Python repositories created by the Microsoft product teams, which focus on AI services.  
 
 | Title | Description | 
