@@ -1,4 +1,4 @@
-# Azure AI Labs: Reference Architectures & Best Practices
+# Microsoft AI : Samples, Reference Architectures, Best Practices, and Labs
 
 This repository is meant to organize Microsoft's Open Source AI based repositories.
 
