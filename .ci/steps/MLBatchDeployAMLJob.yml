@@ -22,7 +22,7 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 00_AMLSetup.ipynb
+    notebook: 00_AMLConfiguration.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
