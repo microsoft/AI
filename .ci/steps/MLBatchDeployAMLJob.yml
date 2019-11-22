@@ -22,6 +22,17 @@ steps:
 
 - template: azpapermill.yml
   parameters:
+    notebook: 00_AMLSetup.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+
+- template: azpapermill.yml
+  parameters:
     notebook: 01_create_resources.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
@@ -30,7 +41,6 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-    aksimagename: ${{parameters.aksimagename}}
 
 - template: azpapermill.yml
   parameters:
