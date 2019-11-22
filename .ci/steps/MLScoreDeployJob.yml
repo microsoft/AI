@@ -19,27 +19,26 @@ steps:
     conda_location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
+  displayName: "Configure Conda"
 
 - template: azpapermill.yml
   parameters:
     notebook: 00_Data_Prep.ipynb
     conda: ${{parameters.conda}}
+  displayName: "00_Data_Prep"
 
-- template: azpapermill.yml
-  parameters:
-    notebook: 00_Data_Prep.ipynb
-    conda: ${{parameters.conda}}
-    
 - template: azpapermill.yml
   parameters:
     notebook: 01_Training_Script.ipynb
     conda: ${{parameters.conda}}
-    
+  displayName: "01_Training_Script"    
+
 - template: azpapermill.yml
   parameters:
     notebook: 02_Testing_Script.ipynb
     conda: ${{parameters.conda}}
-    
+  displayName: "02_Testing_Script"    
+
 - template: azpapermill.yml
   parameters:
     notebook: 03_Run_Locally_Output.ipynb
@@ -50,33 +49,34 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}    
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 06_Test_Best_Model.ipynb
-    conda: ${{parameters.conda}}
-    max_total_runs: ${{parameters.max_total_runs}}
+  displayName: "03_Run_Locally_Output"
 
 - template: azpapermill.yml
   parameters:
     notebook:  04_Hyperparameter_Random_Search.ipynb
     conda: ${{parameters.conda}}
+    max_total_runs: ${{parameters.max_total_runs}}
+  displayName: ""
 
 - template: azpapermill.yml
   parameters:
     notebook: 05_Train_Best_Model.ipynb
     conda: ${{parameters.conda}}
-    
+  displayName: ""
+  
 - template: azpapermill.yml
   parameters:
     notebook: 06_Test_Best_Model.ipynb
     conda: ${{parameters.conda}}
-
+    max_total_runs: ${{parameters.max_total_runs}}
+  displayName: "06_Test_Best_Model"
+  
 - template: azpapermill.yml
   parameters:
     notebook: 07_Train_With_AML_Pipeline.ipynb
     conda: ${{parameters.conda}}
     max_total_runs: ${{parameters.max_total_runs}}
+  displayName: "07_Train_With_AML_Pipeline"
 
 - template: cleanuptask.yml
   parameters:
@@ -84,3 +84,4 @@ steps:
     conda: deployment_aml
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: ${{parameters.doCleanup}}
+  displayName: "Clean up"
