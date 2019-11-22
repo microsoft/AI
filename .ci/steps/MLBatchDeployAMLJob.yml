@@ -1,0 +1,47 @@
+
+parameters:
+  azureSubscription: ''
+  azure_subscription: ''
+  location: submodules/DeployMLModelPipelines
+  azureresourcegroup: dcibhpdl
+  workspacename: dcibhpwsdl
+  azureregion: westus2
+  aksimagename: dcibhpaksdl
+  aks_name: dcibhpaksdl
+  aks_service_name: dcibhpaksdlapi
+  conda: amlmm
+  doCleanup: true
+  python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
+
+steps:
+- template: config_conda.yml
+  parameters:
+    conda_location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 01_create_resources.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    aksimagename: ${{parameters.aksimagename}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 02_create_pipeline.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: deployment_aml
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    doCleanup: ${{parameters.doCleanup}}

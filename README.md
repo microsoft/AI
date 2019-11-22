@@ -1,5 +1,9 @@
-# Azure AI Reference Architectures & Best Practices
-Official Azure Reference Architectures and Best Practices for AI workloads 
+# Azure AI Labs: Reference Architectures & Best Practices
+
+This repository is meant to organize Microsoft's Open Source AI based repositories.
+
+# Keywords
+batch scoring, realtime scoring, model training, MLOps, Azure Machine Learning, computer vision, natural language processing, recommenders
 
 # Getting Started
 This repository is arranged as submodules so you can either pull all the tutorials or simply the ones you want. 
@@ -22,16 +26,19 @@ cd ai
 git submodule init submodules/DeployDeepModelKubernetes
 git submodule update
 ```
+# AI100 - Samples
+Samples are a collection of open source Python repositories created by the Microsoft product teams, which focus on AI services.  
 
-# Best Practices <a name="Best Practices"></a>
 | Title | Description | 
 |-------|-------------|
-|[Computer Vision](https://github.com/microsoft/computervision)| Accelerate the development of computer vision applications with examples and best practice guidelines for building computer vision systems
-|[Natural Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
-|[Recommenders](https://github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
-|[MLOps](https://github.com/microsoft/MLOps)| MLOps empowers data scientists and app developers to help bring ML models to production. |
+| [Azure ML Python SDK](https://github.com/Azure/MachineLearningNotebooks)|Python notebooks with ML and deep learning examples with Azure Machine Learning|
+| [Azure Cognitive Services Python SDK](https://github.com/Azure-Samples/cognitive-services-python-sdk-samples)|Learn how to use the Cognitive Services Python SDK with these samples |
+| [Azure Intelligent Kiosk](https://github.com/Azure-Samples/cognitive-services-python-sdk-samples)|Here you will find several demos showcasing workflows and experiences built on top of the Microsoft Cognitive Services.|
+| [MML Spark Samples](https://github.com/Azure/mmlspark/tree/master/notebooks/samples)|MMLSpark is an ecosystem of tools aimed towards expanding the distributed computing framework Apache Spark in several new directions.|
 
-# Reference Architectures <a name="Reference Architectures"></a>
+# AI200 - Reference Architectures <a name="Reference Architectures"></a>
+Our reference architectures are arranged by scenario. Each architecture includes open source practices, along with considerations for scalability, availability, manageability, and security.
+
 | Title                                     | Language | Environment | Design | Description                                                                       | Status                                                                                                                                                                                                                                                                                                              |
 |----------------------------------------------|-------------|-------------|-------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Deploy Classic ML Model on Kubernetes](https://github.com/microsoft/MLAKSDeployAML)       						   | Python | CPU  | Real-Time Scoring| Train LightGBM model locally using Azure ML, deploy on Kubernetes or IoT Edge for _real-time_ scoring                         | [![Build Status](https://dev.azure.com/AZGlobal/Azure%20Global%20CAT%20Engineering/_apis/build/status/AI%20CAT/Python-ML-RealTimeServing?branchName=master)](https://dev.azure.com/AZGlobal/Azure%20Global%20CAT%20Engineering/_build/latest?definitionId=21&branchName=master)
@@ -43,6 +50,17 @@ git submodule update
 | [Deploy R ML Model on Batch](https://github.com/Azure/RBatchScoring)         										   | R | CPU  | Scoring     | Deploy forecasting model for _batch_ scoring using Azure Batch and doAzureParallel |  | 
 | [Deploy Spark ML Model on Databricks](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance)         	   | Python | Spark  | Scoring | Deploy a classification model for _batch_ scoring using Databricks |                                                                                                                                                                                 |
 | [Train Distributed Deep Leaning Model](https://github.com/Azure/DistributedDeepLearning/)         				   | Python | GPU  | Training | Distributed training of ResNet50 model using Batch AI |                                                                                                                                                                                  |
+
+# AI300 - Best Practices <a name="Best Practices"></a>
+Our best practices are arranged by topic. Each best pratice repository includes open source methods, along with considerations for scalability, availability, manageability, and security.
+
+| Title | Description | 
+|-------|-------------|
+|[Computer Vision](https://github.com/microsoft/computervision)| Accelerate the development of computer vision applications with examples and best practice guidelines for building computer vision systems
+|[Natural Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
+|[Recommenders](https://github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
+|[MLOps](https://github.com/microsoft/MLOps)| MLOps empowers data scientists and app developers to help bring ML models to production. |
+
 
 ## Recommend a Scenario
 If there is a particular scenario you are interested in seeing a tutorial for please fill in a [scenario suggestion](https://github.com/Microsoft/AIReferenceArchitectures/issues/new?assignees=&labels=&template=scenario_request.md&title=%5BSCENARIO%5D)
