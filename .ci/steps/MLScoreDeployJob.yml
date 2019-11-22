@@ -22,17 +22,6 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 01_create_resources.ipynb
-    conda: ${{parameters.conda}}    
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    azure_subscription: ${{parameters.azure_subscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    workspacename: ${{parameters.workspacename}}
-    azureregion: ${{parameters.azureregion}}
-
-- template: azpapermill.yml
-  parameters:
     notebook: 00_Data_Prep.ipynb
     conda: ${{parameters.conda}}
 
