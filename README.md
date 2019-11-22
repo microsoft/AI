@@ -1,5 +1,7 @@
 # Azure AI Labs: Reference Architectures & Best Practices
-Official Azure Reference Architectures and Best Practices for AI workloads 
+Official Azure Reference Architectures and Best Practices for AI workloads.
+
+This repository is meant to organize Microsoft's Open Source AI based repositories.
 
 # Keywords
 batch scoring, realtime scoring, model training, MLOps, Azure Machine Learning, computer vision, natural language processing, recommenders
