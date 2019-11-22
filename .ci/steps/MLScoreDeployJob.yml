@@ -25,18 +25,21 @@ steps:
     notebook: 00_Data_Prep.ipynb
     conda: ${{parameters.conda}}
     azureSubscription: ${{parameters.azureSubscription}}
+    location: ${{parameters.location}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 01_Training_Script.ipynb
     conda: ${{parameters.conda}}
     azureSubscription: ${{parameters.azureSubscription}}
+    location: ${{parameters.location}}
 
 - template: azpapermill.yml
   parameters:
     notebook: 02_Testing_Script.ipynb
     conda: ${{parameters.conda}}
     azureSubscription: ${{parameters.azureSubscription}}
+    location: ${{parameters.location}}
 
 - template: azpapermill.yml
   parameters:
@@ -47,12 +50,13 @@ steps:
     azure_subscription: ${{parameters.azure_subscription}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
-    azureregion: ${{parameters.azureregion}}    
+    azureregion: ${{parameters.azureregion}}
 
 - template: azpapermill.yml
   parameters:
     notebook:  04_Hyperparameter_Random_Search.ipynb
     conda: ${{parameters.conda}}
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     max_total_runs: ${{parameters.max_total_runs}}
 
@@ -60,18 +64,21 @@ steps:
   parameters:
     notebook: 05_Train_Best_Model.ipynb
     conda: ${{parameters.conda}}
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
   
 - template: azpapermill.yml
   parameters:
     notebook: 06_Test_Best_Model.ipynb
     conda: ${{parameters.conda}}
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
   
 - template: azpapermill.yml
   parameters:
     notebook: 07_Train_With_AML_Pipeline.ipynb
     conda: ${{parameters.conda}}
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     max_total_runs: ${{parameters.max_total_runs}}
 
@@ -79,5 +86,6 @@ steps:
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: deployment_aml
+    location: ${{parameters.location}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: ${{parameters.doCleanup}}
