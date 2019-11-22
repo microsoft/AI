@@ -15,8 +15,8 @@ parameters:
   max_total_runs: 1
 
 steps:
+- ${{ each notebook in parameters.notebooks }}
 - task: AzureCLI@1
-- ${{ each notebook in paremeters.notebooks }}
   displayName: ${{notebook}}
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
