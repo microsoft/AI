@@ -8,7 +8,7 @@ parameters:
   aksimagename: ''
   aks_name: ''
   aks_service_name: ''
-  conda: ''
+  conda: 'MLHyperparameterTuning'
   doCleanup: true
   python_path: ''
   max_total_runs: 1
