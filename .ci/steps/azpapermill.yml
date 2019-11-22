@@ -13,7 +13,7 @@ parameters:
   aks_name: "dcibaksname"
   aks_service_name: "dcibaksserv"
   python_path: "{{cookiecutter.project_name}}"
-
+  max_total_runs: 1
 
 steps:
 - task: AzureCLI@1
@@ -39,4 +39,5 @@ steps:
         -p aks_name ${{parameters.aks_name}} \
         -p aks_location ${{parameters.azureregion}} \
         -p aks_service_name ${{parameters.aks_service_name}}
+        -p max_total_runs ${{parameters.max_total_runs}}
 
