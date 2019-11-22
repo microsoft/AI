@@ -2,7 +2,7 @@
 
 parameters:
   notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
-  location: "{{cookiecutter.project_name}}"
+  location: ""
   azureSubscription: ''
   conda: MLAKSDeployAML
   azure_subscription: ''
