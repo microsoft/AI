@@ -3,9 +3,9 @@
 parameters:
   notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
   location: "{{cookiecutter.project_name}}"
-  azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+  azureSubscription: ''
   conda: MLAKSDeployAML
-  azure_subscription: "989b90f7-da4f-41f9-84c9-44848802052d"
+  azure_subscription: ''
   azureresourcegroup: "dcibrg"
   workspacename: "dcibws"
   azureregion: "westus"
