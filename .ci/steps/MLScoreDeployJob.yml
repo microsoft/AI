@@ -1,7 +1,7 @@
 parameters:
   azureSubscription: ''
   azure_subscription: ''
-  location: ''
+  location: '.'
   azureresourcegroup: ''
   workspacename: ''
   azureregion: westus2
