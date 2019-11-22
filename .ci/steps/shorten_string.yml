@@ -1,0 +1,10 @@
+
+parameters:
+  Input_String: ""
+  Output_Variable: ""
+  cut_length: 12
+  
+steps:
+- bash: |
+      $(Output_Variable)=$(echo $(Input_String) | cut -c1-$(cut_length))
+      echo "##vso[task.setvariable variable=$(Output_Variable)]$(Output_Variable)"
