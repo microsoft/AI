@@ -1,6 +1,6 @@
   
 parameters:
-  conda_location: #
+  conda_location: '.'#
   azureSubscription: #
   conda: #
 
