@@ -13,7 +13,6 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     inlineScript: |
-      source activate ${{parameters.conda}}
       echo Execute Resource Group Delete
       existResponse=$(az group exists -n ${{parameters.azureresourcegroup}})
       if [ "$existResponse" == "true" ]; then
