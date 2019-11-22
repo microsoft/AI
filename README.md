@@ -1,4 +1,4 @@
-# Azure AI Labs: Reference Architectures & Best Practices
+# Samples, Reference Architectures, Best Practices, and Labs
 
 This repository is meant to organize Microsoft's Open Source AI based repositories.
 
@@ -60,6 +60,19 @@ Our best practices are arranged by topic. Each best pratice repository includes 
 |[Natural Language Processing](https://github.com/microsoft/nlp)|State-of-the-art methods and common scenarios that are popular among researchers and practitioners working on problems involving text and language.|
 |[Recommenders](https://github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
 |[MLOps](https://github.com/microsoft/MLOps)| MLOps empowers data scientists and app developers to help bring ML models to production. |
+
+# AI400 - Labs <a name="Labs"></a>
+AI Lab helps our large fast-growing community of developers get started on AI. You can experience, learn and code the latest and greatest innovations from Microsoft AI here. AI Lab currently houses eight projects that showcase the latest in custom vision, attnGAN, Visual Studio tools for AI, Cognitive Search, Machine Reading Comprehension and more. Each lab gives you access to the experimentation playground, source code on GitHub, a crisp developer-friendly video, and insights into the underlying developer/ organizational challenge and solution.
+
+
+| Title | Description | 
+|------------------------|-------------|
+| [Spektacom "Power Bat"](https://www.ailab.microsoft.com/experiments/ce508ed3-cea9-41eb-a08e-ab4727556f7b)|Using Bing Visual Search, the Celebs Like Me experiment can match the user’s photo to similar-looking celebrities - powered by a Deep Neural Net (DNN) model that was trained using Bing Knowledge Graph and Bing Image Graph.|
+| [Snip Insights](https://github.com/microsoft/ailab/tree/master/Snip-Insights)|An open source cross-platform AI tool for intelligent screen capture.|
+| [Intelligent Robotics](https://www.ailab.microsoft.com/experiments/f508a96d-3255-474b-a769-d5b2cf2bb9d6)|Intelligent Robotics uses AI to boost collaboration between people and devices. AI helps robots to adapt to dynamic situations and communicate naturally with people.|
+| [Sketch 2 Code](https://github.com/microsoft/ailab/tree/master/Sketch2Code)|Sketch2Code is a solution that uses AI to transform a handwritten user interface design from a picture to valid HTML markup code.|
+| [Build a bot](https://github.com/microsoft/ailab/tree/master/BuildAnIntelligentBot)|This lab will show you how to build a bot using the new Microsoft Bot Framework SDK V4, the new Speech unified service and other Cognitive Services.|
+| [JFK Files](https://github.com/microsoft/ailab/tree/master/JFKFiles)|This lab will show you how you can leverage AI and Cognitive Search, to extract meaning from the 34,000 pages realting to the CIA investigation of the JFK assasination.|
 
 
 ## Recommend a Scenario

@@ -1,5 +1,4 @@
 parameters:
-  deployment_name: ''
   template: ''
   azureSubscription: ''
   azure_subscription: ''
@@ -7,28 +6,20 @@ parameters:
   workspacename: ''
   azureregion: ''
   aksimagename: ''
-  environment: 'tridant-ai'
   doCleanup: True
   alias: '-'
   project: '-'
   expires : "2019-08-01"
-  agent: 'AI-GPU'
-  ENVIRONMENT_PREFIX: "ml-rts-"
-  deploymentguidtag: "ABC123"
   aks_name: "mlaks"
   location: "" #Root Dir of Project
   python_path: "" #Root Dir of Python Env
-  python_secret_root: "./"
-
+  conda: "deployment_aml"
 
 steps:
-# - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
-#   submodules: recursive  # set to 'true' for a single level of submodules or 'recursive' to get submodules of submodules
-
 - template: cleanuptask.yml
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
+    conda: ${{parameters.conda}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: True
 

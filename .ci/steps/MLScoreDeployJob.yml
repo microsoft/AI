@@ -1,0 +1,83 @@
+parameters:
+  azureSubscription: ''
+  azure_subscription: ''
+  location: ''
+  azureresourcegroup: ''
+  workspacename: ''
+  azureregion: westus2
+  aksimagename: ''
+  aks_name: ''
+  aks_service_name: ''
+  conda: ''
+  doCleanup: true
+  python_path: ''
+  max_total_runs: 1
+
+steps:
+- template: config_conda.yml
+  parameters:
+    conda_location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 00_Data_Prep.ipynb
+    conda: ${{parameters.conda}}
+    azureSubscription: ${{parameters.azureSubscription}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 01_Training_Script.ipynb
+    conda: ${{parameters.conda}}
+    azureSubscription: ${{parameters.azureSubscription}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 02_Testing_Script.ipynb
+    conda: ${{parameters.conda}}
+    azureSubscription: ${{parameters.azureSubscription}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 03_Run_Locally_Output.ipynb
+    conda: ${{parameters.conda}}
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}    
+
+- template: azpapermill.yml
+  parameters:
+    notebook:  04_Hyperparameter_Random_Search.ipynb
+    conda: ${{parameters.conda}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    max_total_runs: ${{parameters.max_total_runs}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 05_Train_Best_Model.ipynb
+    conda: ${{parameters.conda}}
+    azureSubscription: ${{parameters.azureSubscription}}
+  
+- template: azpapermill.yml
+  parameters:
+    notebook: 06_Test_Best_Model.ipynb
+    conda: ${{parameters.conda}}
+    azureSubscription: ${{parameters.azureSubscription}}
+  
+- template: azpapermill.yml
+  parameters:
+    notebook: 07_Train_With_AML_Pipeline.ipynb
+    conda: ${{parameters.conda}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    max_total_runs: ${{parameters.max_total_runs}}
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: deployment_aml
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    doCleanup: ${{parameters.doCleanup}}

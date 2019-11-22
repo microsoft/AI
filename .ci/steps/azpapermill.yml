@@ -3,9 +3,9 @@
 parameters:
   notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
   location: "{{cookiecutter.project_name}}"
-  azureSubscription: 'AICAT-VB-E2E (989b90f7-da4f-41f9-84c9-44848802052d)'
+  azureSubscription: ''
   conda: MLAKSDeployAML
-  azure_subscription: "989b90f7-da4f-41f9-84c9-44848802052d"
+  azure_subscription: ''
   azureresourcegroup: "dcibrg"
   workspacename: "dcibws"
   azureregion: "westus"
@@ -13,7 +13,7 @@ parameters:
   aks_name: "dcibaksname"
   aks_service_name: "dcibaksserv"
   python_path: "{{cookiecutter.project_name}}"
-
+  max_total_runs: 1
 
 steps:
 - task: AzureCLI@1
@@ -38,5 +38,6 @@ steps:
         -p image_name ${{parameters.aksimagename}} \
         -p aks_name ${{parameters.aks_name}} \
         -p aks_location ${{parameters.azureregion}} \
-        -p aks_service_name ${{parameters.aks_service_name}}
+        -p aks_service_name ${{parameters.aks_service_name}} \
+        -p max_total_runs ${{parameters.max_total_runs}}
 
