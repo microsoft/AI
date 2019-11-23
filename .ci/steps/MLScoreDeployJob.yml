@@ -51,28 +51,6 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook:  04_Hyperparameter_Random_Search.ipynb
-    conda: ${{parameters.conda}}
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    max_total_runs: ${{parameters.max_total_runs}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 05_Train_Best_Model.ipynb
-    conda: ${{parameters.conda}}
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-  
-- template: azpapermill.yml
-  parameters:
-    notebook: 06_Test_Best_Model.ipynb
-    conda: ${{parameters.conda}}
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
   
 - template: azpapermill.yml
   parameters:
