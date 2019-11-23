@@ -13,7 +13,12 @@ parameters:
   aks_name: "dcibaksname"
   aks_service_name: "dcibaksserv"
   python_path: "{{cookiecutter.project_name}}"
+  num_epochs: 1
   max_total_runs: 1
+  acr_resource_group: "x"
+  acr_location: "x"
+  acr_name: "x"
+  cluster_name: "x"
 
 steps:
 - task: AzureCLI@1
@@ -39,5 +44,9 @@ steps:
         -p aks_name ${{parameters.aks_name}} \
         -p aks_location ${{parameters.azureregion}} \
         -p aks_service_name ${{parameters.aks_service_name}} \
-        -p max_total_runs ${{parameters.max_total_runs}}
-
+        -p max_total_runs ${{parameters.max_total_runs}} \
+        -p num_epochs ${{parameters.num_epochs}} \
+        -p acr_resource_group ${{parameters.acr_resource_group}} \
+        -p acr_location ${{parameters.acr_location}} \
+        -p acr_name ${{parameters.acr_name}} \
+        -p cluster_name ${{parameters.cluster_name}}
