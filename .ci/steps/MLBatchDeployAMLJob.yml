@@ -33,7 +33,7 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 01_create_resources.ipynb
+    notebook: 01_DataPrep.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
