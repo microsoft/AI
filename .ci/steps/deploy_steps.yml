@@ -22,6 +22,16 @@ parameters:
 
 
 steps:
+
+- template: createResourceGroupTemplate.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    location: ${{parameters.azureregion}}
+    alias : ${{parameters.alias}}
+    project : ${{parameters.project}}
+    expires : ${{parameters.expires}}
+
 - template: deploy_notebook_steps.yml
   parameters:
     template: ${{parameters.template}}
