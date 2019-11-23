@@ -11,6 +11,8 @@ parameters:
   conda: TorchDetectAML
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
+  cluster_name: "x"
+  acr_name: "x"
 
 steps:
 - template: config_conda.yml
@@ -68,6 +70,7 @@ steps:
     conda: ${{parameters.conda}}
     num_epochs: 1
     max_total_runs: 2
+    cluster_name: ${{parameters.cluster_name}}
 
 - template: cleanuptask.yml
   parameters:
