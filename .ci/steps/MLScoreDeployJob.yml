@@ -43,7 +43,7 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 03_Run_Locally_Output.ipynb
+    notebook: 03_Run_Locally.ipynb
     conda: ${{parameters.conda}}
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
