@@ -1,16 +1,16 @@
 parameters:
-  azureSubscription: ''
-  azure_subscription: ''
+  azureSubscription: '#'
+  azure_subscription: '#'
   location: '.'
-  azureresourcegroup: ''
-  workspacename: ''
+  azureresourcegroup: '#'
+  workspacename: '#'
   azureregion: westus2
-  aksimagename: ''
-  aks_name: ''
-  aks_service_name: ''
+  aksimagename: '#'
+  aks_name: '#'
+  aks_service_name: '#'
   conda: 'MLHyperparameterTuning'
   doCleanup: true
-  python_path: ''
+  python_path: '#'
   max_total_runs: 1
 
 steps:
