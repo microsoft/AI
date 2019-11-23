@@ -1,7 +1,7 @@
 parameters:
   template: ''
-  azureSubscription: ''
-  azure_subscription: ''
+  azureSubscription: 'x'
+  azure_subscription: 'x'
   azureresourcegroup: ''
   workspacename: ''
   azureregion: ''
