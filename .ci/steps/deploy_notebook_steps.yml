@@ -23,15 +23,6 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: True
 
-- template: createResourceGroupTemplate.yml
-  parameters:
-    azureSubscription: ${{parameters.azureSubscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    location: ${{parameters.azureregion}}
-    alias : ${{parameters.alias}}
-    project : ${{parameters.project}}
-    expires : ${{parameters.expires}}
-
 - template: ${{parameters.template}}
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
