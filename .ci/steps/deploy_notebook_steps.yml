@@ -1,7 +1,7 @@
 parameters:
   template: ''
-  azureSubscription: ''
-  azure_subscription: ''
+  azureSubscription: 'x'
+  azure_subscription: 'x'
   azureresourcegroup: ''
   workspacename: ''
   azureregion: ''
@@ -22,15 +22,6 @@ steps:
     conda: ${{parameters.conda}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: True
-
-- template: createResourceGroupTemplate.yml
-  parameters:
-    azureSubscription: ${{parameters.azureSubscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    location: ${{parameters.azureregion}}
-    alias : ${{parameters.alias}}
-    project : ${{parameters.project}}
-    expires : ${{parameters.expires}}
 
 - template: ${{parameters.template}}
   parameters:

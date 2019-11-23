@@ -5,7 +5,15 @@ This repository is meant to organize Microsoft's Open Source AI based repositori
 # Keywords
 batch scoring, realtime scoring, model training, MLOps, Azure Machine Learning, computer vision, natural language processing, recommenders
 
-# Getting Started
+## Table of contents
+1. [Getting Started](#Getting-Started)
+2. [AI100 - Samples](#ai100)
+3. [AI200 - Reference Architectures](#ai200)
+4. [AI300 - Best Practices](#ai300)
+5. [AI400 - Labs](#ai400)
+6. [Contributing](#Contributing)
+
+# Getting Started <a name="Getting-Started"></a>
 This repository is arranged as submodules so you can either pull all the tutorials or simply the ones you want. 
 To pull all the tutorials run:
 
@@ -26,7 +34,7 @@ cd ai
 git submodule init submodules/DeployDeepModelKubernetes
 git submodule update
 ```
-# AI100 - Samples
+# [AI100 - Samples](https://azure.microsoft.com/en-us/overview/ai-platform/)<a name="ai100"></a>
 Samples are a collection of open source Python repositories created by the Microsoft product teams, which focus on AI services.  
 
 | Title | Description | 
@@ -36,7 +44,7 @@ Samples are a collection of open source Python repositories created by the Micro
 | [Azure Intelligent Kiosk](https://github.com/Azure-Samples/cognitive-services-python-sdk-samples)|Here you will find several demos showcasing workflows and experiences built on top of the Microsoft Cognitive Services.|
 | [MML Spark Samples](https://github.com/Azure/mmlspark/tree/master/notebooks/samples)|MMLSpark is an ecosystem of tools aimed towards expanding the distributed computing framework Apache Spark in several new directions.|
 
-# AI200 - Reference Architectures <a name="Reference Architectures"></a>
+# [AI200 - Reference Architectures](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/machine-learning-at-scale) <a name="ai200"></a>
 Our reference architectures are arranged by scenario. Each architecture includes open source practices, along with considerations for scalability, availability, manageability, and security.
 
 | Title                                     | Language | Environment | Design | Description                                                                       | Status                                                                                                                                                                                                                                                                                                              |
@@ -51,7 +59,7 @@ Our reference architectures are arranged by scenario. Each architecture includes
 | [Deploy Spark ML Model on Databricks](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance)         	   | Python | Spark  | Scoring | Deploy a classification model for _batch_ scoring using Databricks |                                                                                                                                                                                 |
 | [Train Distributed Deep Leaning Model](https://github.com/Azure/DistributedDeepLearning/)         				   | Python | GPU  | Training | Distributed training of ResNet50 model using Batch AI |                                                                                                                                                                                  |
 
-# AI300 - Best Practices <a name="Best Practices"></a>
+# AI300 - Best Practices <a name="ai300"></a>
 Our best practices are arranged by topic. Each best pratice repository includes open source methods, along with considerations for scalability, availability, manageability, and security.
 
 | Title | Description | 
@@ -61,7 +69,7 @@ Our best practices are arranged by topic. Each best pratice repository includes 
 |[Recommenders](https://github.com/microsoft/recommenders)| Examples and best practices for building recommendation systems, provided as Jupyter notebooks.| 
 |[MLOps](https://github.com/microsoft/MLOps)| MLOps empowers data scientists and app developers to help bring ML models to production. |
 
-# AI400 - Labs <a name="Labs"></a>
+# [AI400 - Labs](https://www.microsoft.com/en-us/ai/ai-lab)<a name="ai400"></a>
 AI Lab helps our large fast-growing community of developers get started on AI. You can experience, learn and code the latest and greatest innovations from Microsoft AI here. AI Lab currently houses eight projects that showcase the latest in custom vision, attnGAN, Visual Studio tools for AI, Cognitive Search, Machine Reading Comprehension and more. Each lab gives you access to the experimentation playground, source code on GitHub, a crisp developer-friendly video, and insights into the underlying developer/ organizational challenge and solution.
 
 
@@ -81,7 +89,7 @@ If there is a particular scenario you are interested in seeing a tutorial for pl
 ## Ongoing Work
 We are constantly developing interesting AI reference architectures using Microsoft AI Platform. Some of the ongoing projects include IoT Edge scenarios, model scoring on mobile devices, add more... To follow the progress and any new reference architectures, please go to the AI section of this [link](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/).
 
-# Contributing
+# Contributing <a name="Contributing"></a>
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us

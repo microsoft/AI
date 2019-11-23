@@ -1,4 +1,3 @@
-
 parameters:
   azureSubscription: ''
   azure_subscription: ''
@@ -20,9 +19,9 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
 
-- template: azpapermill.yml
+- template: azpapermill_iterator.yml
   parameters:
-    notebook: 00_AMLConfiguration.ipynb
+    notebooks: [01_create_resources.ipynb, 02_create_pipeline.ipynb]
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
@@ -30,24 +29,7 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 01_DataPrep.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    azure_subscription: ${{parameters.azure_subscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    workspacename: ${{parameters.workspacename}}
-    azureregion: ${{parameters.azureregion}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 02_create_pipeline.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
+    aksimagename: ${{parameters.aksimagename}}
 
 - template: cleanuptask.yml
   parameters:

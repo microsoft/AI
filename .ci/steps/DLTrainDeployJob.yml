@@ -1,4 +1,3 @@
-
 parameters:
   azureSubscription: ''
   azure_subscription: ''
@@ -9,9 +8,11 @@ parameters:
   aksimagename: dcibhpaksdl
   aks_name: dcibhpaksdl
   aks_service_name: dcibhpaksdlapi
-  conda: amlmm
+  conda: TorchDetectAML
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
+  cluster_name: "x"
+  acr_name: "x"
 
 steps:
 - template: config_conda.yml
@@ -33,7 +34,7 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 01_DataPrep.ipynb
+    notebook: 01_PrepareTrainingScript.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
@@ -44,10 +45,32 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 02_create_pipeline.ipynb
+    notebook: 02_PytorchEstimatorLocalRun.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
+    num_epochs: 1
+    
+- template: azpapermill.yml
+  parameters:
+    notebook: 03_BuildDockerImage.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    image_name: 'torchdet' 
+    acr_resource_group: $(azureresourcegroup)
+    acr_location: $(azureregion)
+    acr_name: $(acrname)
+    
+- template: azpapermill.yml
+  parameters:
+    notebook: 04_TuneHyperparameters.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    num_epochs: 1
+    max_total_runs: 2
+    cluster_name: ${{parameters.cluster_name}}
 
 - template: cleanuptask.yml
   parameters:
