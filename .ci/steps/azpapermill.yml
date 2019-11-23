@@ -2,10 +2,10 @@
 
 parameters:
   notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
-  location: ""
-  azureSubscription: ''
+  location: "#"
+  azureSubscription: '#'
   conda: MLAKSDeployAML
-  azure_subscription: ''
+  azure_subscription: '#'
   azureresourcegroup: "dcibrg"
   workspacename: "dcibws"
   azureregion: "westus"
