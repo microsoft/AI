@@ -8,7 +8,7 @@ parameters:
   aksimagename: dcibhpaksdl
   aks_name: dcibhpaksdl
   aks_service_name: dcibhpaksdlapi
-  conda: TorchDetectAML
+  conda: batchscoringdl_aml
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
   cluster_name: "x"
@@ -23,7 +23,7 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 00_AMLConfiguration.ipynb
+    notebook: 01_local_testing.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
@@ -34,7 +34,7 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 01_PrepareTrainingScript.ipynb
+    notebook: 02_setup_aml.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
@@ -45,7 +45,7 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 02_PytorchEstimatorLocalRun.ipynb
+    notebook: 03_develop_pipeline.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
@@ -53,7 +53,7 @@ steps:
     
 - template: azpapermill.yml
   parameters:
-    notebook: 03_BuildDockerImage.ipynb
+    notebook: 04_deploy_logic_apps.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
@@ -61,20 +61,3 @@ steps:
     acr_resource_group: $(azureresourcegroup)
     acr_location: $(azureregion)
     acr_name: $(acrname)
-    
-- template: azpapermill.yml
-  parameters:
-    notebook: 04_TuneHyperparameters.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    num_epochs: 1
-    max_total_runs: 2
-    cluster_name: ${{parameters.cluster_name}}
-
-- template: cleanuptask.yml
-  parameters:
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    doCleanup: ${{parameters.doCleanup}}
