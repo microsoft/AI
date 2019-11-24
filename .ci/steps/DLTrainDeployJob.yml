@@ -58,9 +58,9 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     image_name: 'torchdet' 
-    acr_resource_group: $(azureresourcegroup)
-    acr_location: $(azureregion)
-    acr_name: $(acrname)
+    acr_resource_group: ${{parameters.azureresourcegroup}}
+    acr_location: ${{parameters.azureregion}}
+    acr_name: ${{parameters.acrname}}
     
 - template: azpapermill.yml
   parameters:
