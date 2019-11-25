@@ -41,6 +41,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     num_epochs: 1
+    timeoutInMinutes: 240
     
 - template: azpapermill.yml
   parameters:
