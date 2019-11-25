@@ -13,6 +13,7 @@ parameters:
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
   cluster_name: "x"
   acr_name: "x"
+  storage_account_name: aidlbatchstore
 
 steps:
 - template: config_conda.yml
@@ -42,6 +43,7 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
+    storage_account_name: $((parameters.storage_account_name}}
 
 - template: azpapermill.yml
   parameters:
