@@ -24,17 +24,6 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 01_local_testing.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    azure_subscription: ${{parameters.azure_subscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    workspacename: ${{parameters.workspacename}}
-    azureregion: ${{parameters.azureregion}}
-
-- template: azpapermill.yml
-  parameters:
     notebook: 02_setup_aml.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
