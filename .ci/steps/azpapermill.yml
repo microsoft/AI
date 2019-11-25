@@ -48,3 +48,4 @@ steps:
         -p acr_location ${{parameters.azureregion}} \
         -p acr_name ${{parameters.acr_name}} \
         -p cluster_name ${{parameters.cluster_name}}
+  
