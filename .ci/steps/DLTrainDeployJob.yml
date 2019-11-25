@@ -12,7 +12,7 @@ parameters:
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
   cluster_name: "aidltraincompute"
-  acr_name: "x"
+  acr_name: "aidltrainacr"
 
 steps:
 - template: config_conda.yml
@@ -31,6 +31,7 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
+    acr_name: ${{parameters.acr_name}}
 
 - template: azpapermill.yml
   parameters:
@@ -71,6 +72,7 @@ steps:
     num_epochs: 1
     max_total_runs: 2
     cluster_name: ${{parameters.cluster_name}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
 
 - template: cleanuptask.yml
   parameters:
