@@ -68,7 +68,7 @@ steps:
     notebook: 04_TuneHyperparameters.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
+    conda: ${{parameters.conda}}  
     num_epochs: 1
     max_total_runs: 2
     cluster_name: ${{parameters.cluster_name}}
