@@ -26,6 +26,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
     timeoutInMinutes: 120
+    failOnStderr: True
     inlineScript: |
       source activate ${{parameters.conda}}
       export PYTHONPATH=${{parameters.python_path}}:${PYTHONPATH}      
