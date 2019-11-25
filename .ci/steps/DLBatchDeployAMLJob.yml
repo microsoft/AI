@@ -32,7 +32,7 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-    storage_account_name: $((parameters.storage_account_name}}
+    storage_account_name: ${{parameters.storage_account_name}}
 
 - template: azpapermill.yml
   parameters:
@@ -49,6 +49,6 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     image_name: 'torchdet' 
-    acr_resource_group: $(azureresourcegroup)
-    acr_location: $(azureregion)
-    acr_name: $(acrname)
+    acr_resource_group: ${{parameters.azureresourcegroup}}
+    acr_location: ${{parameters.azureregion}}
+    acr_name: ${{parameters.acrname}}
