@@ -11,7 +11,7 @@ parameters:
   conda: TorchDetectAML
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
-  cluster_name: "x"
+  cluster_name: "ai-dltrain-computer"
   acr_name: "x"
 
 steps:
