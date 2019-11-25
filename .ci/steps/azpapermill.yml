@@ -18,6 +18,7 @@ parameters:
   acr_name: "x"
   cluster_name: "x"
   storage_account_name: "xxxxxxx"
+  timeoutInMinutes: 90
 
 steps:
 - task: AzureCLI@1
@@ -25,7 +26,7 @@ steps:
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
-    timeoutInMinutes: 120
+    timeoutInMinutes: ${{parameters.timeoutInMinutes}}
     failOnStderr: True
     inlineScript: |
       source activate ${{parameters.conda}}
