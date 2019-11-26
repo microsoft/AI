@@ -9,12 +9,8 @@ parameters:
   ProjectLocation: #
   PythonPath: #
   doCleanup: False
-  sub_vars: .ci/vars/agce_devops_sub_vars.yml
 
 stages:
-  variables:
-  - template: ${{parameters.sub_vars}}
-
 - template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
     Agent: ${{parameters.Agent}}
@@ -29,7 +25,6 @@ stages:
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
     doCleanup: ${{parameters.doCleanup}}
-    sub_vars: ${{parameters.sub_vars}}
 
 - template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
@@ -45,7 +40,6 @@ stages:
     PythonPath: ${{parameters.PythonPath}}
     flighting_release: true
     doCleanup: ${{parameters.doCleanup}}
-    sub_vars: ${{parameters.sub_vars}}
 
 - template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
@@ -61,4 +55,3 @@ stages:
     PythonPath: ${{parameters.PythonPath}}
     flighting_preview: true
     doCleanup: ${{parameters.doCleanup}}
-    sub_vars: ${{parameters.sub_vars}}
