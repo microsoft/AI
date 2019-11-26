@@ -13,7 +13,7 @@ parameters:
   doCleanup: False
 
 stages:
-- template: .ci/stages/deploy_notebooks_stage.yml@aitemplates
+- template: ../stage/deploy_notebooks_stage.yml
   parameters:
     Agent: ${{parameters.Agent}}
     stageName: 'stable'
@@ -30,7 +30,7 @@ stages:
     PythonPath: ${{parameters.PythonPath}}
     doCleanup: ${{parameters.doCleanup}}
 
-- template: .ci/stages/deploy_notebooks_stage.yml@aitemplates
+- template: ../stage/deploy_notebooks_stage.yml
   parameters:
     Agent: ${{parameters.Agent}}
     stageName: 'release'
@@ -47,7 +47,7 @@ stages:
     flighting_release: true
     doCleanup: ${{parameters.doCleanup}}
 
-- template: .ci/stages/deploy_notebooks_stage.yml@aitemplates
+- template: ../stage/deploy_notebooks_stage.yml
   parameters:
     Agent: ${{parameters.Agent}}
     stageName: 'preview'
