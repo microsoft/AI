@@ -1,0 +1,59 @@
+  parameters:
+    Agent: Hosted Ubuntu 1604
+    stageName: 'defaultStageName'
+    jobDisplayName: 'defaultDisplayName'
+    jobTimeoutInMinutes: 180
+    TridentWorkloadTypeShort: #
+    DeployLocation: #
+    TestPostfix: # "" | "-release" | "-preview"
+    Deploy_Location_Short: #
+    DefaultWorkingDirectory: #
+    Template: #
+    azureSubscription: #
+    azure_subscription: #
+    aksimagename: #
+    ProjectLocation: #
+    PythonPath: #
+    cluster_name: #
+    flighting_release: false
+    flighting_preview: false
+    doCleanup: False
+
+
+stages:
+- stage: stable
+  dependsOn: []    
+  jobs:
+  - job: deploy_notebook_steps
+    displayName: ${{parameters.jobDisplayName}}
+
+    pool:
+      name: $(Agent)
+  
+    timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+  
+    workspace:
+      clean: all
+  
+    variables:
+      AIResourceGroupName: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}${{parameters.TestPostfix}}
+      aks_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.Deploy_Location_Short}}
+      python_path: ${{parameters.DefaultWorkingDirectory}}${{parameters.PythonPath}}
+  
+    steps:
+    - template: .ci/steps/deploy_notebook_steps.yml@aitemplates
+      parameters:
+        template: ${{parameters.Template}}
+        azureSubscription: ${{parameters.azureSubscription}}
+        azure_subscription: ${{parameters.azure_subscription}}
+        azureresourcegroup: ${{variables.AIResourceGroupName}}
+        workspacename: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}
+        azureregion: ${{parameters.DeployLocation}}
+        aksimagename: ${{parameters.aksimagename}}
+        aks_name: ${{variables.aks_name}}
+        location: ${{parameters.ProjectLocation}}
+        python_path: ${{variables.python_path}}
+        cluster_name: ${{parameters.cluster_name}}
+        flighting_release: ${{parameters.flighting_release}}
+        flighting_preview: ${{parameters.flighting_preview}}
+        doCleanup: ${{parameters.doCleanup}}
