@@ -10,7 +10,7 @@
     Template: #
     azureSubscription: #
     azure_subscription: #
-    aksimagename: #
+    aksimagename: 'myimage'
     ProjectLocation: #
     PythonPath: #
     cluster_name: #
