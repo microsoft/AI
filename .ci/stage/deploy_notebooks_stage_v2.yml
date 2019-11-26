@@ -9,7 +9,7 @@ parameters:
   Deploy_Location_Short: #
   DefaultWorkingDirectory: #
   Template: #
-  aksimagename: #
+  aksimagename: 'myimage'
   ProjectLocation: #
   PythonPath: #
   cluster_name: #
@@ -41,17 +41,17 @@ stages:
     steps:
     - template: ../steps/deploy_notebook_steps_v2.yml
       parameters:
-        template: ${{parameters.Template}}
+        template: ${{variables.Template}}
         azureSubscription: ${{variables.azureSubscription}}
         azure_subscription: ${{variables.azure_subscription}}
-        azureresourcegroup: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}${{parameters.TestPostfix}}
-        workspacename: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}
-        azureregion: ${{parameters.DeployLocation}}
+        azureresourcegroup: ${{variables.TridentWorkloadTypeShort}}-${{variables.DeployLocation}}${{parameters.TestPostfix}}
+        workspacename: ${{variables.TridentWorkloadTypeShort}}-${{variables.DeployLocation}}
+        azureregion: ${{variables.DeployLocation}}
         aksimagename: ${{parameters.aksimagename}}
-        aks_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
-        location: ${{parameters.ProjectLocation}}
-        python_path: ${{parameters.DefaultWorkingDirectory}}${{parameters.PythonPath}}
-        cluster_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
+        aks_name: ${{variables.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
+        location: ${{variables.ProjectLocation}}
+        python_path: ${{parameters.DefaultWorkingDirectory}}${{variables.PythonPath}}
+        cluster_name: ${{variables.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
         flighting_release: ${{parameters.flighting_release}}
         flighting_preview: ${{parameters.flighting_preview}}
         doCleanup: ${{parameters.doCleanup}}
