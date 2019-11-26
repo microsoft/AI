@@ -21,7 +21,7 @@ variables:
 steps:
 - template: docker_clean.yml
 
-- template: ${{variables.template}}
+- template: ${{parameters.template}}
   parameters:
     azureSubscription: ${{variables.azureSubscription}}
     azure_subscription: ${{variables.azure_subscription}}
