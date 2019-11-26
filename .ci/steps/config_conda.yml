@@ -46,5 +46,5 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
       pip install azureml-sdk[notebooks] \
-        –-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Preview/E7501C02541B433786111FE8E140CAA1 \
-        –-extra-index-url https://pypi.python.org/simple
+        --index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Preview/E7501C02541B433786111FE8E140CAA1 \
+        --extra-index-url https://pypi.python.org/simple
