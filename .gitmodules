@@ -88,3 +88,6 @@
 [submodule "ai400-labs"]
 	path = ai400-labs
 	url = https://github.com/microsoft/ailab
+[submodule "submodules/HyperdriveDeepLearning"]
+	path = submodules/TrainDLModelHyperdrive
+	url = https://github.com/microsoft/HyperdriveDeepLearning
