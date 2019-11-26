@@ -6,7 +6,7 @@ parameters:
   azureresourcegroup: ''
   workspacename: ''
   azureregion: ''
-  aksimagename: ''
+  aksimagename: 'myimage'
   environment: 'tridant-ai'
   doCleanup: True
   alias: '-'
