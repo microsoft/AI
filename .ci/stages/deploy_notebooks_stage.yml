@@ -6,7 +6,6 @@
     TridentWorkloadTypeShort: #
     DeployLocation: #
     TestPostfix: # "" | "-release" | "-preview"
-    Deploy_Location_Short: #
     DefaultWorkingDirectory: #
     Template: #
     azureSubscription: #
@@ -37,7 +36,7 @@ stages:
   
     variables:
       AIResourceGroupName: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}${{parameters.TestPostfix}}
-      aks_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.Deploy_Location_Short}}
+      aks_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
       python_path: ${{parameters.DefaultWorkingDirectory}}${{parameters.PythonPath}}
   
     steps:
