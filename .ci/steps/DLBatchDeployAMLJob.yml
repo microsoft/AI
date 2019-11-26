@@ -8,22 +8,23 @@ parameters:
   aksimagename: dcibhpaksdl
   aks_name: dcibhpaksdl
   aks_service_name: dcibhpaksdlapi
-  conda: TorchDetectAML
+  conda: batchscoringdl_aml
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
   cluster_name: "x"
   acr_name: "x"
+  storage_account_name: aidlbatchstore
 
 steps:
 - template: config_conda.yml
   parameters:
-    conda_location: ${{parameters.location}}
+    conda_location: "."
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
 
 - template: azpapermill.yml
   parameters:
-    notebook: 00_AMLConfiguration.ipynb
+    notebook: 02_setup_aml.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
@@ -31,50 +32,24 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
+    storage_account_name: ${{parameters.storage_account_name}}
 
 - template: azpapermill.yml
   parameters:
-    notebook: 01_PrepareTrainingScript.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    azure_subscription: ${{parameters.azure_subscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    workspacename: ${{parameters.workspacename}}
-    azureregion: ${{parameters.azureregion}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 02_PytorchEstimatorLocalRun.ipynb
+    notebook: 03_develop_pipeline.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     num_epochs: 1
+    timeoutInMinutes: 240
     
 - template: azpapermill.yml
   parameters:
-    notebook: 03_BuildDockerImage.ipynb
+    notebook: 04_deploy_logic_apps.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     image_name: 'torchdet' 
-    acr_resource_group: $(azureresourcegroup)
-    acr_location: $(azureregion)
-    acr_name: $(acrname)
-    
-- template: azpapermill.yml
-  parameters:
-    notebook: 04_TuneHyperparameters.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    num_epochs: 1
-    max_total_runs: 2
-    cluster_name: ${{parameters.cluster_name}}
-
-- template: cleanuptask.yml
-  parameters:
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: deployment_aml
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    doCleanup: ${{parameters.doCleanup}}
+    acr_resource_group: ${{parameters.azureresourcegroup}}
+    acr_location: ${{parameters.azureregion}}
+    acr_name: ${{parameters.acrname}}

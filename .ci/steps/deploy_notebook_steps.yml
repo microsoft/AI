@@ -2,10 +2,10 @@ parameters:
   template: ''
   azureSubscription: 'x'
   azure_subscription: 'x'
-  azureresourcegroup: ''
-  workspacename: ''
-  azureregion: ''
-  aksimagename: ''
+  azureresourcegroup: 'x'
+  workspacename: 'x'
+  azureregion: 'x'
+  aksimagename: 'x'
   doCleanup: True
   alias: '-'
   project: '-'
@@ -14,6 +14,7 @@ parameters:
   location: "" #Root Dir of Project
   python_path: "" #Root Dir of Python Env
   conda: "deployment_aml"
+  cluster_name: "-"
 
 steps:
 - template: cleanuptask.yml
@@ -35,3 +36,4 @@ steps:
     aks_name: ${{parameters.aks_name}}
     location: ${{parameters.location}}
     python_path: ${{parameters.python_path}}
+    cluster_name: ${{parameters.cluster_name}}
