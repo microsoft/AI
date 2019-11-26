@@ -27,7 +27,7 @@ stages:
     displayName: ${{parameters.jobDisplayName}}
 
     pool:
-      name: $(Agent)
+      name: ${{parameters.Agent}}
   
     timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
   
