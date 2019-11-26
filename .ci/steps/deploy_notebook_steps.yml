@@ -17,12 +17,6 @@ parameters:
   cluster_name: "-"
 
 steps:
-- template: cleanuptask.yml
-  parameters:
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    doCleanup: True
 
 - template: ${{parameters.template}}
   parameters:
