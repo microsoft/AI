@@ -1,5 +1,4 @@
 variables:
-  DeploymentName: MLScoreDeployJob
   TridentWorkloadTypeShort: aimlscore
   DeployLocation: eastus  
   ProjectLocation: "."
