@@ -1,0 +1,7 @@
+variables:
+  DeploymentName: MLScoreDeployJob
+  TridentWorkloadTypeShort: aimlscore
+  DeployLocation: eastus  
+  ProjectLocation: "."
+  PythonPath: "."
+  Template: MLTrainDeployAMLJob.yml
