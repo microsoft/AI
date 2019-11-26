@@ -11,10 +11,10 @@ parameters:
   doCleanup: False
   sub_vars: .ci/vars/agce_devops_sub_vars.yml
 
-variables:
-- template: ${{parameters.sub_vars}}
-
 stages:
+  variables:
+  - template: ${{parameters.sub_vars}}
+
 - template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
     Agent: ${{parameters.Agent}}
