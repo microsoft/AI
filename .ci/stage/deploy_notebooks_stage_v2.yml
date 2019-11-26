@@ -1,5 +1,6 @@
 parameters:
   Agent: Hosted Ubuntu 1604
+  Demands: ""
   stageName: 'defaultStageName'
   jobDisplayName: 'defaultDisplayName'
   jobTimeoutInMinutes: 180
@@ -28,7 +29,8 @@ stages:
 
     pool:
       name: ${{parameters.Agent}}
-  
+      demands: ${{parameters.Demands}}
+    
     timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
   
     workspace:
