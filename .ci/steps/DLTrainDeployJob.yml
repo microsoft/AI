@@ -13,6 +13,8 @@ parameters:
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
   cluster_name: "aidltraincompute"
   acr_name: "aidltrainacr"
+  flighting_release: false
+  flighting_preview: false
 
 steps:
 - template: config_conda.yml
@@ -20,6 +22,8 @@ steps:
     conda_location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
+    flighting_release: ${{parameters.flighting_release}}
+    flighting_preview: ${{parameters.flighting_preview}}
 
 - bash: |
     wget https://bostondata.blob.core.windows.net/builddata/Data.zip
