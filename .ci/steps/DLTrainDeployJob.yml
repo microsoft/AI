@@ -21,6 +21,12 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
 
+- bash: |
+    wget https://bostondata.blob.core.windows.net/builddata/Data.zip
+    unzip Data.zip
+    mv ./Data/JPEGImages ./scripts/
+    mv ./Data/Annotations ./scripts/
+
 - template: azpapermill.yml
   parameters:
     notebook: 00_AMLConfiguration.ipynb
