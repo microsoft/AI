@@ -18,6 +18,7 @@ parameters:
   flighting_preview: false
 
 steps:
+- template: .docker_clean.yml
 
 - template: ${{parameters.template}}
   parameters:
