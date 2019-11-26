@@ -37,6 +37,7 @@ steps:
     template: ${{parameters.template}}
     azureSubscription: ${{parameters.azureSubscription}}
     azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
     doCleanup: True
