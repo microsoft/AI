@@ -21,7 +21,7 @@
 
 
 stages:
-- stage: stable
+- stage: ${{parameters.stageName}}
   dependsOn: []    
   jobs:
   - job: deploy_notebook_steps
