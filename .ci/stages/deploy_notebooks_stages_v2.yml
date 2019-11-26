@@ -1,5 +1,6 @@
 parameters:  
   Agent: Hosted Ubuntu 1604
+  Demands: ""
   jobTimeoutInMinutes: 180
   jobDisplayName: 'defaultDisplayName'
   TridentWorkloadTypeShort: #
@@ -15,6 +16,7 @@ stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
     Agent: ${{parameters.Agent}}
+    Demands: ${{parameters.Demands}}
     stageName: 'stable'
     jobDisplayName: ${{parameters.jobDisplayName}}
     jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
@@ -31,6 +33,7 @@ stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
     Agent: ${{parameters.Agent}}
+    Demands: ${{parameters.Demands}}
     stageName: 'release'
     jobDisplayName: ${{parameters.jobDisplayName}}
     TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
@@ -47,6 +50,7 @@ stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
     Agent: ${{parameters.Agent}}
+    Demands: ${{parameters.Demands}}
     stageName: 'preview'
     jobDisplayName: ${{parameters.jobDisplayName}}
     TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
