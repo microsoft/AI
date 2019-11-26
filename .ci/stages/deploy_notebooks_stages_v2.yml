@@ -1,6 +1,6 @@
 parameters:  
   Agent: Hosted Ubuntu 1604
-  Demands: ""
+  Demands: "python3"
   jobTimeoutInMinutes: 180
   jobDisplayName: 'defaultDisplayName'
   TridentWorkloadTypeShort: #
