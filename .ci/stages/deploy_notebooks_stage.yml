@@ -1,22 +1,23 @@
-  parameters:
-    Agent: Hosted Ubuntu 1604
-    stageName: 'defaultStageName'
-    jobDisplayName: 'defaultDisplayName'
-    jobTimeoutInMinutes: 180
-    TridentWorkloadTypeShort: #
-    DeployLocation: #
-    TestPostfix: # "" | "-release" | "-preview"
-    DefaultWorkingDirectory: #
-    Template: #
-    azureSubscription: #
-    azure_subscription: #
-    aksimagename: 'myimage'
-    ProjectLocation: #
-    PythonPath: #
-    flighting_release: false
-    flighting_preview: false
-    doCleanup: False
-
+parameters:
+  Agent: Hosted Ubuntu 1604
+  stageName: 'defaultStageName'
+  jobDisplayName: 'defaultDisplayName'
+  jobTimeoutInMinutes: 180
+  TridentWorkloadTypeShort: #
+  DeployLocation: #
+  TestPostfix: # "" | "-release" | "-preview"
+  Deploy_Location_Short: #
+  DefaultWorkingDirectory: #
+  Template: #
+  azureSubscription: #
+  azure_subscription: #
+  aksimagename: #
+  ProjectLocation: #
+  PythonPath: #
+  cluster_name: #
+  flighting_release: false
+  flighting_preview: false
+  doCleanup: False
 
 stages:
 - stage: ${{parameters.stageName}}
