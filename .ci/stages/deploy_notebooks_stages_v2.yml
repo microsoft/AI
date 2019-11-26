@@ -15,7 +15,7 @@ variables:
 - template: ${{parameters.sub_vars}}
 
 stages:
-- template: ../stage/deploy_notebooks_stage.yml
+- template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
     Agent: ${{parameters.Agent}}
     stageName: 'stable'
@@ -29,9 +29,9 @@ stages:
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
     doCleanup: ${{parameters.doCleanup}}
-	  sub_vars: ${{parameters.sub_vars}}
+    sub_vars: ${{parameters.sub_vars}}
 
-- template: ../stage/deploy_notebooks_stage.yml
+- template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
     Agent: ${{parameters.Agent}}
     stageName: 'release'
@@ -45,9 +45,9 @@ stages:
     PythonPath: ${{parameters.PythonPath}}
     flighting_release: true
     doCleanup: ${{parameters.doCleanup}}
-	  sub_vars: ${{parameters.sub_vars}}
+    sub_vars: ${{parameters.sub_vars}}
 
-- template: ../stage/deploy_notebooks_stage.yml
+- template: ../stage/deploy_notebooks_stage_v2.yml
   parameters:
     Agent: ${{parameters.Agent}}
     stageName: 'preview'
@@ -61,4 +61,4 @@ stages:
     PythonPath: ${{parameters.PythonPath}}
     flighting_preview: true
     doCleanup: ${{parameters.doCleanup}}
-	  sub_vars: ${{parameters.sub_vars}}
+    sub_vars: ${{parameters.sub_vars}}
