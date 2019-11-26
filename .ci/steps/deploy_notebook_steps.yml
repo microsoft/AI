@@ -5,17 +5,14 @@ parameters:
   azureresourcegroup: 'x'
   workspacename: 'x'
   azureregion: 'x'
-  aksimagename: 'x'
-  doCleanup: True
-  alias: '-'
-  project: '-'
-  expires : "2019-08-01"
+  aksimagename: 'x'  
   aks_name: "mlaks"
   location: "" #Root Dir of Project
   python_path: "" #Root Dir of Python Env
   cluster_name: "-"
   flighting_release: false
   flighting_preview: false
+  doCleanup: True
 
 steps:
 - template: .docker_clean.yml
