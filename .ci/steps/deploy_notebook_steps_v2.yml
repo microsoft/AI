@@ -1,0 +1,26 @@
+parameters:
+  subscription_vars: .ci/vars/agce_devops_sub_vars.yml
+  workload_vars: #
+  
+variables:
+- template: ${{parameters.subscription_vars}}
+- template: ${{parameters.workload_vars}}
+
+steps:
+- template: docker_clean.yml
+
+- template: ${{variables.template}}
+  parameters:
+    azureSubscription: ${{variables.azureSubscription}}
+    azure_subscription: ${{variables.azure_subscription}}
+    azureresourcegroup: ${{variables.azureresourcegroup}}
+    workspacename: ${{variables.workspacename}}
+    azureregion: ${{variables.azureregion}}
+    aksimagename: ${{variables.aksimagename}}    
+    aks_name: ${{variables.aks_name}}
+    location: ${{variables.location}}
+    python_path: ${{variables.python_path}}
+    cluster_name: ${{variables.cluster_name}}
+    flighting_release: ${{variables.flighting_release}}
+    flighting_preview: ${{variables.flighting_preview}}
+    doCleanup: ${{variables.doCleanup}}
