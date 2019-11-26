@@ -13,7 +13,6 @@ parameters:
   aks_name: "mlaks"
   location: "" #Root Dir of Project
   python_path: "" #Root Dir of Python Env
-  conda: "deployment_aml"
   cluster_name: "-"
   flighting_release: false
   flighting_preview: false
