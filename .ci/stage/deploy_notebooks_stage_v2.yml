@@ -16,10 +16,7 @@ parameters:
   flighting_release: false
   flighting_preview: false
   doCleanup: False
-  sub_vars: .ci/vars/agce_devops_sub_vars.yml
-  
-variables:
-- template: ${{parameters.sub_vars}}
+  sub_vars: .ci/vars/agce_devops_sub_vars.yml  
 
 stages:
 - stage: ${{parameters.stageName}}
@@ -37,25 +34,22 @@ stages:
       clean: all
   
     variables:
-      AIResourceGroupName: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}${{parameters.TestPostfix}}
-      aks_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
-      cluster_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
-      python_path: ${{parameters.DefaultWorkingDirectory}}${{parameters.PythonPath}}
+    - template: ${{parameters.sub_vars}}
   
     steps:
     - template: ../steps/deploy_notebook_steps_v2.yml
       parameters:
         template: ${{parameters.Template}}
-        azureSubscription: ${{parameters.azureSubscription}}
-        azure_subscription: ${{parameters.azure_subscription}}
-        azureresourcegroup: ${{variables.AIResourceGroupName}}
+        azureSubscription: ${{variables.azureSubscription}}
+        azure_subscription: ${{variables.azure_subscription}}
+        azureresourcegroup: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}${{parameters.TestPostfix}}
         workspacename: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}
         azureregion: ${{parameters.DeployLocation}}
         aksimagename: ${{parameters.aksimagename}}
-        aks_name: ${{variables.aks_name}}
+        aks_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
         location: ${{parameters.ProjectLocation}}
-        python_path: ${{variables.python_path}}
-        cluster_name: ${{variables.cluster_name}}
+        python_path: ${{parameters.DefaultWorkingDirectory}}${{parameters.PythonPath}}
+        cluster_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
         flighting_release: ${{parameters.flighting_release}}
         flighting_preview: ${{parameters.flighting_preview}}
         doCleanup: ${{parameters.doCleanup}}
