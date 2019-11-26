@@ -15,7 +15,7 @@ parameters:
   doCleanup: True
 
 steps:
-- template: .docker_clean.yml
+- template: docker_clean.yml
 
 - template: ${{parameters.template}}
   parameters:
@@ -24,11 +24,11 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-    aksimagename: ${{parameters.aksimagename}}
-    doCleanup: ${{parameters.doCleanup}}
+    aksimagename: ${{parameters.aksimagename}}    
     aks_name: ${{parameters.aks_name}}
     location: ${{parameters.location}}
     python_path: ${{parameters.python_path}}
     cluster_name: ${{parameters.cluster_name}}
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
+    doCleanup: ${{parameters.doCleanup}}
