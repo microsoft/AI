@@ -3,6 +3,8 @@ parameters:
   conda_location: '.'#
   azureSubscription: #
   conda: #
+  flighting_release: false
+  flighting_preview: false
 
 
 steps:
@@ -15,6 +17,28 @@ steps:
 
 - task: AzureCLI@1
   displayName: 'Setup Conda'
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
+    scriptLocation: inlineScript
+    inlineScript: |
+      conda env create -f ${{parameters.conda_location}}/environment.yml --force
+      source activate ${{parameters.conda}}
+
+- task: AzureCLI@1
+  displayName: 'Setup Conda'
+  condition: eq('${{ parameters.flighting_release }}', true)
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
+    scriptLocation: inlineScript
+    inlineScript: |
+      conda env create -f ${{parameters.conda_location}}/environment.yml --force
+      source activate ${{parameters.conda}}
+
+- task: AzureCLI@1
+  displayName: 'Setup Conda'
+  condition: eq('${{ parameters.flighting_preview }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     failOnStandardError: True
