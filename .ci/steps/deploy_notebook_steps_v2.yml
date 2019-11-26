@@ -19,8 +19,8 @@ steps:
 
 - template: ${{parameters.template}}
   parameters:
-    azureSubscription: ${{variables.azureSubscription}}
-    azure_subscription: ${{variables.azure_subscription}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    azure_subscription: ${{parameters.azure_subscription}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
