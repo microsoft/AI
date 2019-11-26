@@ -1,0 +1,64 @@
+parameters:  
+  Agent: Hosted Ubuntu 1604
+  jobTimeoutInMinutes: 180
+  jobDisplayName: 'defaultDisplayName'
+  TridentWorkloadTypeShort: #
+  DeployLocation: #
+  DefaultWorkingDirectory: #
+  Template: #
+  ProjectLocation: #
+  PythonPath: #
+  doCleanup: False
+  sub_vars: .ci/vars/agce_devops_sub_vars.yml
+
+variables:
+- template: ${{parameters.sub_vars}}
+
+stages:
+- template: ../stage/deploy_notebooks_stage.yml
+  parameters:
+    Agent: ${{parameters.Agent}}
+    stageName: 'stable'
+    jobDisplayName: ${{parameters.jobDisplayName}}
+    jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+    DeployLocation: ${{parameters.DeployLocation}}
+    TestPostfix: "-stable"
+    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+    Template: ${{parameters.Template}}
+    ProjectLocation: ${{parameters.ProjectLocation}}
+    PythonPath: ${{parameters.PythonPath}}
+    doCleanup: ${{parameters.doCleanup}}
+	  sub_vars: ${{parameters.sub_vars}}
+
+- template: ../stage/deploy_notebooks_stage.yml
+  parameters:
+    Agent: ${{parameters.Agent}}
+    stageName: 'release'
+    jobDisplayName: ${{parameters.jobDisplayName}}
+    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+    DeployLocation: ${{parameters.DeployLocation}}
+    TestPostfix: "-release"
+    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+    Template: ${{parameters.Template}}
+    ProjectLocation: ${{parameters.ProjectLocation}}
+    PythonPath: ${{parameters.PythonPath}}
+    flighting_release: true
+    doCleanup: ${{parameters.doCleanup}}
+	  sub_vars: ${{parameters.sub_vars}}
+
+- template: ../stage/deploy_notebooks_stage.yml
+  parameters:
+    Agent: ${{parameters.Agent}}
+    stageName: 'preview'
+    jobDisplayName: ${{parameters.jobDisplayName}}
+    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+    DeployLocation: ${{parameters.DeployLocation}}
+    TestPostfix: "-preview"
+    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+    Template: ${{parameters.Template}}
+    ProjectLocation: ${{parameters.ProjectLocation}}
+    PythonPath: ${{parameters.PythonPath}}
+    flighting_preview: true
+    doCleanup: ${{parameters.doCleanup}}
+	  sub_vars: ${{parameters.sub_vars}}
