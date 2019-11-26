@@ -8,6 +8,7 @@ parameters:
   Template: #
   ProjectLocation: #
   PythonPath: #
+  workload_vars: #
   doCleanup: False
 
 stages:
@@ -24,6 +25,7 @@ stages:
     Template: ${{parameters.Template}}
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
+    workload_vars: ${{parameters.workload_vars}}
     doCleanup: ${{parameters.doCleanup}}
 
 - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -39,6 +41,7 @@ stages:
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
     flighting_release: true
+    workload_vars: ${{parameters.workload_vars}}
     doCleanup: ${{parameters.doCleanup}}
 
 - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -54,4 +57,5 @@ stages:
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
     flighting_preview: true
+    workload_vars: ${{parameters.workload_vars}}
     doCleanup: ${{parameters.doCleanup}}
