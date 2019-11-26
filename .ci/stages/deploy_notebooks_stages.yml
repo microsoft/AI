@@ -15,10 +15,10 @@ parameters:
 stages:
 - template: .ci/stages/deploy_notebooks_stage.yml@aitemplates
   parameters:
-	Agent: ${{parameters.Agent}}
+    Agent: ${{parameters.Agent}}
     stageName: 'stable'
     jobDisplayName: ${{parameters.jobDisplayName}}
-	jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+    jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
     TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
     DeployLocation: ${{parameters.DeployLocation}}
     TestPostfix: "-stable"
@@ -28,10 +28,11 @@ stages:
     azure_subscription: ${{parameters.azure_subscription}}
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
-	doCleanup: ${{parameters.doCleanup}}
+    doCleanup: ${{parameters.doCleanup}}
 
 - template: .ci/stages/deploy_notebooks_stage.yml@aitemplates
   parameters:
+    Agent: ${{parameters.Agent}}
     stageName: 'release'
     jobDisplayName: ${{parameters.jobDisplayName}}
     TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
@@ -44,10 +45,11 @@ stages:
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
     flighting_release: true
-	doCleanup: ${{parameters.doCleanup}}
+    doCleanup: ${{parameters.doCleanup}}
 
 - template: .ci/stages/deploy_notebooks_stage.yml@aitemplates
   parameters:
+    Agent: ${{parameters.Agent}}
     stageName: 'preview'
     jobDisplayName: ${{parameters.jobDisplayName}}
     TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
@@ -60,4 +62,4 @@ stages:
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
     flighting_preview: true
-	doCleanup: ${{parameters.doCleanup}}
+    doCleanup: ${{parameters.doCleanup}}
