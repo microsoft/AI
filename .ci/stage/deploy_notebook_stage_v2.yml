@@ -9,8 +9,6 @@ parameters:
   Deploy_Location_Short: #
   DefaultWorkingDirectory: #
   Template: #
-  azureSubscription: #
-  azure_subscription: #
   aksimagename: #
   ProjectLocation: #
   PythonPath: #
@@ -18,6 +16,10 @@ parameters:
   flighting_release: false
   flighting_preview: false
   doCleanup: False
+  sub_vars: .ci/vars/agce_devops_sub_vars.yml
+  
+variables:
+- template: ${{parameters.sub_vars}}
 
 stages:
 - stage: ${{parameters.stageName}}
@@ -41,7 +43,7 @@ stages:
       python_path: ${{parameters.DefaultWorkingDirectory}}${{parameters.PythonPath}}
   
     steps:
-    - template: ../steps/deploy_notebook_steps.yml
+    - template: ../steps/deploy_notebook_steps_v2.yml
       parameters:
         template: ${{parameters.Template}}
         azureSubscription: ${{parameters.azureSubscription}}
