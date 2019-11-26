@@ -13,7 +13,6 @@
     aksimagename: 'myimage'
     ProjectLocation: #
     PythonPath: #
-    cluster_name: #
     flighting_release: false
     flighting_preview: false
     doCleanup: False
@@ -53,7 +52,7 @@ stages:
         aks_name: ${{variables.aks_name}}
         location: ${{parameters.ProjectLocation}}
         python_path: ${{variables.python_path}}
-        cluster_name: ${{parameters.cluster_name}}
+        cluster_name: ${{variables.cluster_name}}
         flighting_release: ${{parameters.flighting_release}}
         flighting_preview: ${{parameters.flighting_preview}}
         doCleanup: ${{parameters.doCleanup}}
