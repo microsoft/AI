@@ -26,7 +26,7 @@ steps:
       source activate ${{parameters.conda}}
 
 - task: AzureCLI@1
-  displayName: 'Setup Conda'
+  displayName: 'Upgrade AML SDK to latest release'
   condition: eq('${{ parameters.flighting_release }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
@@ -37,7 +37,7 @@ steps:
       pip install azureml-sdk[notebooks]
 
 - task: AzureCLI@1
-  displayName: 'Setup Conda'
+  displayName: 'Upgrade AML SDK to pre-release'
   condition: eq('${{ parameters.flighting_preview }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
