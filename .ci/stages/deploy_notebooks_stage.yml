@@ -41,7 +41,7 @@ stages:
       python_path: ${{parameters.DefaultWorkingDirectory}}${{parameters.PythonPath}}
   
     steps:
-    - template: .ci/steps/deploy_notebook_steps.yml
+    - template: ../steps/deploy_notebook_steps.yml
       parameters:
         template: ${{parameters.Template}}
         azureSubscription: ${{parameters.azureSubscription}}
