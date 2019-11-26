@@ -6,7 +6,6 @@ parameters:
   flighting_release: false
   flighting_preview: false
 
-
 steps:
 - task: AzureCLI@1
   displayName: 'Add Conda to Path'
