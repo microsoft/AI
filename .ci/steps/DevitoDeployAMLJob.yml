@@ -1,0 +1,59 @@
+parameters:
+  azureSubscription: ''
+  azure_subscription: ''
+  location: submodules/DeployMLModelPipelines
+  azureresourcegroup: dcibhpdl
+  workspacename: dcibhpwsdl
+  azureregion: westus2
+  aksimagename: dcibhpaksdl
+  aks_name: dcibhpaksdl
+  aks_service_name: dcibhpaksdlapi
+  conda: batchscoringdl_aml
+  doCleanup: true
+  python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
+  cluster_name: "x"
+  acr_name: "x"
+  storage_account_name: aidlbatchstore
+  flighting_release: false
+  flighting_preview: false
+
+steps:
+- template: config_conda.yml
+  parameters:
+    conda_location: ${{parameters.python_path}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    flighting_release: ${{parameters.flighting_release}}
+    flighting_preview: ${{parameters.flighting_preview}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 02_setup_aml.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    storage_account_name: ${{parameters.storage_account_name}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 03_develop_pipeline.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    num_epochs: 1
+    timeoutInMinutes: 240
+    
+- template: azpapermill.yml
+  parameters:
+    notebook: 04_deploy_logic_apps.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    image_name: 'torchdet' 
+    acr_resource_group: ${{parameters.azureresourcegroup}}
+    acr_location: ${{parameters.azureregion}}
+    acr_name: ${{parameters.acrname}}
