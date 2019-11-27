@@ -10,7 +10,7 @@ parameters:
   ProjectLocation: #
   PythonPath: #
   workload_vars: #
-  doCleanup: False
+  doCleanup: True
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
