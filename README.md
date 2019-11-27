@@ -1,4 +1,4 @@
-# Samples, Reference Architectures, Best Practices, and Labs
+# Samples, Reference Architectures, Best Practices
 
 This repository is meant to organize Microsoft's Open Source AI based repositories.
 
@@ -10,7 +10,6 @@ batch scoring, realtime scoring, model training, MLOps, Azure Machine Learning, 
 2. [AI100 - Samples](#ai100)
 3. [AI200 - Reference Architectures](#ai200)
 4. [AI300 - Best Practices](#ai300)
-5. [AI400 - Labs](#ai400)
 6. [Contributing](#Contributing)
 
 # Getting Started <a name="Getting-Started"></a>
