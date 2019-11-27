@@ -4,7 +4,7 @@ parameters:
   azureSubscription: #
   conda: #
   backward_compatability: false
-  backward_version: 1.0
+  backward_version: 1.0.0
   flighting_release: false
   flighting_preview: false
 
