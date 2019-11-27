@@ -3,6 +3,8 @@ parameters:
   conda_location: '.'#
   azureSubscription: #
   conda: #
+  backward_compatability: false
+  backward_version: 1.0
   flighting_release: false
   flighting_preview: false
 
@@ -23,6 +25,17 @@ steps:
     inlineScript: |
       conda env create -f ${{parameters.conda_location}}/environment.yml --force
       source activate ${{parameters.conda}}
+
+- task: AzureCLI@1
+  displayName: 'Downgrade AML SDK to previous release'
+  condition: eq('${{ parameters.backward_compatability }}', true)
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
+    scriptLocation: inlineScript
+    inlineScript: |
+      source activate ${{parameters.conda}}      
+      pip install -U azureml-sdk[notebooks,contrib]==${{parameters.backward_version}}
 
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to latest release'
