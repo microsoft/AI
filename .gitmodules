@@ -52,9 +52,6 @@
 [submodule "architectures/DeployMLModelPipelines"]
 	path = ai200-architectures/DeployMLModelPipelines
 	url = https://github.com/microsoft/AMLBatchScoringPipeline
-[submodule "architectures/MLOpsPython"]
-	path = ai200-architectures/MLOpsPython
-	url = https://github.com/Microsoft/MLOpsPython
 [submodule "samples"]
 	path = ai100-samples/azure-machinelearning-examples
 	url = https://github.com/Azure/MachineLearningNotebooks/
