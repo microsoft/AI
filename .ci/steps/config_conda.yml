@@ -32,8 +32,12 @@ steps:
     failOnStandardError: True
     scriptLocation: inlineScript
     inlineScript: |
-      source activate ${{parameters.conda}}
-      pip install -U azureml-sdk[notebooks,contrib]
+      source activate ${{parameters.conda}}      
+      pip install -U urllib3 \
+        azure-cli \
+        azureml-sdk[notebooks,contrib] \
+        python-dotenv \
+        locustio      
 
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to pre-release'
@@ -47,3 +51,8 @@ steps:
       pip install -U azureml-sdk[notebooks,contrib] \
         --index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Preview/E7501C02541B433786111FE8E140CAA1 \
         --extra-index-url https://pypi.python.org/simple
+      
+      pip install -U urllib3 \
+        azure-cli \
+        python-dotenv \
+        locustio
