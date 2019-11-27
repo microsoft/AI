@@ -28,7 +28,7 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 02_setup_aml.ipynb
+    notebook: 000_Setup_GeophysicsTutorial_FWI_Azure_devito.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
@@ -40,20 +40,24 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 03_develop_pipeline.ipynb
+    notebook: 010_CreateExperimentationDockerImage_GeophysicsTutorial_FWI_Azure_devito.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
-    num_epochs: 1
-    timeoutInMinutes: 240
-    
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    storage_account_name: ${{parameters.storage_account_name}}
+
 - template: azpapermill.yml
   parameters:
-    notebook: 04_deploy_logic_apps.ipynb
+    notebook: 020_UseAzureMLEstimatorForExperimentation_GeophysicsTutorial_FWI_Azure_devito.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
-    image_name: 'torchdet' 
-    acr_resource_group: ${{parameters.azureresourcegroup}}
-    acr_location: ${{parameters.azureregion}}
-    acr_name: ${{parameters.acrname}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    storage_account_name: ${{parameters.storage_account_name}}
