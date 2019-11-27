@@ -16,7 +16,7 @@ parameters:
   cluster_name: #
   flighting_release: false
   flighting_preview: false
-  doCleanup: False
+  doCleanup: True
   sub_vars: ../vars/agce_devops_sub_vars.yml
   workload_vars: #
 
