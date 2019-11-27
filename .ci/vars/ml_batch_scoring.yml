@@ -1,6 +1,6 @@
 variables:
-  TridentWorkloadTypeShort: aidlbat
+  TridentWorkloadTypeShort: aimlbat
   DeployLocation: eastus
   ProjectLocation: "."
   PythonPath: "."
-  Template: DLBatchDeployAMLJob.yml
+  Template: MLBatchDeployAMLJob.yml
