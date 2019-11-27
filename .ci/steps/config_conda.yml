@@ -3,7 +3,8 @@ parameters:
   conda_location: '.'#
   azureSubscription: #
   conda: #
-
+  flighting_release: false
+  flighting_preview: false
 
 steps:
 - task: AzureCLI@1
@@ -22,3 +23,36 @@ steps:
     inlineScript: |
       conda env create -f ${{parameters.conda_location}}/environment.yml --force
       source activate ${{parameters.conda}}
+
+- task: AzureCLI@1
+  displayName: 'Upgrade AML SDK to latest release'
+  condition: eq('${{ parameters.flighting_release }}', true)
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
+    scriptLocation: inlineScript
+    inlineScript: |
+      source activate ${{parameters.conda}}      
+      pip install -U urllib3 \
+        azure-cli \
+        azureml-sdk[notebooks,contrib] \
+        python-dotenv \
+        locustio      
+
+- task: AzureCLI@1
+  displayName: 'Upgrade AML SDK to pre-release'
+  condition: eq('${{ parameters.flighting_preview }}', true)
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
+    scriptLocation: inlineScript
+    inlineScript: |
+      source activate ${{parameters.conda}}
+      pip install -U azureml-sdk[notebooks,contrib] \
+        --index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Preview/E7501C02541B433786111FE8E140CAA1 \
+        --extra-index-url https://pypi.python.org/simple
+      
+      pip install -U urllib3 \
+        azure-cli \
+        python-dotenv \
+        locustio

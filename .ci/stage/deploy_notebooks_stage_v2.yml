@@ -1,0 +1,59 @@
+parameters:
+  Agent: Hosted Ubuntu 1604
+  Demands: "python3"
+  stageName: 'defaultStageName'
+  jobDisplayName: 'defaultDisplayName'
+  jobTimeoutInMinutes: 180
+  TridentWorkloadTypeShort: #
+  DeployLocation: #
+  TestPostfix: # "" | "-release" | "-preview"
+  Deploy_Location_Short: #
+  DefaultWorkingDirectory: #
+  Template: #
+  aksimagename: 'myimage'
+  ProjectLocation: #
+  PythonPath: #
+  cluster_name: #
+  flighting_release: false
+  flighting_preview: false
+  doCleanup: False
+  sub_vars: ../vars/agce_devops_sub_vars.yml
+  workload_vars: #
+
+stages:
+- stage: ${{parameters.stageName}}
+  dependsOn: []    
+  jobs:
+  - job: deploy_notebook_steps
+    displayName: ${{parameters.jobDisplayName}}
+
+    pool:
+      name: ${{parameters.Agent}}
+      demands: ${{parameters.Demands}}
+    
+    timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+  
+    workspace:
+      clean: all
+  
+    variables:
+    - template: ${{parameters.sub_vars}}
+    - template: ${{parameters.workload_vars}}
+  
+    steps:
+    - template: ../steps/deploy_notebook_steps_v2.yml
+      parameters:
+        template: ${{variables.Template}}
+        azureSubscription: ${{variables.azureSubscription}}
+        azure_subscription: ${{variables.azure_subscription}}
+        azureresourcegroup: ${{variables.TridentWorkloadTypeShort}}-${{variables.DeployLocation}}${{parameters.TestPostfix}}
+        workspacename: ${{variables.TridentWorkloadTypeShort}}-${{variables.DeployLocation}}
+        azureregion: ${{variables.DeployLocation}}
+        aksimagename: ${{parameters.aksimagename}}
+        aks_name: ${{variables.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
+        location: ${{variables.ProjectLocation}}
+        python_path: ${{parameters.DefaultWorkingDirectory}}${{variables.PythonPath}}
+        cluster_name: ${{variables.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
+        flighting_release: ${{parameters.flighting_release}}
+        flighting_preview: ${{parameters.flighting_preview}}
+        doCleanup: ${{parameters.doCleanup}}

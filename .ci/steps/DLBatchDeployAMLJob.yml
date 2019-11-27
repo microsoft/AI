@@ -14,6 +14,8 @@ parameters:
   cluster_name: "x"
   acr_name: "x"
   storage_account_name: aidlbatchstore
+  flighting_release: false
+  flighting_preview: false
 
 steps:
 - template: config_conda.yml
@@ -21,6 +23,8 @@ steps:
     conda_location: ${{parameters.python_path}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
+    flighting_release: ${{parameters.flighting_release}}
+    flighting_preview: ${{parameters.flighting_preview}}
 
 - template: azpapermill.yml
   parameters:

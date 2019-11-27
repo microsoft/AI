@@ -1,0 +1,65 @@
+parameters:
+  Agent: Hosted Ubuntu 1604
+  jobDisplayName: 'defaultDisplayName'
+  jobTimeoutInMinutes: 180
+  TridentWorkloadTypeShort: #
+  DeployLocation: #
+  DefaultWorkingDirectory: #
+  Template: #
+  azureSubscription: #
+  azure_subscription: #
+  ProjectLocation: #
+  PythonPath: #
+  doCleanup: False
+
+stages:
+- template: ../stage/deploy_notebooks_stage.yml
+  parameters:
+    Agent: ${{parameters.Agent}}
+    stageName: 'stable'
+    jobDisplayName: ${{parameters.jobDisplayName}}
+    jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+    DeployLocation: ${{parameters.DeployLocation}}
+    TestPostfix: "-stable"
+    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+    Template: ${{parameters.Template}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    ProjectLocation: ${{parameters.ProjectLocation}}
+    PythonPath: ${{parameters.PythonPath}}
+    doCleanup: ${{parameters.doCleanup}}
+
+- template: ../stage/deploy_notebooks_stage.yml
+  parameters:
+    Agent: ${{parameters.Agent}}
+    stageName: 'release'
+    jobDisplayName: ${{parameters.jobDisplayName}}
+    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+    DeployLocation: ${{parameters.DeployLocation}}
+    TestPostfix: "-release"
+    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+    Template: ${{parameters.Template}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    ProjectLocation: ${{parameters.ProjectLocation}}
+    PythonPath: ${{parameters.PythonPath}}
+    flighting_release: true
+    doCleanup: ${{parameters.doCleanup}}
+
+- template: ../stage/deploy_notebooks_stage.yml
+  parameters:
+    Agent: ${{parameters.Agent}}
+    stageName: 'preview'
+    jobDisplayName: ${{parameters.jobDisplayName}}
+    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+    DeployLocation: ${{parameters.DeployLocation}}
+    TestPostfix: "-preview"
+    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+    Template: ${{parameters.Template}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    ProjectLocation: ${{parameters.ProjectLocation}}
+    PythonPath: ${{parameters.PythonPath}}
+    flighting_preview: true
+    doCleanup: ${{parameters.doCleanup}}

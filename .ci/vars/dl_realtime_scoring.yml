@@ -1,0 +1,6 @@
+variables:
+  TridentWorkloadTypeShort: aidlrts
+  DeployLocation: eastus
+  ProjectLocation: "{{cookiecutter.project_name}}/Keras_Tensorflow"
+  PythonPath: /{{cookiecutter.project_name}}/Keras_Tensorflow
+  Template: DLAKSDeployAMLJob.yml

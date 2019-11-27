@@ -20,8 +20,14 @@ parameters:
   python_path: "" #Root Dir of Python Env
   python_secret_root: "./"
 
-
 steps:
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    doCleanup: True
 
 - template: createResourceGroupTemplate.yml
   parameters:

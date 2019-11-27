@@ -12,6 +12,8 @@ parameters:
   conda: amlmm
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
+  flighting_release: false
+  flighting_preview: false
 
 steps:
 - template: config_conda.yml
@@ -19,6 +21,8 @@ steps:
     conda_location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
+    flighting_release: ${{parameters.flighting_release}}
+    flighting_preview: ${{parameters.flighting_preview}}
 
 - template: azpapermill.yml
   parameters:
