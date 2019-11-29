@@ -1,6 +1,6 @@
 
 parameters:
-  notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
+  notebook: # defaults for any parameters that aren't specified
   location: "."
   azureSubscription: 'x'
   azure_subscription: 'x'
