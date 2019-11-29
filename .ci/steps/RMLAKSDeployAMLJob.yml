@@ -1,7 +1,7 @@
 parameters:
   azureSubscription: ''
   azure_subscription: ''
-  location: .
+  location: RealtimeRDeployment
   azureresourcegroup: dcibhpdl
   workspacename: dcibhpwsdl
   azureregion: westus2
