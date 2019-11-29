@@ -1,4 +1,6 @@
 parameters:
+  tenant: 72f988bf-86f1-41af-91ab-2d7cd011db47
+  subscription_id: 0ca618d2-22a8-413a-96d0-0f1b531129c3
   azureresourcegroup: "dcibrg"
   workspacename: "dcibws"
   azureregion: "westus"
@@ -20,6 +22,16 @@ steps:
   displayName: 'Setup R library directory'
 
 - bash: |
-    Rscript -e "pkgs <- c('remotes', 'rcmdcheck', 'drat', 'AzureGraph'); if(length(find.package(pkgs, quiet=TRUE)) != length(pkgs)) install.packages(pkgs)"
+    Rscript -e "pkgs <- c('remotes', 'rcmdcheck', 'drat', 'AzureGraph', 'AzureRMR'); if(length(find.package(pkgs, quiet=TRUE)) != length(pkgs)) install.packages(pkgs)"
     Rscript -e "remotes::install_deps(dependencies=TRUE)"
   displayName: 'Installing package dependencies'
+
+- bash: |
+    sed -i -e 's/your AAD tenant here/${{parameters.tenant}}/g' resource_specs.R
+    sed -i -e 's/your subscription here/${{parameters.subscription_id}}/g' resource_specs.R
+    sed -i -e 's/resource group name/${{parameters.azureresourcegroup}}/g' resource_specs.R
+    sed -i -e 's/resource group location/${{parameters.azureregion}}/g' resource_specs.R
+    sed -i -e 's/container registry name/${{parameters.acr_name}}/g' resource_specs.R
+    sed -i -e 's/cluster name/${{parameters.aks_name}}/g' resource_specs.R
+    
+    cat resource_specs.R
