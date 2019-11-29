@@ -13,7 +13,7 @@ parameters:
   doCleanup: True
 
 stages:
-- template: ../stage/deploy_notebooks_stage_v2.yml
+- template: ../stage/deploy_container_stage_v2.yml
   parameters:
     Agent: ${{parameters.Agent}}
     Demands: ${{parameters.Demands}}
@@ -27,39 +27,5 @@ stages:
     Template: ${{parameters.Template}}
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
-    workload_vars: ${{parameters.workload_vars}}
-    doCleanup: ${{parameters.doCleanup}}
-
-- template: ../stage/deploy_notebooks_stage_v2.yml
-  parameters:
-    Agent: ${{parameters.Agent}}
-    Demands: ${{parameters.Demands}}
-    stageName: 'release'
-    jobDisplayName: ${{parameters.jobDisplayName}}
-    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
-    DeployLocation: ${{parameters.DeployLocation}}
-    TestPostfix: "-release"
-    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
-    Template: ${{parameters.Template}}
-    ProjectLocation: ${{parameters.ProjectLocation}}
-    PythonPath: ${{parameters.PythonPath}}
-    flighting_release: true
-    workload_vars: ${{parameters.workload_vars}}
-    doCleanup: ${{parameters.doCleanup}}
-
-- template: ../stage/deploy_notebooks_stage_v2.yml
-  parameters:
-    Agent: ${{parameters.Agent}}
-    Demands: ${{parameters.Demands}}
-    stageName: 'preview'
-    jobDisplayName: ${{parameters.jobDisplayName}}
-    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
-    DeployLocation: ${{parameters.DeployLocation}}
-    TestPostfix: "-preview"
-    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
-    Template: ${{parameters.Template}}
-    ProjectLocation: ${{parameters.ProjectLocation}}
-    PythonPath: ${{parameters.PythonPath}}
-    flighting_preview: true
     workload_vars: ${{parameters.workload_vars}}
     doCleanup: ${{parameters.doCleanup}}
