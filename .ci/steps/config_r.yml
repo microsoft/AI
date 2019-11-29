@@ -8,14 +8,6 @@ parameters:
   acr_name: "x"
   
 steps:
-- task: AzureCLI@1
-  displayName: ${{parameters.notebook}}
-  inputs:
-    azureSubscription: ${{parameters.azureSubscription}}
-    scriptLocation: inlineScript
-    timeoutInMinutes: ${{parameters.timeoutInMinutes}}
-    failOnStderr: True
-    inlineScript: |
-      echo "Setup R"
-      Rscript ./setup.R
-      
+- bash: |
+    echo "Setup R"
+    Rscript ./setup.R
