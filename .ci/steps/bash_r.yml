@@ -11,5 +11,4 @@ steps:
     cd ${{parameters.location}}
     echo Execute ${{parameters.notebook}}
     Rscript ./${{parameters.notebook}}
-  failOnStderr: True
   timeoutInMinutes: ${{parameters.timeoutInMinutes}}
