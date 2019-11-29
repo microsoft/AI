@@ -30,7 +30,8 @@ stages:
     pool:
       name: ${{parameters.Agent}}
       demands: ${{parameters.Demands}}
-    
+    container: "rstudio/r-base:3.6-xenial"
+
     timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
   
     workspace:
