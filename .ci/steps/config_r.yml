@@ -9,5 +9,12 @@ parameters:
   
 steps:
 - bash: |
-    echo "Setup R"
-    sudo Rscript ./setup.R
+    echo "options(repos = '$(cranRepo)')" > ~/.Rprofile
+    echo ".libPaths(c('$R_LIBS_USER', .libPaths()))" >> ~/.Rprofile
+    mkdir -p $R_LIBS_USER
+  displayName: 'Setup R library directory'
+
+- bash: |
+    Rscript -e "pkgs <- c('remotes', 'rcmdcheck', 'drat'); if(length(find.package(pkgs, quiet=TRUE)) != length(pkgs)) install.packages(pkgs)"
+    Rscript -e "remotes::install_deps(dependencies=TRUE)"
+  displayName: 'Installing package dependencies'
