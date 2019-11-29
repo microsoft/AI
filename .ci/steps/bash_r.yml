@@ -1,0 +1,15 @@
+
+parameters:
+  notebook: # defaults for any parameters that aren't specified
+  location: "."
+  azureSubscription: 'x'
+  azure_subscription: 'x'
+  timeoutInMinutes: 90
+
+steps:
+- bash: |
+    cd ${{parameters.location}}
+    echo Execute ${{parameters.notebook}}
+    Rscript ./${{parameters.notebook}}
+  failOnStderr: True
+  timeoutInMinutes: ${{parameters.timeoutInMinutes}}
