@@ -1,0 +1,20 @@
+parameters:
+  azureresourcegroup: "dcibrg"
+  workspacename: "dcibws"
+  azureregion: "westus"
+  aksimagename: "myimage"
+  aks_name: "dcibaksname"
+  aks_service_name: "dcibaksserv"
+  acr_name: "x"
+  
+steps:
+- task: AzureCLI@1
+  displayName: ${{parameters.notebook}}
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    timeoutInMinutes: ${{parameters.timeoutInMinutes}}
+    failOnStderr: True
+    inlineScript: |
+      echo "Setup R"
+      
