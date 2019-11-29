@@ -34,7 +34,6 @@ stages:
     doCleanup: ${{parameters.doCleanup}}
 
 - template: ../stage/deploy_notebooks_stage_v2.yml
-  condition: eq('${{ parameters.flighting_release }}', true)
   parameters:
     Agent: ${{parameters.Agent}}
     Demands: ${{parameters.Demands}}
@@ -52,7 +51,6 @@ stages:
     doCleanup: ${{parameters.doCleanup}}
 
 - template: ../stage/deploy_notebooks_stage_v2.yml
-  condition: eq('${{ parameters.flighting_preview }}', true)
   parameters:
     Agent: ${{parameters.Agent}}
     Demands: ${{parameters.Demands}}
