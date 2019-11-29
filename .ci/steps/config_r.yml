@@ -6,11 +6,13 @@ parameters:
   aks_name: "dcibaksname"
   aks_service_name: "dcibaksserv"
   acr_name: "x"
+  CRAN: 'https://cloud.r-project.org'
+  R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
   
 steps:
 - bash: |
-    echo "options(repos = '$(cranRepo)')" > ~/.Rprofile
-    echo ".libPaths(c('$R_LIBS_USER', .libPaths()))" >> ~/.Rprofile
+    echo "options(repos = '${{parameters.CRAN}}')" > ~/.Rprofile
+    echo ".libPaths(c('${{parameters.R_LIBS_USER}}', .libPaths()))" >> ~/.Rprofile
     mkdir -p $R_LIBS_USER
   displayName: 'Setup R library directory'
 
