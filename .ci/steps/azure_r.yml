@@ -17,4 +17,6 @@ steps:
     inlineScript: |
       cd ${{parameters.location}}
       echo Execute ${{parameters.notebook}}
+      pwd
+      ls
       Rscript ./${{parameters.notebook}}
