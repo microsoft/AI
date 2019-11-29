@@ -23,22 +23,27 @@ steps:
 - template: azure_r.yml
   parameters:
     notebook: 00_train_model.R
+    azureSubscription: ${{parameters.azureSubscription}}
 
 - template: azure_r.yml
   parameters:
     notebook: 01_create_resources.R
+    azureSubscription: ${{parameters.azureSubscription}}
 
 - template: azure_r.yml
   parameters:
     notebook: 02_install_ingress.R
+    azureSubscription: ${{parameters.azureSubscription}}
 
 - template: azure_r.yml
   parameters:
     notebook: 03_deploy_service.R
+    azureSubscription: ${{parameters.azureSubscription}}
 
 - template: azure_r.yml
   parameters:
     notebook: 04_test_service.R
+    azureSubscription: ${{parameters.azureSubscription}}
 
 - template: cleanuptask.yml
   parameters:
