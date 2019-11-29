@@ -17,6 +17,5 @@ steps:
     failOnStderr: True
     inlineScript: |
       echo "Setup R"
-      pwd
-      ls
+      RScript ./setup.R
       
