@@ -1,7 +1,7 @@
 
 parameters:
   notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
-  location: "x"
+  location: "."
   azureSubscription: 'x'
   azure_subscription: 'x'
   timeoutInMinutes: 90
