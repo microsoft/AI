@@ -15,8 +15,6 @@ parameters:
   doCleanup: True
 
 steps:
-- template: docker_clean.yml
-
 - template: ${{parameters.template}}
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
