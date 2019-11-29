@@ -10,4 +10,4 @@ parameters:
 steps:
 - bash: |
     echo "Setup R"
-    Rscript ./setup.R
+    sudo Rscript ./setup.R
