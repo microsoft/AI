@@ -17,4 +17,4 @@ steps:
     inlineScript: |
       cd ${{parameters.location}}
       echo Execute ${{parameters.notebook}}
-      Rscript ${{parameters.notebook}}
+      Rscript ./${{parameters.notebook}}
