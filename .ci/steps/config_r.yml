@@ -20,6 +20,6 @@ steps:
   displayName: 'Setup R library directory'
 
 - bash: |
-    Rscript -e "pkgs <- c('remotes', 'rcmdcheck', 'drat'); if(length(find.package(pkgs, quiet=TRUE)) != length(pkgs)) install.packages(pkgs)"
+    Rscript -e "pkgs <- c('remotes', 'rcmdcheck', 'drat', 'AzureGraph'); if(length(find.package(pkgs, quiet=TRUE)) != length(pkgs)) install.packages(pkgs)"
     Rscript -e "remotes::install_deps(dependencies=TRUE)"
   displayName: 'Installing package dependencies'
