@@ -11,6 +11,9 @@ parameters:
   PythonPath: #
   workload_vars: #
   doCleanup: True
+  flighting_release: true
+  flighting_preview: true
+  
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -31,6 +34,7 @@ stages:
     doCleanup: ${{parameters.doCleanup}}
 
 - template: ../stage/deploy_notebooks_stage_v2.yml
+  condition: eq('${{ parameters.flighting_release }}', true)
   parameters:
     Agent: ${{parameters.Agent}}
     Demands: ${{parameters.Demands}}
@@ -48,6 +52,7 @@ stages:
     doCleanup: ${{parameters.doCleanup}}
 
 - template: ../stage/deploy_notebooks_stage_v2.yml
+  condition: eq('${{ parameters.flighting_preview }}', true)
   parameters:
     Agent: ${{parameters.Agent}}
     Demands: ${{parameters.Demands}}
