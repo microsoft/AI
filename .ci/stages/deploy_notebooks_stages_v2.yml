@@ -47,7 +47,7 @@ stages:
     Template: ${{parameters.Template}}
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
-    flighting_release: true
+    flighting_release: ${{parameters.flighting_release}}
     workload_vars: ${{parameters.workload_vars}}
     doCleanup: ${{parameters.doCleanup}}
 
@@ -65,6 +65,6 @@ stages:
     Template: ${{parameters.Template}}
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
-    flighting_preview: true
+    flighting_preview: ${{parameters.flighting_preview}}
     workload_vars: ${{parameters.workload_vars}}
     doCleanup: ${{parameters.doCleanup}}
