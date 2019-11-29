@@ -42,7 +42,7 @@ stages:
     - template: ${{parameters.workload_vars}}
   
     steps:
-    - template: ../steps/deploy_notebook_steps_v2.yml
+    - template: ../steps/deploy_container_steps_v2.yml
       parameters:
         template: ${{variables.Template}}
         azureSubscription: ${{variables.azureSubscription}}
