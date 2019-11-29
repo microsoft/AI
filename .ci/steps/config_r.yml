@@ -10,6 +10,9 @@ parameters:
   R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
   
 steps:
+  - script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
+    displayName: "Install System Dependencies"
+
 - bash: |
     echo "options(repos = '${{parameters.CRAN}}')" > ~/.Rprofile
     echo ".libPaths(c('${{parameters.R_LIBS_USER}}', .libPaths()))" >> ~/.Rprofile
