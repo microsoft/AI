@@ -13,7 +13,7 @@ steps:
 - bash: |
     echo "options(repos = '${{parameters.CRAN}}')" > ~/.Rprofile
     echo ".libPaths(c('${{parameters.R_LIBS_USER}}', .libPaths()))" >> ~/.Rprofile
-    mkdir -p $R_LIBS_USER
+    mkdir -p ${{parameters.R_LIBS_USER}}
   displayName: 'Setup R library directory'
 
 - bash: |
