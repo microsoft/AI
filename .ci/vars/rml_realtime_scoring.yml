@@ -1,0 +1,6 @@
+variables:
+  TridentWorkloadTypeShort: airmlrts
+  DeployLocation: eastus
+  ProjectLocation: ""
+  PythonPath: .
+  Template: RMLAKSDeployAMLJob.yml
