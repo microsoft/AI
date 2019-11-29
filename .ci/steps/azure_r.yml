@@ -1,0 +1,20 @@
+
+parameters:
+  notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
+  location: "x"
+  azureSubscription: 'x'
+  azure_subscription: 'x'
+  timeoutInMinutes: 90
+
+steps:
+- task: AzureCLI@1
+  displayName: ${{parameters.notebook}}
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    timeoutInMinutes: ${{parameters.timeoutInMinutes}}
+    failOnStderr: True
+    inlineScript: |
+      cd ${{parameters.location}}
+      echo Execute ${{parameters.notebook}}
+      r ${{parameters.notebook}}
