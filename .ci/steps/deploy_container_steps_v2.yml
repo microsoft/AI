@@ -12,6 +12,7 @@ parameters:
   cluster_name: "-"
   flighting_release: false
   flighting_preview: false
+  sp_appid: #
   sp_password: #
   doCleanup: True
 
@@ -30,5 +31,6 @@ steps:
     cluster_name: ${{parameters.cluster_name}}
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
+    sp_appid: ${{parameters.sp_appid}}
     sp_password: ${{parameters.sp_password}}
     doCleanup: ${{parameters.doCleanup}}
