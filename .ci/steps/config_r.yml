@@ -33,4 +33,5 @@ steps:
     sed -i -e 's/resource group location/${{parameters.azureregion}}/g' resource_specs.R
     sed -i -e 's/container registry name/${{parameters.acr_name}}/g' resource_specs.R
     sed -i -e 's/cluster name/${{parameters.aks_name}}/g' resource_specs.R
-    sed -i -e 's/stop("Must specify a password!")/"${{parameters.sp_password}}"/g' resource_specs.R   
+    sed -i -e 's/stop("Must specify a password!")/"${{parameters.sp_password}}"/g' resource_specs.R
+  displayName: 'Setup R parameters'
