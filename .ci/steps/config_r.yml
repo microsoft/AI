@@ -1,15 +1,15 @@
 parameters:
   tenant: 72f988bf-86f1-41af-91ab-2d7cd011db47
-  subscription_id: 0ca618d2-22a8-413a-96d0-0f1b531129c3
-  azureresourcegroup: "dcibrg"
-  workspacename: "dcibws"
-  azureregion: "westus"
+  azureresourcegroup: "rmlrts"
+  workspacename: "rmlrtsws"
+  azureregion: "eastus"
   aksimagename: "myimage"
-  aks_name: "dcibaksname"
-  aks_service_name: "dcibaksserv"
-  acr_name: "x"
+  aks_name: "rmlrtsaks"
+  aks_service_name: "rmlrts"
+  acr_name: "rmlrtsacr"
   CRAN: 'https://cloud.r-project.org'
   R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
+  azure_subscription: #
   sp_appid: #
   sp_password: #
   
@@ -30,7 +30,7 @@ steps:
 
 - bash: |
     sed -i -e 's/your AAD tenant here/${{parameters.tenant}}/g' resource_specs.R
-    sed -i -e 's/your subscription here/${{parameters.subscription_id}}/g' resource_specs.R
+    sed -i -e 's/your subscription here/${{parameters.azure_subscription}}/g' resource_specs.R
     sed -i -e 's/resource group name/${{parameters.azureresourcegroup}}/g' resource_specs.R
     sed -i -e 's/resource group location/${{parameters.azureregion}}/g' resource_specs.R
     sed -i -e 's/container registry name/${{parameters.acr_name}}/g' resource_specs.R
