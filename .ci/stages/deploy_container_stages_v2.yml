@@ -11,6 +11,7 @@ parameters:
   PythonPath: #
   workload_vars: #
   doCleanup: True
+  sp_appid: #
   sp_password: #
 
 stages:
@@ -29,5 +30,6 @@ stages:
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
     workload_vars: ${{parameters.workload_vars}}
+    sp_appid: ${{parameters.sp_appid}}
     sp_password: ${{parameters.sp_password}}
     doCleanup: ${{parameters.doCleanup}}
