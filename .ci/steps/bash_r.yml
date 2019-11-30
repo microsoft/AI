@@ -12,3 +12,4 @@ steps:
     echo Execute ${{parameters.notebook}}
     Rscript ./${{parameters.notebook}}
   timeoutInMinutes: ${{parameters.timeoutInMinutes}}
+  displayName: ${{parameters.notebook}}
