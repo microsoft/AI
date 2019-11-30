@@ -19,6 +19,7 @@ parameters:
   doCleanup: True
   sub_vars: ../vars/agce_devops_sub_vars.yml
   workload_vars: #
+  sp_password: #
 
 stages:
 - stage: ${{parameters.stageName}}
@@ -57,4 +58,5 @@ stages:
         cluster_name: ${{variables.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
         flighting_release: ${{parameters.flighting_release}}
         flighting_preview: ${{parameters.flighting_preview}}
+        sp_password: ${{parameters.sp_password}}
         doCleanup: ${{parameters.doCleanup}}
