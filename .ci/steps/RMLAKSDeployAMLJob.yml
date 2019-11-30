@@ -11,6 +11,7 @@ parameters:
   doCleanup: true
   flighting_release: false
   flighting_preview: false
+  sp_appid: #
   sp_password: #
 
 steps:
@@ -20,6 +21,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
+    sp_appid: ${{parameters.sp_appid}}
     sp_password: ${{parameters.sp_password}}
 
 - template: bash_r.yml
