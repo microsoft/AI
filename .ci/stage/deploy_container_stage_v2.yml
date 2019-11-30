@@ -32,7 +32,7 @@ stages:
     pool:
       name: ${{parameters.Agent}}
       demands: ${{parameters.Demands}}
-    container: "rstudio/r-base:3.6-xenial"
+    container: "rocker/tidyverse:latest"
 
     timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
   
