@@ -21,6 +21,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
+    azure_subscription: ${{parameters.azure_subscription}}
     sp_appid: ${{parameters.sp_appid}}
     sp_password: ${{parameters.sp_password}}
 
