@@ -46,7 +46,7 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-    doCleanup: False
+    doCleanup: ${{parameters.doCleanup}}
     alias : ${{parameters.alias}}
     project : ${{parameters.project}}
     expires : ${{parameters.expires}}    
