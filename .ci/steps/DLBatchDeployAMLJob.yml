@@ -13,7 +13,7 @@ parameters:
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
   cluster_name: "x"
   acr_name: "x"
-  storage_account_name: -store
+  storage_account_name: dlbatstore
   flighting_release: false
   flighting_preview: false
 
