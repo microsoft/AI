@@ -26,6 +26,7 @@ steps:
     flighting_preview: ${{parameters.flighting_preview}}
 
 - bash: |
+    cd  ${{parameters.location}}
     wget https://bostondata.blob.core.windows.net/builddata/Data.zip
     unzip Data.zip
     mv ./Data/JPEGImages ./scripts/

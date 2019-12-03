@@ -36,7 +36,7 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-    storage_account_name: ${{parameters.azureresourcegroup}}${{parameters.storage_account_name}}
+    storage_account_name: ${{parameters.azureresourcegroup}}
 
 - template: azpapermill.yml
   parameters:
