@@ -1,0 +1,6 @@
+variables:
+  TridentWorkloadTypeShort: dsdevito
+  DeployLocation: eastus
+  ProjectLocation: "contrib/examples/imaging/azureml_devito/notebooks/"
+  PythonPath: "environment/anaconda/local/"
+  Template: DevitoDeployAMLJob.yml

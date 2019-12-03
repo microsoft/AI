@@ -1,0 +1,40 @@
+parameters:
+  tenant: 72f988bf-86f1-41af-91ab-2d7cd011db47
+  azureresourcegroup: "rmlrts"
+  workspacename: "rmlrtsws"
+  azureregion: "eastus"
+  aksimagename: "myimage"
+  aks_name: "rmlrtsaks"
+  aks_service_name: "rmlrts"
+  acr_name: "rmlrtsacr"
+  CRAN: 'https://cloud.r-project.org'
+  R_LIBS_USER: '$(Agent.BuildDirectory)/R/library'
+  azure_subscription: #
+  sp_appid: #
+  sp_password: #
+  
+steps:
+- script: sudo apt-get update && sudo apt-get install -y libxml2-dev libssl-dev
+  displayName: "Install System Dependencies"
+
+- bash: |
+    echo "options(repos = '${{parameters.CRAN}}')" > ~/.Rprofile
+    echo ".libPaths(c('${{parameters.R_LIBS_USER}}', .libPaths()))" >> ~/.Rprofile
+    mkdir -p ${{parameters.R_LIBS_USER}}
+  displayName: 'Setup R library directory'
+
+- bash: |
+    Rscript -e "pkgs <- c('remotes', 'rcmdcheck', 'drat', 'AzureGraph', 'AzureRMR', 'AzureContainers'); if(length(find.package(pkgs, quiet=TRUE)) != length(pkgs)) install.packages(pkgs)"
+    Rscript -e "remotes::install_deps(dependencies=TRUE)"
+  displayName: 'Installing package dependencies'
+
+- bash: |
+    sed -i -e 's/your AAD tenant here/${{parameters.tenant}}/g' resource_specs.R
+    sed -i -e 's/your subscription here/${{parameters.azure_subscription}}/g' resource_specs.R
+    sed -i -e 's/resource group name/${{parameters.azureresourcegroup}}/g' resource_specs.R
+    sed -i -e 's/resource group location/${{parameters.azureregion}}/g' resource_specs.R
+    sed -i -e 's/container registry name/${{parameters.acr_name}}/g' resource_specs.R
+    sed -i -e 's/cluster name/${{parameters.aks_name}}/g' resource_specs.R
+    sed -i -e 's/your ap id/${{parameters.sp_appid}}/g' resource_specs.R
+    sed -i -e 's/stop("Must specify a password!")/"${{parameters.sp_password}}"/g' resource_specs.R
+  displayName: 'Setup R parameters'

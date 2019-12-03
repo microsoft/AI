@@ -60,8 +60,8 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 04_DeployOnAKS.ipynb
-    location: ${{parameters.location}}/aks
+    notebook: aks/04_DeployOnAKS.ipynb
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     aks_name: ${{parameters.aks_name}}

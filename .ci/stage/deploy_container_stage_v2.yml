@@ -19,6 +19,8 @@ parameters:
   doCleanup: True
   sub_vars: ../vars/agce_devops_sub_vars.yml
   workload_vars: #
+  sp_appid: #
+  sp_password: #
 
 stages:
 - stage: ${{parameters.stageName}}
@@ -30,7 +32,8 @@ stages:
     pool:
       name: ${{parameters.Agent}}
       demands: ${{parameters.Demands}}
-    
+    container: "rocker/tidyverse:latest"
+
     timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
   
     workspace:
@@ -41,7 +44,7 @@ stages:
     - template: ${{parameters.workload_vars}}
   
     steps:
-    - template: ../steps/deploy_notebook_steps_v2.yml
+    - template: ../steps/deploy_container_steps_v2.yml
       parameters:
         template: ${{variables.Template}}
         azureSubscription: ${{variables.azureSubscription}}
@@ -56,4 +59,6 @@ stages:
         cluster_name: ${{variables.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
         flighting_release: ${{parameters.flighting_release}}
         flighting_preview: ${{parameters.flighting_preview}}
+        sp_appid: ${{parameters.sp_appid}}
+        sp_password: ${{parameters.sp_password}}
         doCleanup: ${{parameters.doCleanup}}

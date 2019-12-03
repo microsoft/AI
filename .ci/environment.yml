@@ -1,0 +1,35 @@
+name: master
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  - pip
+  - ipykernel
+  - ipywidgets==7.3.0
+  - pandas>=0.23.3
+  - nb_conda_kernels==2.1.0
+  - scikit-learn>=0.19.1 
+  - tensorflow-gpu==1.14.0
+  - tornado<6
+  - urllib3==1.23
+  - pip:
+    - aiohttp>=3.3.2
+    - azure-cli==2.0.77
+    - azureml-sdk[notebooks]==1.0.76
+    - azure-storage-blob==12.0.0
+    - keras==2.2.0
+    - lightgbm>=2.1.2
+    - locustio==0.13.2
+    - matplotlib==3.1.1
+    - nest_asyncio>=0.9.10
+    - nbconvert==5.4.1                
+    - nest_asyncio>=0.9.10
+    - papermill==0.19.1
+    - Pillow==6.1.0
+    - prompt-toolkit>=2.0.7
+    - PyOpenSSL
+    - python-dotenv==0.10.3
+    - toolz==0.9.0
+    - tqdm==4.32.2
+    - wget==3.2
+    - git+https://github.com/microsoft/AI-Utilities.git

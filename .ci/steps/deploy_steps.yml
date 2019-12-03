@@ -8,7 +8,7 @@ parameters:
   azureregion: ''
   aksimagename: 'myimage'
   environment: 'tridant-ai'
-  doCleanup: True
+  doCleanup: False
   alias: '-'
   project: '-'
   expires : "2019-08-01"
@@ -46,7 +46,7 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-    doCleanup: True
+    doCleanup: ${{parameters.doCleanup}}
     alias : ${{parameters.alias}}
     project : ${{parameters.project}}
     expires : ${{parameters.expires}}    

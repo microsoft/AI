@@ -1,0 +1,35 @@
+parameters:  
+  Agent: Hosted Ubuntu 1604
+  Demands: "python3"
+  jobTimeoutInMinutes: 180
+  jobDisplayName: 'defaultDisplayName'
+  TridentWorkloadTypeShort: #
+  DeployLocation: #
+  DefaultWorkingDirectory: #
+  Template: #
+  ProjectLocation: #
+  PythonPath: #
+  workload_vars: #
+  doCleanup: True
+  sp_appid: #
+  sp_password: #
+
+stages:
+- template: ../stage/deploy_container_stage_v2.yml
+  parameters:
+    Agent: ${{parameters.Agent}}
+    Demands: ${{parameters.Demands}}
+    stageName: 'stable'
+    jobDisplayName: ${{parameters.jobDisplayName}}
+    jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+    DeployLocation: ${{parameters.DeployLocation}}
+    TestPostfix: "-stable"
+    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+    Template: ${{parameters.Template}}
+    ProjectLocation: ${{parameters.ProjectLocation}}
+    PythonPath: ${{parameters.PythonPath}}
+    workload_vars: ${{parameters.workload_vars}}
+    sp_appid: ${{parameters.sp_appid}}
+    sp_password: ${{parameters.sp_password}}
+    doCleanup: ${{parameters.doCleanup}}

@@ -1,0 +1,22 @@
+
+parameters:
+  notebook: # defaults for any parameters that aren't specified
+  location: "."
+  azureSubscription: 'x'
+  azure_subscription: 'x'
+  timeoutInMinutes: 90
+
+steps:
+- task: AzureCLI@1
+  displayName: ${{parameters.notebook}}
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    timeoutInMinutes: ${{parameters.timeoutInMinutes}}
+    failOnStderr: True
+    inlineScript: |
+      cd ${{parameters.location}}
+      echo Execute ${{parameters.notebook}}
+      pwd
+      ls
+      Rscript ./${{parameters.notebook}}

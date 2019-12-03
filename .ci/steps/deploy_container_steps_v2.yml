@@ -1,0 +1,36 @@
+parameters:
+  template: ''
+  azureSubscription: 'x'
+  azure_subscription: 'x'
+  azureresourcegroup: 'x'
+  workspacename: 'x'
+  azureregion: 'x'
+  aksimagename: 'x'  
+  aks_name: "mlaks"
+  location: "" #Root Dir of Project
+  python_path: "" #Root Dir of Python Env
+  cluster_name: "-"
+  flighting_release: false
+  flighting_preview: false
+  sp_appid: #
+  sp_password: #
+  doCleanup: True
+
+steps:
+- template: ${{parameters.template}}
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    aksimagename: ${{parameters.aksimagename}}    
+    aks_name: ${{parameters.aks_name}}
+    location: ${{parameters.location}}
+    python_path: ${{parameters.python_path}}
+    cluster_name: ${{parameters.cluster_name}}
+    flighting_release: ${{parameters.flighting_release}}
+    flighting_preview: ${{parameters.flighting_preview}}
+    sp_appid: ${{parameters.sp_appid}}
+    sp_password: ${{parameters.sp_password}}
+    doCleanup: ${{parameters.doCleanup}}
