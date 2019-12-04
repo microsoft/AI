@@ -1,6 +1,6 @@
 variables:
   TridentWorkloadTypeShort: aidlscore
-  DeployLocation: eastus  
+  DeployLocation: westus  
   ProjectLocation: "."
   PythonPath: "."
   Template: DLTrainDeployAMLJob.yml
