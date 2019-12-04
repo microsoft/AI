@@ -54,14 +54,6 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 02_PytorchEstimatorLocalRun.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    num_epochs: 1
     
 - template: azpapermill.yml
   parameters:
