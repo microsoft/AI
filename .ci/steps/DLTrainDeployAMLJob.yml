@@ -11,7 +11,7 @@ parameters:
   conda: TorchDetectAML
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
-  cluster_name: "aidltraincompute"
+  cluster_name: "dltraincomp"
   acr_name: "aidltrainacr"
   flighting_release: false
   flighting_preview: false
@@ -82,7 +82,7 @@ steps:
     conda: ${{parameters.conda}}  
     num_epochs: 1
     max_total_runs: 2
-    cluster_name: ${{parameters.cluster_name}}
+    cluster_name: dltraincomp
     azureresourcegroup: ${{parameters.azureresourcegroup}}
 
 - template: cleanuptask.yml
