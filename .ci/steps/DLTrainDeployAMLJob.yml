@@ -64,7 +64,7 @@ steps:
     image_name: 'torchdet' 
     acr_resource_group: ${{parameters.azureresourcegroup}}
     acr_location: ${{parameters.azureregion}}
-    acr_name: ${{parameters.acr_name}}
+    acr_name: ${{parameters.workspacename}}acr
     
 - template: azpapermill.yml
   parameters:
