@@ -13,7 +13,6 @@ parameters:
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
   cluster_name: "x"
   acr_name: "x"
-  storage_account_name: dlbatstore
   flighting_release: false
   flighting_preview: false
 
@@ -36,7 +35,7 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-    storage_account_name: ${{parameters.storage_account_name}}
+    storage_account_name: ${{parameters.workspacename}}store
 
 - template: azpapermill.yml
   parameters:
