@@ -11,7 +11,7 @@ parameters:
   conda: TorchDetectAML
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelPipelines"
-  cluster_name: "aidltraincompute"
+  cluster_name: "dltraincomp"
   acr_name: "aidltrainacr"
   flighting_release: false
   flighting_preview: false
@@ -54,14 +54,6 @@ steps:
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 02_PytorchEstimatorLocalRun.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    num_epochs: 1
     
 - template: azpapermill.yml
   parameters:
@@ -72,7 +64,7 @@ steps:
     image_name: 'torchdet' 
     acr_resource_group: ${{parameters.azureresourcegroup}}
     acr_location: ${{parameters.azureregion}}
-    acr_name: ${{parameters.acr_name}}
+    acr_name: ${{parameters.workspacename}}acr
     
 - template: azpapermill.yml
   parameters:
@@ -82,7 +74,7 @@ steps:
     conda: ${{parameters.conda}}  
     num_epochs: 1
     max_total_runs: 2
-    cluster_name: ${{parameters.cluster_name}}
+    cluster_name: dltraincomp
     azureresourcegroup: ${{parameters.azureresourcegroup}}
 
 - template: cleanuptask.yml
