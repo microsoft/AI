@@ -1,4 +1,4 @@
-# Samples, Reference Architectures, & Best Practices
+# Samples, Reference Architectures & Best Practices
 
 This repository is meant to organize Microsoft's Open Source AI based repositories.
 
