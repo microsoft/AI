@@ -1,0 +1,17 @@
+parameters:
+  root: C:\Anaconda\envs\
+  conda_env: # this param must be set
+  install_conda: true
+
+steps:
+- script: |
+    call conda env remove -n ${{parameters.conda_env}} -y
+    if exist ${{parameters.root}}${{parameters.conda_env}} rmdir /s /q ${{parameters.root}}${{parameters.conda_env}}
+  displayName: 'Remove Conda Env if it exists'
+
+- script: |
+    python ./scripts/generate_conda_file.py --name ${{parameters.conda_env}}
+    call conda env create -f ${{parameters.conda_env}}.yaml
+  displayName: 'Setup Conda Env'
+  failOnStandardError: True
+  enabled: ${{parameters.install_conda}}
