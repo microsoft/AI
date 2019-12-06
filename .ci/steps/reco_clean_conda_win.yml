@@ -1,0 +1,20 @@
+parameters:
+  root: C:\Anaconda\envs\
+  conda_env: # this param must be set
+  clean_conda: true
+
+steps:
+- script: |
+    call conda env remove -n ${{parameters.conda_env}} -y
+    if exist ${{parameters.root}}${{parameters.conda_env}} rmdir /s /q ${{parameters.root}}${{parameters.conda_env}}
+  workingDirectory: tests
+  displayName: 'Conda remove'
+  continueOnError: true
+  condition: always() # this step will always run, even if the pipeline is canceled
+  enabled: ${{parameters.clean_conda}}
+
+- script: |
+    del /q /S %LOCALAPPDATA%\Temp\*
+    for /d %%i in (%LOCALAPPDATA%\Temp\*) do @rmdir /s /q "%%i"
+  displayName: 'Remove Temp Files'
+  condition: succeededOrFailed()  
