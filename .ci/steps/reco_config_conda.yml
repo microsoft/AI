@@ -1,6 +1,7 @@
 parameters:
   root: /data/anaconda/bin
   conda_env: # this param must be set
+  install_conda: true
 
 steps:
 - bash: |
@@ -14,3 +15,4 @@ steps:
     conda env create --quiet -f ${{parameters.conda_env}}.yaml 2> log
   displayName: 'Setup Conda Env'
   failOnStandardError: True
+  enabled: ${{parameters.install_conda}}
