@@ -12,4 +12,4 @@ steps:
     python ./scripts/generate_conda_file.py --name ${{parameters.conda_env}}
     call conda env create -f ${{parameters.conda_env}}.yaml
   displayName: 'Setup Conda Env'
-  failOnStandardError: True
+  failOnStderr: True
