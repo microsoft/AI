@@ -13,3 +13,4 @@ steps:
     python ./scripts/generate_conda_file.py --name ${{parameters.conda_env}}
     conda env create --quiet -f ${{parameters.conda_env}}.yaml 2> log
   displayName: 'Setup Conda Env'
+  failOnStandardError: True
