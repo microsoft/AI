@@ -1,7 +1,6 @@
 parameters:
   root: C:\Anaconda\envs\
   conda_env: # this param must be set
-  install_conda: true
 
 steps:
 - script: |
@@ -14,4 +13,3 @@ steps:
     call conda env create -f ${{parameters.conda_env}}.yaml
   displayName: 'Setup Conda Env'
   failOnStandardError: True
-  enabled: ${{parameters.install_conda}}
