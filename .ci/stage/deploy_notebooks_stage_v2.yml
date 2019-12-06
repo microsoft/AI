@@ -32,8 +32,8 @@ stages:
       demands: ${{parameters.Demands}}
     
     timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
-    - ${{ if or(eq(${{parameters.flighting_release}},'true'), eq(${{parameters.flighting_preview}},'true')) }}:
-      continueOnError: true
+    
+    continueOnError: ${{or(eq(${{parameters.flighting_release}},'true'), eq(${{parameters.flighting_preview}},'true'))}}
   
     workspace:
       clean: all
