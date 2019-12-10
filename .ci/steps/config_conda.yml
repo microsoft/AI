@@ -47,19 +47,6 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}      
       pip install -U azureml-sdk[notebooks,contrib]
-
-- task: AzureCLI@1
-  displayName: 'Upgrade AML SDK to pre-release'
-  condition: eq('${{ parameters.flighting_preview }}', true)
-  inputs:
-    azureSubscription: ${{parameters.azureSubscription}}
-    failOnStandardError: True
-    scriptLocation: inlineScript
-    inlineScript: |
-      source activate ${{parameters.conda}}    
-      pip install -U azureml-sdk[notebooks,contrib] \
-        --index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Preview/E7501C02541B433786111FE8E140CAA1 \
-        --extra-index-url https://pypi.python.org/simple
       
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to master release'
