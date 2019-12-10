@@ -23,7 +23,7 @@ steps:
     failOnStandardError: True
     scriptLocation: inlineScript
     inlineScript: |
-      conda env create -f ${{parameters.conda_location}}/environment.yml --force
+      conda env create -f ${{parameters.conda_location}}/environment.yml python=3.6 --force
       source activate ${{parameters.conda}}
 
 - task: AzureCLI@1
