@@ -1,0 +1,88 @@
+parameters:
+  deployment_name: ''
+  template: ''
+  azureSubscription: ''
+  azure_subscription: ''
+  azureresourcegroup: ''
+  workspacename: ''
+  azureregion: ''
+  aksimagename: 'myimage'
+  environment: 'tridant-ai'
+  doCleanup: False
+  alias: '-'
+  project: '-'
+  expires : "2019-08-01"
+  agent: 'AI-GPU'
+  ENVIRONMENT_PREFIX: "ml-rts-"
+  deploymentguidtag: "ABC123"
+  aks_name: "mlaks"
+  location: "" #Root Dir of Project
+  python_path: "" #Root Dir of Python Env
+  python_secret_root: "./"
+
+steps:
+
+- script: |
+    docker stop $(docker ps -a -q)
+    docker rm $(docker ps -a -q)
+    docker system prune -a -f
+    rm -rf AI
+    git clone --recurse-submodules https://github.com/microsoft/AI.git
+  displayName: 'git clone sources'
+
+- bash: |
+    Deploy_Location_Short=$(echo $DeployLocation | cut -c1-6)
+    echo "##vso[task.setvariable variable=Deploy_Location_Short]$Deploy_Location_Short"
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    doCleanup: True
+
+- template: createResourceGroupTemplate.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    location: ${{parameters.azureregion}}
+    alias : ${{parameters.alias}}
+    project : ${{parameters.project}}
+    expires : ${{parameters.expires}}
+
+- template: deploy_notebook_steps.yml
+  parameters:
+    template: ${{parameters.template}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    doCleanup: ${{parameters.doCleanup}}
+    alias : ${{parameters.alias}}
+    project : ${{parameters.project}}
+    expires : ${{parameters.expires}}    
+    aks_name: ${{parameters.aks_name}}
+    location: ${{parameters.location}}
+    python_path: ${{parameters.python_path}}
+    conda: deployment_aml
+    
+- task: AzureCLI@1
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    inlineScript: |
+      source activate ${{parameters.conda}}
+      pip install -U azure azure-cli==2.0.75 azure-keyvault==1.1.0 python-dotenv
+      python ${{parameters.python_secret_root}}.ci/scripts/set_secret.py -n "${{parameters.ENVIRONMENT_PREFIX}}-key"
+
+
+- task: AzurePowerShell@4
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    ScriptType: 'FilePath'
+    ScriptPath: '${{parameters.python_secret_root}}.ci/scripts/SetResource.ps1'
+    ScriptArguments: '-resourceGroupName ''${{parameters.azureresourcegroup}}'' -tagId ''deployment-id'' -deploymentId ''${{parameters.deploymentguidtag}}'''
+    azurePowerShellVersion: 'LatestVersion'
+  displayName: 'Tag All Resources'
+  
