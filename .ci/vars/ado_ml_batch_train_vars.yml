@@ -1,0 +1,7 @@
+variables:
+  DeploymentName: ADOTrinDeployJob
+  TridentWorkloadTypeShort: adomltrain-$(Build.SourceBranch)
+  DeployLocation: eastus2  
+  ProjectLocation: "."
+  PythonPath: "."
+  Template: ADOTrainDeployAMLJob.yml
