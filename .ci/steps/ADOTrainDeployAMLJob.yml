@@ -14,6 +14,10 @@ parameters:
   max_total_runs: 1
   flighting_release: false
   flighting_preview: false  
+  sql_server_name: "x"
+  sql_database_name: "x"
+  sql_username: "x"
+  sql_password: "x"
 
 steps:
 - template: config_conda.yml
@@ -23,6 +27,28 @@ steps:
     conda: ${{parameters.conda}}
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 00_AMLConfiguration.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    sql_server_name: ${{parameters.sql_server_name}}
+    sql_database_name: ${{parameters.sql_database_name}}
+    sql_username: ${{parameters.sql_username}}
+    sql_password: ${{parameters.sql_password}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 00_Data_Prep.ipynb
+    conda: ${{parameters.conda}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    location: ${{parameters.location}}
 
 - template: azpapermill.yml
   parameters:
