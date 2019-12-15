@@ -13,6 +13,10 @@ parameters:
   flighting_release: false
   flighting_preview: false
   doCleanup: True
+  sql_server_name: "x"
+  sql_database_name: "x"
+  sql_username: "x"
+  sql_password: "x"
 
 steps:
 - template: docker_clean.yml
@@ -32,3 +36,7 @@ steps:
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     doCleanup: ${{parameters.doCleanup}}
+    sql_server_name: ${{parameters.sql_server_name}}
+    sql_database_name: ${{parameters.sql_database_name}}
+    sql_username: ${{parameters.sql_username}}
+    sql_password: ${{parameters.sql_password}}
