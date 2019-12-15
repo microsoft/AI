@@ -19,6 +19,10 @@ parameters:
   doCleanup: True
   sub_vars: ../vars/agce_devops_sub_vars.yml
   workload_vars: #
+  sql_server_name: "x"
+  sql_database_name: "x"
+  sql_username: "x"
+  sql_password: "x"
 
 stages:
 - stage: ${{parameters.stageName}}
@@ -59,3 +63,8 @@ stages:
         flighting_release: ${{parameters.flighting_release}}
         flighting_preview: ${{parameters.flighting_preview}}
         doCleanup: ${{parameters.doCleanup}}
+        sql_server_name: ${{parameters.sql_server_name}}
+        sql_database_name: ${{parameters.sql_database_name}}
+        sql_username: ${{parameters.sql_username}}
+        sql_password: ${{parameters.sql_password}}
+
