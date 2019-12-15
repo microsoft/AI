@@ -13,6 +13,10 @@ parameters:
   doCleanup: True
   flighting_release: true
   flighting_preview: true
+  sql_server_name: "x"
+  sql_database_name: "x"
+  sql_username: "x"
+  sql_password: "x"
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -31,6 +35,10 @@ stages:
     PythonPath: ${{parameters.PythonPath}}
     workload_vars: ${{parameters.workload_vars}}
     doCleanup: ${{parameters.doCleanup}}
+    sql_server_name: ${{parameters.sql_server_name}}
+    sql_database_name: ${{parameters.sql_database_name}}
+    sql_username: ${{parameters.sql_username}}
+    sql_password: ${{parameters.sql_password}}
     
 - ${{ if eq(parameters.flighting_release, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -49,6 +57,10 @@ stages:
       flighting_release: true
       workload_vars: ${{parameters.workload_vars}}
       doCleanup: ${{parameters.doCleanup}}
+      sql_server_name: ${{parameters.sql_server_name}}
+      sql_database_name: ${{parameters.sql_database_name}}
+      sql_username: ${{parameters.sql_username}}
+      sql_password: ${{parameters.sql_password}}
 
 - ${{ if eq(parameters.flighting_preview, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -67,3 +79,7 @@ stages:
       flighting_preview: true
       workload_vars: ${{parameters.workload_vars}}
       doCleanup: ${{parameters.doCleanup}}
+      sql_server_name: ${{parameters.sql_server_name}}
+      sql_database_name: ${{parameters.sql_database_name}}
+      sql_username: ${{parameters.sql_username}}
+      sql_password: ${{parameters.sql_password}}
