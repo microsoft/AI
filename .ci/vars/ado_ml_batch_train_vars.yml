@@ -1,6 +1,6 @@
 variables:
   DeploymentName: ADOTrinDeployJob
-  TridentWorkloadTypeShort: adomltrain-$(Build.SourceBranch)
+  TridentWorkloadTypeShort: adomltrain
   DeployLocation: eastus2  
   ProjectLocation: "."
   PythonPath: "."
