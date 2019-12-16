@@ -21,7 +21,7 @@ parameters:
   data_prep: true
   train: true
   post_cleanup: true
-  datastore_rg: ${{parameters.datastore_rg}}
+  datastore_rg: "x"
 
 steps:
 - template: config_conda.yml
