@@ -18,6 +18,9 @@ parameters:
   sql_username: "x"
   sql_password: "x"
   TestPostfix: "-stable"
+  data_prep: true
+  train: true
+  
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -40,6 +43,8 @@ stages:
     sql_database_name: ${{parameters.sql_database_name}}
     sql_username: ${{parameters.sql_username}}
     sql_password: ${{parameters.sql_password}}
+    data_prep: ${{parameters.data_prep}}
+    train: ${{parameters.train}}
     
 - ${{ if eq(parameters.flighting_release, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v2.yml
