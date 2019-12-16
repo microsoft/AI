@@ -17,6 +17,7 @@ parameters:
   sql_database_name: "x"
   sql_username: "x"
   sql_password: "x"
+  TestPostfix: "-stable"
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -28,7 +29,7 @@ stages:
     jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
     TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
     DeployLocation: ${{parameters.DeployLocation}}
-    TestPostfix: "-stable"
+    TestPostfix: ${{parameters.TestPostfix}}
     DefaultWorkingDirectory: ${{parameters.DeployLocation}}
     Template: ${{parameters.Template}}
     ProjectLocation: ${{parameters.ProjectLocation}}
