@@ -67,4 +67,4 @@ steps:
         -p sql_server_name ${{parameters.sql_server_name}} \
         -p sql_database_name ${{parameters.sql_database_name}} \
         -p sql_username ${{parameters.sql_username}} \
-        -p sql_password ${{parameters.sql_password}}
+        -p sql_password '${{parameters.sql_password}}'
