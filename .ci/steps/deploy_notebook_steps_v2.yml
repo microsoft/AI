@@ -19,6 +19,7 @@ parameters:
   sql_password: "x"
   data_prep: true
   train: true
+  post_cleanup: true
 
 steps:
 - template: docker_clean.yml
@@ -44,3 +45,4 @@ steps:
     sql_password: ${{parameters.sql_password}}
     data_prep: ${{parameters.data_prep}}
     train: ${{parameters.train}}
+    post_cleanup: ${{parameters.post_cleanup}}
