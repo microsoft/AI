@@ -26,6 +26,9 @@ parameters:
   data_prep: true
   train: true
   post_cleanup: true
+  container_name: "x"
+  account_name: "x"
+  account_key: "x"
   
 stages:
 - stage: ${{parameters.stageName}}
@@ -73,4 +76,7 @@ stages:
         data_prep: ${{parameters.data_prep}}
         train: ${{parameters.train}}
         post_cleanup: ${{parameters.post_cleanup}}
+        container_name: ${{parameters.container_name}}
+        account_name: ${{parameters.account_name}}
+        account_key: ${{parameters.account_key}}
 
