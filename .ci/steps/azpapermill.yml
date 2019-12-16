@@ -19,6 +19,10 @@ parameters:
   cluster_name: "x"
   storage_account_name: "xxxxxxx"
   timeoutInMinutes: 90
+  sql_server_name: "x"
+  sql_database_name: "x"
+  sql_username: "x"
+  sql_password: "x"
   container_name: "x"
   account_name: "x"
   account_key: "x"
@@ -59,4 +63,8 @@ steps:
         -p container_name ${{parameters.container_name}} \
         -p account_name ${{parameters.account_name}} \
         -p account_key ${{parameters.account_key}} \
-        -p datastore_rg ${{parameters.datastore_rg}}
+        -p datastore_rg ${{parameters.datastore_rg}} \
+        -p sql_server_name ${{parameters.sql_server_name}} \
+        -p sql_database_name ${{parameters.sql_database_name}} \
+        -p sql_username ${{parameters.sql_username}} \
+        -p sql_password ${{parameters.sql_password}}
