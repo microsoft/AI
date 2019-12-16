@@ -23,7 +23,9 @@ parameters:
   sql_database_name: "x"
   sql_username: "x"
   sql_password: "x"
-
+  data_prep: true
+  train: true
+  
 stages:
 - stage: ${{parameters.stageName}}
   dependsOn: []    
@@ -67,4 +69,6 @@ stages:
         sql_database_name: ${{parameters.sql_database_name}}
         sql_username: ${{parameters.sql_username}}
         sql_password: ${{parameters.sql_password}}
+        data_prep: ${{parameters.data_prep}}
+        train: ${{parameters.train}}
 
