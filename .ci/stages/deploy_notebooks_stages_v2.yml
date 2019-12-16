@@ -68,6 +68,7 @@ stages:
       sql_database_name: ${{parameters.sql_database_name}}
       sql_username: ${{parameters.sql_username}}
       sql_password: ${{parameters.sql_password}}
+      post_cleanup: ${{parameters.post_cleanup}}
 
 - ${{ if eq(parameters.flighting_preview, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -90,3 +91,4 @@ stages:
       sql_database_name: ${{parameters.sql_database_name}}
       sql_username: ${{parameters.sql_username}}
       sql_password: ${{parameters.sql_password}}
+      post_cleanup: ${{parameters.post_cleanup}}
