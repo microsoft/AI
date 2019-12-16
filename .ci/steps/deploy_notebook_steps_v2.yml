@@ -24,6 +24,9 @@ parameters:
   account_name: "x"
   account_key: "x"
   datastore_rg: "x"
+  container_name: "x"
+  account_name: "x"
+  account_key: "x"
 
 steps:
 - template: docker_clean.yml
@@ -54,3 +57,6 @@ steps:
     account_name: ${{parameters.account_name}}
     account_key: ${{parameters.account_key}}
     datastore_rg: ${{parameters.datastore_rg}}
+    container_name: ${{parameters.container_name}}
+    account_name: ${{parameters.account_name}}
+    account_key: ${{parameters.account_key}}
