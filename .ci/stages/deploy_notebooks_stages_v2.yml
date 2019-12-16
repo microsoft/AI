@@ -21,6 +21,9 @@ parameters:
   data_prep: true
   train: true
   post_cleanup: true
+  container_name: "x"
+  account_name: "x"
+  account_key: "x"
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -46,7 +49,10 @@ stages:
     data_prep: ${{parameters.data_prep}}
     train: ${{parameters.train}}
     post_cleanup: ${{parameters.post_cleanup}}
-    
+    container_name: ${{parameters.container_name}}
+    account_name: ${{parameters.account_name}}
+    account_key: ${{parameters.account_key}}
+
 - ${{ if eq(parameters.flighting_release, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v2.yml
     parameters:
@@ -69,6 +75,9 @@ stages:
       sql_username: ${{parameters.sql_username}}
       sql_password: ${{parameters.sql_password}}
       post_cleanup: ${{parameters.post_cleanup}}
+      container_name: ${{parameters.container_name}}
+      account_name: ${{parameters.account_name}}
+      account_key: ${{parameters.account_key}}
 
 - ${{ if eq(parameters.flighting_preview, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -91,4 +100,7 @@ stages:
       sql_database_name: ${{parameters.sql_database_name}}
       sql_username: ${{parameters.sql_username}}
       sql_password: ${{parameters.sql_password}}
-      post_cleanup: ${{parameters.post_cleanup}}
+      post_cleanup: ${{parameters.post_cleanup}}      
+      container_name: ${{parameters.container_name}}
+      account_name: ${{parameters.account_name}}
+      account_key: ${{parameters.account_key}}
