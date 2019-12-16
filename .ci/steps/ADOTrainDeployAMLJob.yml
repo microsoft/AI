@@ -21,6 +21,7 @@ parameters:
   data_prep: true
   train: true
   post_cleanup: true
+  datastore_rg: ${{parameters.datastore_rg}}
 
 steps:
 - template: config_conda.yml
@@ -45,6 +46,7 @@ steps:
     sql_database_name: ${{parameters.sql_database_name}}
     sql_username: ${{parameters.sql_username}}
     sql_password: ${{parameters.sql_password}}
+    datastore_rg: ${{parameters.datastore_rg}}
 
 - ${{ if eq(parameters.data_prep, 'true') }}:
   - template: azpapermill.yml
