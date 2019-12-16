@@ -20,7 +20,7 @@ parameters:
   TestPostfix: "-stable"
   data_prep: true
   train: true
-  
+  post_cleanup: true
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -45,6 +45,7 @@ stages:
     sql_password: ${{parameters.sql_password}}
     data_prep: ${{parameters.data_prep}}
     train: ${{parameters.train}}
+    post_cleanup: ${{parameters.post_cleanup}}
     
 - ${{ if eq(parameters.flighting_release, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v2.yml
