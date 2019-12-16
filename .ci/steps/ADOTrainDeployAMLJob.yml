@@ -20,6 +20,7 @@ parameters:
   sql_password: "x"
   data_prep: true
   train: true
+  post_cleanup: true
 
 steps:
 - template: config_conda.yml
@@ -101,4 +102,4 @@ steps:
     conda: deployment_aml
     location: ${{parameters.location}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
-    doCleanup: ${{parameters.doCleanup}}
+    doCleanup: ${{parameters.post_cleanup}}
