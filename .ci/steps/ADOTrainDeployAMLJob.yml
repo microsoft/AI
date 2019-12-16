@@ -52,13 +52,6 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 00_Data_Prep.ipynb
-    conda: ${{parameters.conda}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    location: ${{parameters.location}}
-
-- template: azpapermill.yml
-  parameters:
     notebook: 01_Training_Script.ipynb
     conda: ${{parameters.conda}}
     azureSubscription: ${{parameters.azureSubscription}}
