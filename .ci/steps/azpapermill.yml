@@ -22,6 +22,7 @@ parameters:
   container_name: "x"
   account_name: "x"
   account_key: "x"
+  datastore_rg: "x"
 
 steps:
 - task: AzureCLI@1
@@ -57,5 +58,5 @@ steps:
         -p storage_account_name ${{parameters.storage_account_name}} \
         -p container_name ${{parameters.container_name}} \
         -p account_name ${{parameters.account_name}} \
-        -p account_key ${{parameters.account_key}}
-  
+        -p account_key ${{parameters.account_key}} \
+        -p datastore_rg ${{parameters.datastore_rg}}
