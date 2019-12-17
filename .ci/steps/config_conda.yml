@@ -46,8 +46,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}      
-      pip install -U azureml-sdk[notebooks,contrib] \
-        --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Candidate/604C89A437BA41BD942B4F46D9A3591D
+      pip install -U azureml-sdk[notebooks,contrib]
       
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to master release'
@@ -59,4 +58,4 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}    
       pip install -U azureml-sdk[notebooks,contrib] \
-        --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/master/588E708E0DF342C4A80BD954289657CF
+        --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Candidate/604C89A437BA41BD942B4F46D9A3591D
