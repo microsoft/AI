@@ -1,5 +1,4 @@
 parameters:
-  notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
   location: "x"
   azureSubscription: 'x'
   conda: MLAKSDeployAML
@@ -22,7 +21,7 @@ steps:
       source activate ${{parameters.conda}}
       export PYTHONPATH=${{parameters.python_path}}:${PYTHONPATH}      
       cd ${{parameters.location}}
-      python ${{parameters.python_secret_root}}.ci/scripts/${{parameters.notebook}} \
+      python ${{parameters.python_secret_root}}.ci/scripts/aml_creation.py \
         --subscription_id ${{parameters.azure_subscription}} \
         --resource_group ${{parameters.azureresourcegroup}} \
         --workspace_name ${{parameters.workspacename}} \
