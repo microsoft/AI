@@ -1,0 +1,29 @@
+parameters:
+  notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
+  location: "x"
+  azureSubscription: 'x'
+  conda: MLAKSDeployAML
+  azure_subscription: 'x'
+  azureresourcegroup: "dcibrg"
+  workspacename: "dcibws"
+  azureregion: "westus"
+  python_path: "{{cookiecutter.project_name}}"
+  timeoutInMinutes: 90
+
+steps:
+- task: AzureCLI@1
+  displayName: ${{parameters.notebook}}
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: inlineScript
+    timeoutInMinutes: ${{parameters.timeoutInMinutes}}
+    failOnStderr: True
+    inlineScript: |
+      source activate ${{parameters.conda}}
+      export PYTHONPATH=${{parameters.python_path}}:${PYTHONPATH}      
+      cd ${{parameters.location}}
+      python ${{parameters.python_secret_root}}.ci/scripts/${{parameters.notebook}} \
+        --subscription_id ${{parameters.azure_subscription}} \
+        --resource_group ${{parameters.azureresourcegroup}} \
+        --workspace_name ${{parameters.workspacename}} \
+        --workspace_region ${{parameters.azureregion}}
