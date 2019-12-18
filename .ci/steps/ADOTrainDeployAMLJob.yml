@@ -35,7 +35,7 @@ steps:
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
 
-- template: azpapermill.yml
+- template: azpapermill_iterator.yml
   parameters:
     notebooks: '00_AMLConfiguration.ipynb 01_AutoML_Local.ipynb'
     location: ${{parameters.location}}
