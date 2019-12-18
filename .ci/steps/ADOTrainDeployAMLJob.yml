@@ -37,7 +37,7 @@ steps:
 
 - template: azpapermill.yml
   parameters:
-    notebook: 00_AMLConfiguration.ipynb
+    notebooks: '00_AMLConfiguration.ipynb 01_AutoML_Local.ipynb'
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
@@ -53,13 +53,6 @@ steps:
     account_name: ${{parameters.account_name}}
     account_key: ${{parameters.account_key}}
     datastore_rg: ${{parameters.datastore_rg}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 01_AutoML_Local.ipynb
-    conda: ${{parameters.conda}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    location: ${{parameters.location}}
 
 - ${{ if eq(parameters.data_prep, 'true') }}:
   - template: azpapermill.yml
