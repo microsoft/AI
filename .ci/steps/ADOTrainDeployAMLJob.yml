@@ -57,7 +57,7 @@ steps:
 - ${{ if eq(parameters.data_prep, 'true') }}:
   - template: azpapermill.yml
     parameters:
-      notebook: 00_Data_Prep.ipynb
+      notebook: 01_AutoML_Local.ipynb
       conda: ${{parameters.conda}}
       azureSubscription: ${{parameters.azureSubscription}}
       location: ${{parameters.location}}
