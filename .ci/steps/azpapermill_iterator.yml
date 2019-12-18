@@ -1,7 +1,7 @@
 
 
 parameters:
-  notebook: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
+  notebooks: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
   location: "x"
   azureSubscription: 'x'
   conda: MLAKSDeployAML
@@ -30,7 +30,7 @@ parameters:
 
 steps:
 - task: AzureCLI@1
-  displayName: ${{parameters.notebook}}
+  displayName: Notebooks
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
