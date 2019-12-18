@@ -54,7 +54,6 @@ steps:
     account_key: ${{parameters.account_key}}
     datastore_rg: ${{parameters.datastore_rg}}
 
-- ${{ if eq(parameters.data_prep, 'true') }}:
   - template: azpapermill.yml
     parameters:
       notebook: 01_AutoML_Local.ipynb
@@ -62,6 +61,7 @@ steps:
       azureSubscription: ${{parameters.azureSubscription}}
       location: ${{parameters.location}}
 
+- ${{ if eq(parameters.data_prep, 'true') }}:
   - template: azpapermill.yml
     parameters:
       notebook: 01_Training_Script.ipynb
