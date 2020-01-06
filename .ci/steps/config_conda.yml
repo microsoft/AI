@@ -23,7 +23,7 @@ steps:
     failOnStandardError: True
     scriptLocation: inlineScript
     inlineScript: |
-      conda env create -f ${{parameters.conda_location}}/environment.yml --force
+      conda env create -f ${{parameters.conda_location}}/environment.yml python=3.6 --force
       source activate ${{parameters.conda}}
 
 - task: AzureCLI@1
@@ -47,9 +47,9 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}      
       pip install -U azureml-sdk[notebooks,contrib]
-
+      
 - task: AzureCLI@1
-  displayName: 'Upgrade AML SDK to pre-release'
+  displayName: 'Upgrade AML SDK to master release'
   condition: eq('${{ parameters.flighting_preview }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
@@ -58,7 +58,4 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}    
       pip install -U azureml-sdk[notebooks,contrib] \
-        --index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Preview/E7501C02541B433786111FE8E140CAA1 \
-        --extra-index-url https://pypi.python.org/simple
-      
-      
+        --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Candidate/604C89A437BA41BD942B4F46D9A3591D

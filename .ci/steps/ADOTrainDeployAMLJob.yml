@@ -1,0 +1,106 @@
+parameters:
+  azureSubscription: 'x'
+  azure_subscription: 'x'
+  location: '.'
+  azureresourcegroup: 'x'
+  workspacename: 'x'
+  azureregion: westus2
+  aksimagename: 'x'
+  aks_name: 'x'
+  aks_service_name: 'x'
+  conda: 'MLHyperparameterTuning'
+  doCleanup: true
+  python_path: 'x'
+  max_total_runs: 1
+  flighting_release: false
+  flighting_preview: false  
+  sql_server_name: "x"
+  sql_database_name: "x"
+  sql_username: "x"
+  sql_password: "x"
+  data_prep: true
+  train: true
+  post_cleanup: true
+  container_name: "x"
+  account_name: "x"
+  account_key: "x"
+  datastore_rg: "x"
+
+steps:
+- template: config_conda.yml
+  parameters:
+    conda_location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    flighting_release: ${{parameters.flighting_release}}
+    flighting_preview: ${{parameters.flighting_preview}}
+
+- template: azpapermill_iterator.yml
+  parameters:
+    notebooks: '00_AMLConfiguration.ipynb 01_AutoML_Local.ipynb 02_SQL_Dataset.ipynb'
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    sql_server_name: ${{parameters.sql_server_name}}
+    sql_database_name: ${{parameters.sql_database_name}}
+    sql_username: ${{parameters.sql_username}}
+    sql_password: ${{parameters.sql_password}}
+    container_name: ${{parameters.container_name}}
+    account_name: ${{parameters.account_name}}
+    account_key: ${{parameters.account_key}}
+    datastore_rg: ${{parameters.datastore_rg}}
+
+- ${{ if eq(parameters.data_prep, 'true') }}:
+  - template: azpapermill.yml
+    parameters:
+      notebook: 01_Training_Script.ipynb
+      conda: ${{parameters.conda}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      location: ${{parameters.location}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 02_Testing_Script.ipynb
+      conda: ${{parameters.conda}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      location: ${{parameters.location}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 03_Run_Locally.ipynb
+      conda: ${{parameters.conda}}
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      azure_subscription: ${{parameters.azure_subscription}}
+      azureresourcegroup: ${{parameters.azureresourcegroup}}
+      workspacename: ${{parameters.workspacename}}
+      azureregion: ${{parameters.azureregion}}
+
+- ${{ if eq(parameters.train, 'true') }}:
+  - template: azpapermill.yml
+    parameters:
+      notebook:  04_Hyperparameter_Random_Search.ipynb
+      conda: ${{parameters.conda}}
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      max_total_runs: ${{parameters.max_total_runs}}
+
+  - template: azpapermill.yml
+    parameters:
+      notebook: 07_Train_With_AML_Pipeline.ipynb
+      conda: ${{parameters.conda}}
+      location: ${{parameters.location}}
+      azureSubscription: ${{parameters.azureSubscription}}
+      max_total_runs: ${{parameters.max_total_runs}}
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: deployment_aml
+    location: ${{parameters.location}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    doCleanup: ${{parameters.post_cleanup}}
