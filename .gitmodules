@@ -82,3 +82,6 @@
 [submodule "submodules/HyperdriveDeepLearning"]
 	path = submodules/TrainDLModelHyperdrive
 	url = https://github.com/microsoft/HyperdriveDeepLearning
+[submodule "ai100-samples/seismic-deeplearning"]
+	path = ai100-samples/seismic-deeplearning
+	url = https://github.com/microsoft/seismic-deeplearning/
