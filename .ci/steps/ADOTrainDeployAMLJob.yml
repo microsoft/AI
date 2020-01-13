@@ -8,7 +8,7 @@ parameters:
   aksimagename: 'x'
   aks_name: 'x'
   aks_service_name: 'x'
-  conda: 'ado-ml-batch-train'
+  conda: 'MLHyperparameterTuning'
   doCleanup: true
   python_path: 'x'
   max_total_runs: 1
