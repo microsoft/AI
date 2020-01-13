@@ -8,7 +8,7 @@ parameters:
   aksimagename: 'x'
   aks_name: 'x'
   aks_service_name: 'x'
-  conda: 'MLHyperparameterTuning'
+  conda: 'ado-ml-batch-train'
   doCleanup: true
   python_path: 'x'
   max_total_runs: 1
@@ -37,7 +37,7 @@ steps:
 
 - template: azpapermill_iterator.yml
   parameters:
-    notebooks: '00_AMLConfiguration.ipynb 01_AutoML_Local.ipynb 02_SQL_Dataset.ipynb'
+    notebooks: '00_AMLConfiguration.ipynb 01_AutoML_Local.ipynb 02_Train_Mitigation_Score_Model.ipynb'
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
