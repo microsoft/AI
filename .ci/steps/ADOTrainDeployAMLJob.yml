@@ -37,7 +37,7 @@ steps:
 
 - template: azpapermill_iterator.yml
   parameters:
-    notebooks: '00_AMLConfiguration.ipynb 01_AutoML_Local.ipynb 02_Train_Mitigation_Score_Model.ipynb'
+    notebooks: '00_AMLConfiguration.ipynb 01_AutoML_Local.ipynb 03_Train_Impact_Score_Model.ipynb'
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
