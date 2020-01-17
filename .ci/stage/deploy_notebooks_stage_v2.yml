@@ -16,6 +16,7 @@ parameters:
   cluster_name: #
   flighting_release: false
   flighting_preview: false
+  flighting_master: false
   doCleanup: True
   sub_vars: ../vars/agce_devops_sub_vars.yml
   workload_vars: #
@@ -44,7 +45,7 @@ stages:
     
     timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
     
-    continueOnError: ${{or(eq(parameters.flighting_release,'true'), eq(parameters.flighting_preview,'true'))}}
+    continueOnError: ${{or(or(eq(parameters.flighting_release,'true'), eq(parameters.flighting_preview,'true')), eq(parameters.flighting_master,'true'))}}
   
     workspace:
       clean: all
@@ -69,6 +70,7 @@ stages:
         cluster_name: ${{variables.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
         flighting_release: ${{parameters.flighting_release}}
         flighting_preview: ${{parameters.flighting_preview}}
+        flighting_master: ${{parameters.flighting_master}}        
         doCleanup: ${{parameters.doCleanup}}
         sql_server_name: ${{parameters.sql_server_name}}
         sql_database_name: ${{parameters.sql_database_name}}
