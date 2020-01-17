@@ -23,6 +23,7 @@ steps:
     failOnStandardError: True
     scriptLocation: inlineScript
     inlineScript: |
+      conda update -y -n base -c defaults conda
       conda env create -f ${{parameters.conda_location}}/environment.yml python=3.6 --force
       source activate ${{parameters.conda}}
 
