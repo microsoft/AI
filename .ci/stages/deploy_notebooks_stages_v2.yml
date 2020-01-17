@@ -119,7 +119,7 @@ stages:
       jobDisplayName: ${{parameters.jobDisplayName}}
       TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
       DeployLocation: ${{parameters.DeployLocation}}
-      TestPostfix: "-preview"
+      TestPostfix: "-master"
       DefaultWorkingDirectory: ${{parameters.DeployLocation}}
       Template: ${{parameters.Template}}
       ProjectLocation: ${{parameters.ProjectLocation}}
