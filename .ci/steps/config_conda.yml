@@ -7,6 +7,7 @@ parameters:
   backward_version: 1.0.2
   flighting_release: false
   flighting_preview: false
+  flighting_master: false
 
 steps:
 - task: AzureCLI@1
@@ -50,6 +51,18 @@ steps:
       pip install -U azureml-sdk[notebooks,contrib]
       
 - task: AzureCLI@1
+  displayName: 'Upgrade AML SDK to Candidate release'
+  condition: eq('${{ parameters.flighting_preview }}', true)
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
+    scriptLocation: inlineScript
+    inlineScript: |
+      source activate ${{parameters.conda}}    
+      pip install -U --force-reinstall azureml-sdk[notebooks,contrib] \
+        --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Candidate/604C89A437BA41BD942B4F46D9A3591D
+
+- task: AzureCLI@1
   displayName: 'Upgrade AML SDK to master release'
   condition: eq('${{ parameters.flighting_preview }}', true)
   inputs:
@@ -58,5 +71,6 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}    
-      pip install -U azureml-sdk[notebooks,contrib] \
-        --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Candidate/604C89A437BA41BD942B4F46D9A3591D
+      pip install -U --force-reinstall azureml-sdk[notebooks,contrib] \
+        --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/master/588E708E0DF342C4A80BD954289657CF
+
