@@ -12,6 +12,7 @@ parameters:
   cluster_name: "-"
   flighting_release: false
   flighting_preview: false
+  flighting_master: false
   doCleanup: True
   sql_server_name: "x"
   sql_database_name: "x"
@@ -42,6 +43,7 @@ steps:
     cluster_name: ${{parameters.cluster_name}}
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
+    flighting_master: ${{parameters.flighting_master}}
     doCleanup: ${{parameters.doCleanup}}
     sql_server_name: ${{parameters.sql_server_name}}
     sql_database_name: ${{parameters.sql_database_name}}
