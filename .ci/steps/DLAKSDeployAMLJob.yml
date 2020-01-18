@@ -15,6 +15,7 @@ parameters:
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
   flighting_release: false
   flighting_preview: false
+  flighting_master: false
 
 steps:
 - template: config_conda.yml
@@ -23,7 +24,8 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     flighting_release: ${{parameters.flighting_release}}
-    flighting_preview: ${{parameters.flighting_preview}}    
+    flighting_preview: ${{parameters.flighting_preview}}
+    flighting_master: ${{parameters.flighting_master}}
 
 - template: azpapermill.yml
   parameters:
