@@ -25,8 +25,7 @@
 	url = https://github.com/Azure/BatchSparkScoringPredictiveMaintenance
 [submodule "practices/recommenders"]
 	path = ai300-practices/recommenders
-	url = https://github.com/dciborow/recommenders
-	branch = dciborow/test-harness
+	url = https://github.com/microsoft/recommenders
 [submodule "practices/nlp"]
 	path = ai300-practices/nlp
 	url = https://github.com/microsoft/nlp
