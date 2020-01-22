@@ -1,15 +1,19 @@
 [submodule "DeployDeepModelKubernetes"]
 	path = submodules/DeployDeepModelKubernetes
 	url = https://github.com/Microsoft/AKSDeploymentTutorialAML
+	branch = master
 [submodule "TrainMLModelHyperdrive"]
 	path = submodules/TrainMLModelHyperdrive
 	url = https://github.com/Microsoft/MLHyperparameterTuning
+	branch = mabou/instrument
 [submodule "DeployDeepModelPipelines"]
 	path = submodules/DeployDeepModelPipelines
 	url = https://github.com/Azure/Batch-Scoring-Deep-Learning-Models-With-AML
+	branch = master
 [submodule "DeployMLModelPipelines"]
 	path = submodules/DeployMLModelPipelines
 	url = https://github.com/Microsoft/AMLBatchScoringPipeline
+	branch = master
 [submodule "DeployRMLModelBatch"]
 	path = submodules/DeployRMLModelBatch
 	url = https://github.com/Azure/RBatchScoring
@@ -29,10 +33,6 @@
 [submodule "practices/ComputerVision"]
 	path = ai300-practices/ComputerVision
 	url = https://github.com/microsoft/ComputerVision
-[submodule "submodules/DeployDeepModelKubernetes"]
-	path = submodules/DeployDeepModelKubernetes
-	url = https://github.com/microsoft/AKSDeploymentTutorialAML
-	branch = master	
 [submodule "architectures/DeployDeepModelKubernetes"]
 	path = ai200-architectures/DeployDeepModelKubernetes
 	url = https://github.com/microsoft/AKSDeploymentTutorialAML
@@ -78,6 +78,7 @@
 [submodule "submodules/HyperdriveDeepLearning"]
 	path = submodules/TrainDLModelHyperdrive
 	url = https://github.com/microsoft/HyperdriveDeepLearning
+	branch = mabou/instrument
 [submodule "ai100-samples/seismic-deeplearning"]
 	path = ai100-samples/seismic-deeplearning
 	url = https://github.com/microsoft/seismic-deeplearning/
