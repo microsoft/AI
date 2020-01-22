@@ -29,17 +29,6 @@ steps:
       source activate ${{parameters.conda}}
 
 - task: AzureCLI@1
-  displayName: 'Downgrade AML SDK to previous release'
-  condition: eq('${{ parameters.backward_compatability }}', true)
-  inputs:
-    azureSubscription: ${{parameters.azureSubscription}}
-    failOnStandardError: True
-    scriptLocation: inlineScript
-    inlineScript: |
-      source activate ${{parameters.conda}}      
-      pip install -U azureml-sdk[notebooks,contrib]==${{parameters.backward_version}}
-
-- task: AzureCLI@1
   displayName: 'Upgrade AML SDK to latest release'
   condition: eq('${{ parameters.flighting_release }}', true)
   inputs:
@@ -47,7 +36,8 @@ steps:
     failOnStandardError: True
     scriptLocation: inlineScript
     inlineScript: |
-      source activate ${{parameters.conda}}      
+      source activate ${{parameters.conda}}
+
       pip install -U azureml-sdk[notebooks,contrib]
       
 - task: AzureCLI@1
@@ -58,7 +48,8 @@ steps:
     failOnStandardError: True
     scriptLocation: inlineScript
     inlineScript: |
-      source activate ${{parameters.conda}}    
+      source activate ${{parameters.conda}}
+
       pip install -U azureml-sdk[notebooks,contrib] \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Candidate/604C89A437BA41BD942B4F46D9A3591D
 
@@ -70,7 +61,21 @@ steps:
     failOnStandardError: True
     scriptLocation: inlineScript
     inlineScript: |
-      source activate ${{parameters.conda}}    
-      pip install -U azureml-sdk[notebooks,contrib] \
+      source activate ${{parameters.conda}}   
+
+      pip uninstall -y                  \
+        azureml-sdk                     \
+        azureml-core                    \
+        azureml-widgets                 \
+        azureml-train-automl-client     \
+        azureml-contrib-pipeline-steps  \
+        azureml-contrib-notebook        \
+        azureml-contrib-services        \
+        azureml-contrib-tensorboard     \
+        azureml-contrib-server          \
+        azureml-contrib-run             \
+        azureml-contrib-brainwave
+
+      pip install -U "azureml-sdk[notebooks,contrib]<1.0" \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/master/588E708E0DF342C4A80BD954289657CF
 
