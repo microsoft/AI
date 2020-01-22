@@ -75,7 +75,8 @@ steps:
         azureml-contrib-tensorboard     \
         azureml-contrib-server          \
         azureml-contrib-run             \
-        azureml-contrib-brainwave
+        azureml-contrib-brainwave       \
+        azure-storage-blob
 
       pip install -U "azureml-sdk[notebooks,contrib]<1.0" \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/master/588E708E0DF342C4A80BD954289657CF
