@@ -29,10 +29,6 @@
 [submodule "practices/ComputerVision"]
 	path = ai300-practices/ComputerVision
 	url = https://github.com/microsoft/ComputerVision
-[submodule "submodules/DeployMLModelKubernetes"]
-	path = submodules/DeployMLModelKubernetes
-	url = https://github.com/microsoft/MLAKSDeployAML
-	branch = mabou/instrument
 [submodule "submodules/DeployDeepModelKubernetes"]
 	path = submodules/DeployDeepModelKubernetes
 	url = https://github.com/microsoft/AKSDeploymentTutorialAML
@@ -85,3 +81,7 @@
 [submodule "ai100-samples/seismic-deeplearning"]
 	path = ai100-samples/seismic-deeplearning
 	url = https://github.com/microsoft/seismic-deeplearning/
+[submodule "submodules/DeployMLModelKubernetes"]
+	path = submodules/DeployMLModelKubernetes
+	url = https://github.com/microsoft/MLAKSDeployAML
+	branch = master
