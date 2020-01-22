@@ -15,6 +15,7 @@ parameters:
   acr_name: "x"
   flighting_release: false
   flighting_preview: false
+  flighting_master: false
 
 steps:
 - template: config_conda.yml
@@ -24,6 +25,7 @@ steps:
     conda: ${{parameters.conda}}
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
+    flighting_master: ${{parameters.flighting_master}}
 
 - template: azpapermill.yml
   parameters:

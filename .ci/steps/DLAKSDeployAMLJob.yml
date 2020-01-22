@@ -15,6 +15,7 @@ parameters:
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployDeepModelKubernetes/{{cookiecutter.project_name}}/Keras_Tensorflow"
   flighting_release: false
   flighting_preview: false
+  flighting_master: false
 
 steps:
 - template: config_conda.yml
@@ -23,7 +24,8 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
     flighting_release: ${{parameters.flighting_release}}
-    flighting_preview: ${{parameters.flighting_preview}}    
+    flighting_preview: ${{parameters.flighting_preview}}
+    flighting_master: ${{parameters.flighting_master}}
 
 - template: azpapermill.yml
   parameters:
@@ -61,6 +63,28 @@ steps:
 - template: azpapermill.yml
   parameters:
     notebook: aks/04_DeployOnAKS.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    aks_name: ${{parameters.aks_name}}
+    aks_location: ${{parameters.azureregion}}
+    aks_service_name: ${{parameters.aks_service_name}}
+    python_path: ${{parameters.python_path}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: aks/05_TestWebApp.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    aks_name: ${{parameters.aks_name}}
+    aks_location: ${{parameters.azureregion}}
+    aks_service_name: ${{parameters.aks_service_name}}
+    python_path: ${{parameters.python_path}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: aks/06_SpeedTestWebApp.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
