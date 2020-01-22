@@ -27,6 +27,7 @@ steps:
       conda update --force-reinstall -y -n base -c defaults conda
       conda env create -f ${{parameters.conda_location}}/environment.yml python=3.6 --force
       source activate ${{parameters.conda}}
+      python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
 
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to latest release'
