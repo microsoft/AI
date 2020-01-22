@@ -44,7 +44,7 @@ steps:
       papermill ${{parameters.notebook}} output.ipynb \
         --log-output \
         --no-progress-bar \
-        -k python3 \
+        -k ${{parameters.conda}} \
         -p subscription_id ${{parameters.azure_subscription}} \
         -p resource_group ${{parameters.azureresourcegroup}} \
         -p workspace_name ${{parameters.workspacename}} \
