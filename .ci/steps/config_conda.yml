@@ -25,7 +25,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       conda update --force-reinstall -y -n base -c defaults conda
-      conda env create -f ${{parameters.conda_location}}/environment.yml python=3.6 --force
+      conda env update --file ${{parameters.conda_location}}/environment.yml python=3.6
       source activate ${{parameters.conda}}
       python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
 
