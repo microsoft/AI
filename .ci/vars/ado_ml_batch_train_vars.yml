@@ -1,0 +1,8 @@
+variables:
+  DeploymentName: ADOTrinDeployJob
+  TridentWorkloadTypeShort: adomltrain
+  DeployLocation: eastus2  
+  ProjectLocation: "."
+  PythonPath: "."
+  Template: ADOTrainDeployAMLJob.yml
+  Notebooks: '00_AMLConfiguration.ipynb 01_AutoML_Local.ipynb'
