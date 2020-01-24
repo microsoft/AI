@@ -39,8 +39,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}
-      conda env update --no-pin --file ${{parameters.conda_location}}/environment.yml python=3.6
-      # pip install -U azureml-sdk[notebooks,contrib]
+      pip install -U azureml-sdk[notebooks,contrib,azureml-contrib-tensorboard,azureml-contrib-run,azureml-contrib-brainwave]
       
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to Candidate release'
