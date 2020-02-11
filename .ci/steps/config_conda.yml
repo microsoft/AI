@@ -76,6 +76,9 @@ steps:
         azureml-contrib-server          \
         azureml-contrib-run             \
         azureml-contrib-brainwave       \
+        azureml-contrib-tensorboard     \
+        azureml-contrib-run             \
+        azureml-contrib-brainwave       \
         azure-storage-blob              \
         azure-cli
 
