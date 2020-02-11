@@ -39,26 +39,8 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       source activate ${{parameters.conda}}
-      
-      pip uninstall -y                  \
-        azureml-sdk                     \
-        azureml-core                    \
-        azureml-widgets                 \
-        azureml-train-automl-client     \
-        azureml-contrib-pipeline-steps  \
-        azureml-contrib-notebook        \
-        azureml-contrib-services        \
-        azureml-contrib-tensorboard     \
-        azureml-contrib-server          \
-        azureml-contrib-run             \
-        azureml-contrib-brainwave       \
-        azureml-contrib-tensorboard     \
-        azureml-contrib-run             \
-        azureml-contrib-brainwave       \
-        azure-storage-blob              \
-        azure-cli
 
-      pip install -U azureml-sdk[notebooks,contrib] azure-storage-blob<2.0.0 azure-cli
+      pip install -U azureml-core
       
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to Candidate release'
