@@ -58,7 +58,7 @@ steps:
         azure-storage-blob              \
         azure-cli
 
-      pip install -U azureml-sdk[notebooks,contrib,azureml-contrib-tensorboard,azureml-contrib-run,azureml-contrib-brainwave]
+      pip install -U azureml-sdk[notebooks,contrib] azure-storage-blob azure-cli
       
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to Candidate release'
@@ -88,7 +88,7 @@ steps:
         azure-storage-blob              \
         azure-cli
 
-      pip install -U azureml-sdk[notebooks,contrib] \
+      pip install -U azureml-sdk[notebooks,contrib] azure-storage-blob azure-cli \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Candidate/604C89A437BA41BD942B4F46D9A3591D
 
 - task: AzureCLI@1
