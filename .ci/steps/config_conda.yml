@@ -52,25 +52,7 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
       
-      pip uninstall -y                  \
-        azureml-sdk                     \
-        azureml-core                    \
-        azureml-widgets                 \
-        azureml-train-automl-client     \
-        azureml-contrib-pipeline-steps  \
-        azureml-contrib-notebook        \
-        azureml-contrib-services        \
-        azureml-contrib-tensorboard     \
-        azureml-contrib-server          \
-        azureml-contrib-run             \
-        azureml-contrib-brainwave       \
-        azureml-contrib-tensorboard     \
-        azureml-contrib-run             \
-        azureml-contrib-brainwave       \
-        azure-storage-blob              \
-        azure-cli
-
-      pip install -U azureml-sdk[notebooks,contrib] azure-storage-blob<2.0.0 azure-cli \
+      pip install -U azureml-core \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Candidate/604C89A437BA41BD942B4F46D9A3591D
 
 - task: AzureCLI@1
@@ -83,25 +65,6 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}   
 
-      pip uninstall -y                  \
-        azureml-sdk                     \
-        azureml-core                    \
-        azureml-widgets                 \
-        azureml-train-automl-client     \
-        azureml-contrib-pipeline-steps  \
-        azureml-contrib-notebook        \
-        azureml-contrib-services        \
-        azureml-contrib-tensorboard     \
-        azureml-contrib-server          \
-        azureml-contrib-run             \
-        azureml-contrib-brainwave       \
-        azureml-contrib-tensorboard     \
-        azureml-contrib-run             \
-        azureml-contrib-brainwave       \
-        azure-storage-blob              \
-        azure-cli                       \
-        urllib3
-
-      pip install -U "azureml-sdk[notebooks,contrib]<1.0" azure-cli azure-storage-blob<2.0.0 \
+      pip install -U "azureml-core<1.0" \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/master/588E708E0DF342C4A80BD954289657CF
 
