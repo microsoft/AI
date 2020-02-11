@@ -119,6 +119,6 @@ steps:
         azure-storage-blob              \
         azure-cli
 
-      pip install -U "azureml-sdk[notebooks,contrib]<1.0" azure-storage-blob azure-cli \
+      pip install -U "azureml-sdk[notebooks,contrib]<1.0" azure-cli azure-storage-blob \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/master/588E708E0DF342C4A80BD954289657CF
 
