@@ -40,7 +40,7 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
 
-      pip install -U azureml-core azureml-contrib-services
+      pip install -U azureml-core azureml-contrib-services azureml-pipeline
       
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to Candidate release'
@@ -52,7 +52,7 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
       
-      pip install -U azureml-core azureml-contrib-services \
+      pip install -U azureml-core azureml-contrib-services azureml-pipeline \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/Candidate/604C89A437BA41BD942B4F46D9A3591D
 
 - task: AzureCLI@1
@@ -65,6 +65,6 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}   
 
-      pip install -U "azureml-core<0.1.5" "azureml-contrib-services<0.1.5" \
+      pip install -U "azureml-core<0.1.5" "azureml-contrib-services<0.1.5" "azureml-pipeline<0.1.5" \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/master/588E708E0DF342C4A80BD954289657CF
 
