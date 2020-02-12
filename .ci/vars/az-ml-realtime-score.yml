@@ -1,6 +1,6 @@
 variables:
   TridentWorkloadTypeShort: aimlrts
   DeployLocation: eastus
-  ProjectLocation: az-ml-realtime-score
-  PythonPath: /az-ml-realtime-score
+  ProjectLocation: "."
+  PythonPath: "/"
   Template: az-ml-realtime-score.yml
