@@ -2,5 +2,5 @@ variables:
   TridentWorkloadTypeShort: aimlrts
   DeployLocation: eastus
   ProjectLocation: "{{cookiecutter.project_name}}"
-  PythonPath: "."
+  PythonPath: "/{{cookiecutter.project_name}}"
   Template: MLAKSDeployAMLJob.yml
