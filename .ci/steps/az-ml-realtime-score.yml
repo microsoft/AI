@@ -1,0 +1,95 @@
+
+
+parameters:
+  azureSubscription: ''
+  azure_subscription: ''
+  location: submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}
+  azureresourcegroup: dciborowhp
+  workspacename: dciborowhpws
+  azureregion: westus2
+  aksimagename: dciborowhpaks
+  aks_name: dciborowhpaks
+  aks_service_name: myimage
+  conda: MLAKSDeployAML
+  doCleanup: true
+  python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
+  flighting_release: false
+  flighting_preview: false
+  flighting_master: false
+
+steps:
+- template: config_conda.yml
+  parameters:
+    conda_location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    flighting_release: ${{parameters.flighting_release}}
+    flighting_preview: ${{parameters.flighting_preview}}
+    flighting_master: ${{parameters.flighting_master}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook:  00_AMLConfiguration.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    aksimagename: ${{parameters.aksimagename}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 01_DataPrep.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+
+- bash: |
+    mkdir -p ${{parameters.location}}/iotedge/data_folder
+    mkdir -p ${{parameters.location}}/aks/data_folder
+    cd ${{parameters.location}}
+    cp data_folder/*.tsv iotedge/data_folder
+    cp data_folder/*.tsv aks/data_folder
+  displayName: 'Copying data'
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 02_TrainOnLocal.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 03_DevelopScoringScript.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 04_CreateImage.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook: 05_DeployOnAKS.ipynb
+    location: ${{parameters.location}}/aks
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    aks_name: ${{parameters.aks_name}}
+    azureregion: ${{parameters.azureregion}}
+    aks_service_name: ${{parameters.aks_service_name}}
+    aksimagename: ${{parameters.aksimagename}}
+    python_path: ${{parameters.python_path}}
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    doCleanup: ${{parameters.doCleanup}}
