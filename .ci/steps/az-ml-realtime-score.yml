@@ -20,9 +20,9 @@ parameters:
 steps:
 - template: config_conda.yml
   parameters:
-    conda_location: ${{parameters.location}}
+    conda_location: .
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
+    conda: az-ml-realtime-score
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     flighting_master: ${{parameters.flighting_master}}
