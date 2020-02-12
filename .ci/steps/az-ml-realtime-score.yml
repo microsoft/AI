@@ -10,7 +10,7 @@ parameters:
   aksimagename: dciborowhpaks
   aks_name: dciborowhpaks
   aks_service_name: myimage
-  conda: MLAKSDeployAML
+  conda: az-ml-realtime-score
   doCleanup: true
   python_path: "$(System.DefaultWorkingDirectory)/submodules/DeployMLModelKubernetes/{{cookiecutter.project_name}}"
   flighting_release: false
