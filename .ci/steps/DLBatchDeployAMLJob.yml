@@ -57,3 +57,10 @@ steps:
     image_name: 'torchdet' 
     acr_resource_group: ${{parameters.azureresourcegroup}}
     acr_location: ${{parameters.azureregion}}
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    doCleanup: ${{parameters.doCleanup}}
