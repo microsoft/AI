@@ -9,6 +9,7 @@ parameters:
   flighting_preview: false
   flighting_master: false
   fresh_install: true
+  update_conda: false
 
 steps:
 - task: AzureCLI@1
@@ -24,6 +25,17 @@ steps:
     restoreKeys: ${{parameters.conda}}
     path: /data/anaconda/envs/${{parameters.conda}}
 
+
+- task: AzureCLI@1
+  displayName: 'Update Conda'
+  condition: eq('${{ parameters.update_conda }}', true)
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
+    scriptLocation: inlineScript
+    inlineScript: |
+      conda update --force-reinstall -y -n base -c defaults conda
+      
 - task: AzureCLI@1
   displayName: 'Create New Conda'
   condition: eq('${{ parameters.fresh_install }}', true)
@@ -33,7 +45,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       conda config --set notify_outdated_conda false # should this be used instead of conda update?
-      # conda update --force-reinstall -y -n base -c defaults conda
+
       conda env create --force --file ${{parameters.conda_location}}/environment.yml python=3.6
       source activate ${{parameters.conda}}
       python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
@@ -47,7 +59,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       conda config --set notify_outdated_conda false # should this be used instead of conda update?
-      # conda update --force-reinstall -y -n base -c defaults conda
+
       conda env update --file ${{parameters.conda_location}}/environment.yml --prune python=3.6
       source activate ${{parameters.conda}}
       python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
