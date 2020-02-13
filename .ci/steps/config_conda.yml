@@ -32,7 +32,7 @@ steps:
       
 - task: AzureCLI@1
   displayName: 'Create New Conda'
-  condition: eq('${{ parameters.update_conda_package }}', true)
+  condition: eq('${{ parameters.fresh_install }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     failOnStandardError: True
@@ -46,7 +46,7 @@ steps:
 
 - task: AzureCLI@1
   displayName: 'Upgrade Existing or Create New Conda'
-  condition: eq('${{ parameters.fresh_install }}', false)
+  condition: eq('${{ parameters.update_conda_package }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     failOnStandardError: True
