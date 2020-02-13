@@ -10,6 +10,7 @@ parameters:
   flighting_master: false
   fresh_install: true
   update_conda: false
+  update_conda_package: false
 
 steps:
 - task: AzureCLI@1
@@ -31,7 +32,7 @@ steps:
       
 - task: AzureCLI@1
   displayName: 'Create New Conda'
-  condition: eq('${{ parameters.fresh_install }}', true)
+  condition: eq('${{ parameters.update_conda_package }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     failOnStandardError: True
