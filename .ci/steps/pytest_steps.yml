@@ -28,7 +28,6 @@ steps:
 
       pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
       
-      cd ..
       jupyter nbconvert --to python ./notebooks/*.ipynb
       
       pylint --output-format=junit ./notebooks/*.py >> test-pylint-results.xml
