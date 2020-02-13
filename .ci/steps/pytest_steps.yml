@@ -1,21 +1,13 @@
 parameters:
-  testfolder: './tests/unit'
-  junitxml: 'reports/test-unit.xml'
-  reponame: Recommenders
-  subscription_name: #
-  subscription_id: #
-  testmarkers: #
-  clustername: #
-  expname: #
-  dockerproc: #
-  branch: "dciborow/cicd-refactor"
+  conda: 
+  azureSubscription: #
   location: "x"
 
 steps:
 - task: AzureCLI@1
   displayName: "Pytests"
   inputs:
-    azureSubscription: ${{parameters.subscription_name}}
+    azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: 'inlineScript'
     failOnStderr: True
     inlineScript: |
