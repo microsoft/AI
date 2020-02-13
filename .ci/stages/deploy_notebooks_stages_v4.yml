@@ -69,7 +69,6 @@ stages:
       ProjectLocation: ${{parameters.ProjectLocation}}
       PythonPath: ${{parameters.PythonPath}}
       flighting_release: true
-      workload_vars: ${{parameters.workload_vars}}
       doCleanup: ${{parameters.doCleanup}}
       sql_server_name: ${{parameters.sql_server_name}}
       sql_database_name: ${{parameters.sql_database_name}}
@@ -96,7 +95,6 @@ stages:
       ProjectLocation: ${{parameters.ProjectLocation}}
       PythonPath: ${{parameters.PythonPath}}
       flighting_preview: true
-      workload_vars: ${{parameters.workload_vars}}
       doCleanup: ${{parameters.doCleanup}}
       sql_server_name: ${{parameters.sql_server_name}}
       sql_database_name: ${{parameters.sql_database_name}}
@@ -123,7 +121,6 @@ stages:
       ProjectLocation: ${{parameters.ProjectLocation}}
       PythonPath: ${{parameters.PythonPath}}
       flighting_master: true
-      workload_vars: ${{parameters.workload_vars}}
       doCleanup: ${{parameters.doCleanup}}
       sql_server_name: ${{parameters.sql_server_name}}
       sql_database_name: ${{parameters.sql_database_name}}
