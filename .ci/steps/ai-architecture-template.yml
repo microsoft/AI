@@ -50,6 +50,12 @@ steps:
 
 # Insert more notebook steps here
 
+- template: pytest_steps.yml
+  parameters:    
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ai-architecture-template    
+
 - template: cleanuptask.yml
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
