@@ -5,6 +5,7 @@ parameters:
   azureresourcegroup: #
   workspacename: #
   azureregion: #
+  python_path: #
 
 steps:
 - task: AzureCLI@1
@@ -15,6 +16,7 @@ steps:
     failOnStderr: True
     inlineScript: |
       source activate ${{parameters.conda}}
+      export PYTHONPATH=${{parameters.python_path}}:${PYTHONPATH}
       
       rm -f workspace_conf.yml
       
