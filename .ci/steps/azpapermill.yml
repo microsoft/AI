@@ -41,7 +41,7 @@ steps:
       export PYTHONPATH=${{parameters.python_path}}:${PYTHONPATH}      
       cd ${{parameters.location}}
       echo Execute ${{parameters.notebook}}
-      papermill ${{parameters.notebook}} output.ipynb \
+      papermill ${{parameters.notebook}} ${{parameters.notebook}}_output.ipynb \
         --log-output \
         --no-progress-bar \
         -k ${{parameters.conda}} \
