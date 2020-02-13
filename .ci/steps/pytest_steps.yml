@@ -1,5 +1,5 @@
 parameters:
-  conda: 
+  conda: #
   azureSubscription: #
   location: "x"
 
