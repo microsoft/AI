@@ -23,15 +23,13 @@ steps:
       echo "resource_group:  ${{parameters.azureresourcegroup}}" >> workspace_conf.yml
       echo "workspace_name:  ${{parameters.workspacename}}" >> workspace_conf.yml
       echo "workspace_region:  ${{parameters.azureregion}}" >> workspace_conf.yml
-      
-      cd ${{parameters.location}}            
 
-      pytest ../tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
+      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
       
-      jupyter nbconvert --to python 0*.ipynb
+      jupyter nbconvert --to python notebooks/0*.ipynb
       
-      pylint --rcfile=../pylintrc --output-format=junit 0*.py >> test-pylint-results.xml
-      pylint --rcfile=../pylintrc 0*.py
+      pylint --output-format=junit notebooks/0*.py >> test-pylint-results.xml
+      pylint notebooks/0*.py
 
 
 - task: PublishTestResults@2
