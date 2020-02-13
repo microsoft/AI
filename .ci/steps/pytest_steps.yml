@@ -15,8 +15,6 @@ steps:
       cd ${{parameters.location}}
       
       pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
-      
-  displayName: 'submit_azureml_pytest'
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/test-*.xml'
