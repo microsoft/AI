@@ -5,7 +5,7 @@ parameters:
   azureresourcegroup: #
   workspacename: #
   azureregion: #
-  python_path: #
+  location: #
 
 steps:
 - task: AzureCLI@1
@@ -16,7 +16,6 @@ steps:
     failOnStderr: True
     inlineScript: |
       source activate ${{parameters.conda}}
-      export PYTHONPATH=${{parameters.python_path}}:${PYTHONPATH}
       
       rm -f workspace_conf.yml
       
@@ -25,10 +24,9 @@ steps:
       echo "workspace_name:  ${{parameters.workspacename}}" >> workspace_conf.yml
       echo "workspace_region:  ${{parameters.azureregion}}" >> workspace_conf.yml
       
-      cat workspace_conf.yml
+      mv ../workspace_conf.yml
 
-      cd tests
-      pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
+      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
       
       cd ..
       jupyter nbconvert --to python ./notebooks/*.ipynb
