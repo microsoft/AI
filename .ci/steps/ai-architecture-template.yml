@@ -44,7 +44,7 @@ steps:
     conda: ai-architecture-template
     azure_subscription: ${{parameters.azure_subscription}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
-    workspacename: "aiarchtemplate"
+    workspacename: aiarchtemplate
     azureregion: ${{parameters.azureregion}}
     aksimagename: ${{parameters.aksimagename}}
 
