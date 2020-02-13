@@ -5,10 +5,10 @@ parameters:
   jobDisplayName: 'defaultDisplayName'
   TridentWorkloadTypeShort: #
   DeployLocation: #
-  DefaultWorkingDirectory: #
+  DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)
   Template: #
-  ProjectLocation: #
-  PythonPath: #
+  ProjectLocation: "notebooks/"
+  PythonPath: "."
   workload_vars: #
   doCleanup: True
   flighting_release: true
