@@ -28,6 +28,15 @@ steps:
     flighting_master: ${{parameters.flighting_master}}
     fresh_install: ${{parameters.fresh_conda}}
 
+- template: pytest_steps.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}    
+    workspacename: az-ml-realtime-score
+    conda: ${{parameters.conda}}
+    azureregion: ${{parameters.azureregion}}
+
 - template: azpapermill.yml
   parameters:
     notebook:  00_AMLConfiguration.ipynb
