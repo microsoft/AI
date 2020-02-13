@@ -25,7 +25,7 @@ steps:
     path: /data/anaconda/envs/${{parameters.conda}}
 
 - task: AzureCLI@1
-  displayName: 'Setup Conda'
+  displayName: 'Create New Conda''
   condition: eq('${{ parameters.fresh_install }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
@@ -39,7 +39,7 @@ steps:
       python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
 
 - task: AzureCLI@1
-  displayName: 'Setup Conda'
+  displayName: 'Upgrade Existing or Create New Conda'
   condition: eq('${{ parameters.fresh_install }}', false)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
