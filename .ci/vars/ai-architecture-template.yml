@@ -1,6 +1,6 @@
 variables:
-  TridentWorkloadTypeShort: aimlrts
-  DeployLocation: eastus
+  TridentWorkloadTypeShort: aiarchtemp # TODO: update with project short name
+  DeployLocation: westus
   ProjectLocation: "notebooks/"
   PythonPath: "."
-  Template: az-ml-realtime-score.yml
+  Template: steps/ai-architecture-template.yml # TODO: update file name to project name
