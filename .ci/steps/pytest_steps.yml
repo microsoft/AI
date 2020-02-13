@@ -26,7 +26,7 @@ steps:
       
       mv workspace_conf.yml ../
 
-      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
+      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
       
       jupyter nbconvert --to python notebooks/0*.ipynb
       
