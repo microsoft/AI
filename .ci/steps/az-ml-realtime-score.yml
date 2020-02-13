@@ -16,17 +16,17 @@ parameters:
   flighting_release: false
   flighting_preview: false
   flighting_master: false
+  fresh_conda: false
 
 steps:
 - template: config_conda.yml
-  parameters:
-    conda_location: .
-    azureSubscription: ${{parameters.azureSubscription}}
+  parameters:   
     conda: az-ml-realtime-score
+    azureSubscription: ${{parameters.azureSubscription}}    
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     flighting_master: ${{parameters.flighting_master}}
-    fresh: false   
+    fresh_install: ${{parameters.fresh_conda}}
 
 - template: azpapermill.yml
   parameters:
