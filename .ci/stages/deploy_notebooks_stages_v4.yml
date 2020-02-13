@@ -27,7 +27,7 @@ parameters:
   datastore_rg: "x"
 
 stages:
-- template: ../stage/deploy_notebooks_stage_v2.yml
+- template: ../stage/deploy_notebooks_stage_v4.yml
   parameters:
     Agent: ${{parameters.Agent}}
     Demands: ${{parameters.Demands}}
@@ -55,7 +55,7 @@ stages:
     datastore_rg: ${{parameters.datastore_rg}}
 
 - ${{ if eq(parameters.flighting_release, 'true') }}:
-  - template: ../stage/deploy_notebooks_stage_v2.yml
+  - template: ../stage/deploy_notebooks_stage_v4.yml
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
@@ -81,7 +81,7 @@ stages:
       datastore_rg: ${{parameters.datastore_rg}}
 
 - ${{ if eq(parameters.flighting_preview, 'true') }}:
-  - template: ../stage/deploy_notebooks_stage_v2.yml
+  - template: ../stage/deploy_notebooks_stage_v4.yml
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
@@ -107,7 +107,7 @@ stages:
       datastore_rg: ${{parameters.datastore_rg}}
 
 - ${{ if eq(parameters.flighting_master, 'true') }}:
-  - template: ../stage/deploy_notebooks_stage_v2.yml
+  - template: ../stage/deploy_notebooks_stage_v4.yml
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
