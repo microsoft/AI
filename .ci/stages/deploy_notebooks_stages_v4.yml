@@ -9,7 +9,6 @@ parameters:
   Template: #
   ProjectLocation: "notebooks/"
   PythonPath: "."
-  workload_vars: #
   doCleanup: True
   flighting_release: true
   flighting_preview: true
@@ -42,7 +41,6 @@ stages:
     Template: ${{parameters.Template}}
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
-    workload_vars: ${{parameters.workload_vars}}
     doCleanup: ${{parameters.doCleanup}}
     sql_server_name: ${{parameters.sql_server_name}}
     sql_database_name: ${{parameters.sql_database_name}}
