@@ -51,7 +51,8 @@ steps:
 # Insert more notebook steps here
 
 - template: pytest_steps.yml
-  parameters:    
+  parameters:
+    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
     azure_subscription: ${{parameters.azure_subscription}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}    
