@@ -17,6 +17,8 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
       
+      pip install git+https://github.com/microsoft/AI-Utilities.git@version/0.2.0
+
       rm -f workspace_conf.yml
       
       echo "subscription_id:  ${{parameters.azure_subscription}}" >> workspace_conf.yml
