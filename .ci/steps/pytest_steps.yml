@@ -33,6 +33,26 @@ steps:
     failTaskOnFailedTests: true
   condition: succeededOrFailed()
 
+- task: AzureCLI@1
+  displayName: "PyLint"
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: 'inlineScript'
+    failOnStderr: True
+    inlineScript: |
+      source activate ${{parameters.conda}}
+      jupyter nbconvert --to python ./notebooks/*.ipynb
+      
+      pylint --output-format=junit ./notebooks/*.py >> pylint-results.xml
+      pylint ./notebooks/*.py
+
+- task: PublishTestResults@2
+  displayName: 'Publish Pylint Results **/pylint-*.xml'
+  inputs:
+    testResultsFiles: '**/pylint-*.xml'
+    failTaskOnFailedTests: true
+  condition: succeededOrFailed()
+
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: Cobertura
