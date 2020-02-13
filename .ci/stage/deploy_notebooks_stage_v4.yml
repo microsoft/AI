@@ -1,0 +1,85 @@
+parameters:
+  Agent: Hosted Ubuntu 1604
+  Demands: "python3"
+  stageName: 'defaultStageName'
+  jobDisplayName: 'defaultDisplayName'
+  jobTimeoutInMinutes: 180
+  TridentWorkloadTypeShort: #
+  DeployLocation: #
+  TestPostfix: # "" | "-release" | "-preview"
+  Deploy_Location_Short: #
+  DefaultWorkingDirectory: #
+  Template: #
+  aksimagename: 'myimage'
+  ProjectLocation: #
+  PythonPath: #
+  cluster_name: #
+  flighting_release: false
+  flighting_preview: false
+  flighting_master: false
+  doCleanup: True
+  sub_vars: ../vars/agce_devops_sub_vars.yml
+  workload_vars: #
+  sql_server_name: "x"
+  sql_database_name: "x"
+  sql_username: "x"
+  sql_password: "x"
+  data_prep: true
+  train: true
+  post_cleanup: true
+  container_name: "x"
+  account_name: "x"
+  account_key: "x"
+  datastore_rg: "x"
+
+stages:
+- stage: ${{parameters.stageName}}
+  dependsOn: []    
+  jobs:
+  - job: deploy_notebook_steps
+    displayName: ${{parameters.jobDisplayName}}
+
+    pool:
+      name: ${{parameters.Agent}}
+      demands: ${{parameters.Demands}}
+    
+    timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+    
+    continueOnError: ${{or(or(eq(parameters.flighting_release,'true'), eq(parameters.flighting_preview,'true')), eq(parameters.flighting_master,'true'))}}
+  
+    workspace:
+      clean: all
+  
+    variables:
+    - template: ${{parameters.sub_vars}}
+    - template: ${{parameters.workload_vars}}
+  
+    steps:
+    - template: ../steps/deploy_notebook_steps_v2.yml
+      parameters:
+        template: ${{variables.Template}}
+        azureSubscription: ${{variables.azureSubscription}}
+        azure_subscription: ${{variables.azure_subscription}}
+        azureresourcegroup: ${{variables.TridentWorkloadTypeShort}}-${{variables.DeployLocation}}${{parameters.TestPostfix}}
+        workspacename: ${{variables.TridentWorkloadTypeShort}}-${{variables.DeployLocation}}
+        azureregion: ${{variables.DeployLocation}}
+        aksimagename: ${{parameters.aksimagename}}
+        aks_name: ${{variables.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
+        location: ${{variables.ProjectLocation}}
+        python_path: ${{parameters.DefaultWorkingDirectory}}${{variables.PythonPath}}
+        cluster_name: ${{variables.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
+        flighting_release: ${{parameters.flighting_release}}
+        flighting_preview: ${{parameters.flighting_preview}}
+        flighting_master: ${{parameters.flighting_master}}        
+        doCleanup: ${{parameters.doCleanup}}
+        sql_server_name: ${{parameters.sql_server_name}}
+        sql_database_name: ${{parameters.sql_database_name}}
+        sql_username: ${{parameters.sql_username}}
+        sql_password: ${{parameters.sql_password}}
+        data_prep: ${{parameters.data_prep}}
+        train: ${{parameters.train}}
+        post_cleanup: ${{parameters.post_cleanup}}
+        container_name: ${{parameters.container_name}}
+        account_name: ${{parameters.account_name}}
+        account_key: ${{parameters.account_key}}
+        datastore_rg: ${{parameters.datastore_rg}}
