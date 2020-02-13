@@ -1,0 +1,37 @@
+parameters:
+  testfolder: './tests/unit'
+  junitxml: 'reports/test-unit.xml'
+  reponame: Recommenders
+  subscription_name: #
+  subscription_id: #
+  testmarkers: #
+  clustername: #
+  expname: #
+  dockerproc: #
+  branch: "dciborow/cicd-refactor"
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: ${{parameters.subscription_name}}
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      python tests/ci/submit_azureml_pytest.py --subid ${{parameters.subscription_id}} \
+        --testfolder ${{parameters.testfolder}} \
+        --testmarkers ${{parameters.testmarkers}} \
+        --clustername ${{parameters.clustername}} \
+        --expname ${{parameters.expname}} \
+        --dockerproc ${{parameters.dockerproc}} \
+        --junitxml ${{parameters.junitxml}} \
+        --reponame ${{parameters.reponame}} \
+        --branch ${{parameters.branch}}
+
+  displayName: 'submit_azureml_pytest'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/test-*.xml'
+  inputs:
+    testResultsFiles: '**/test-*.xml'
+    failTaskOnFailedTests: true
+  condition: succeededOrFailed()
