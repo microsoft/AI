@@ -9,24 +9,21 @@ parameters:
   expname: #
   dockerproc: #
   branch: "dciborow/cicd-refactor"
+  location: "x"
 
 steps:
-- task: AzureCLI@2
+- task: AzureCLI@1
+  displayName: "Pytests"
   inputs:
     azureSubscription: ${{parameters.subscription_name}}
-    scriptType: 'bash'
     scriptLocation: 'inlineScript'
+    failOnStderr: True
     inlineScript: |
-      python tests/ci/submit_azureml_pytest.py --subid ${{parameters.subscription_id}} \
-        --testfolder ${{parameters.testfolder}} \
-        --testmarkers ${{parameters.testmarkers}} \
-        --clustername ${{parameters.clustername}} \
-        --expname ${{parameters.expname}} \
-        --dockerproc ${{parameters.dockerproc}} \
-        --junitxml ${{parameters.junitxml}} \
-        --reponame ${{parameters.reponame}} \
-        --branch ${{parameters.branch}}
-
+      source activate ${{parameters.conda}}
+      cd ${{parameters.location}}
+      
+      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
+      
   displayName: 'submit_azureml_pytest'
 
 - task: PublishTestResults@2
@@ -35,3 +32,9 @@ steps:
     testResultsFiles: '**/test-*.xml'
     failTaskOnFailedTests: true
   condition: succeededOrFailed()
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
