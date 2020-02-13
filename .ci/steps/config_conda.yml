@@ -8,7 +8,7 @@ parameters:
   flighting_release: false
   flighting_preview: false
   flighting_master: false
-  fresh: true
+  fresh_install: true
 
 steps:
 - task: AzureCLI@1
@@ -20,7 +20,7 @@ steps:
 
 - task: AzureCLI@1
   displayName: 'Setup Conda'
-  condition: eq('${{ parameters.flighting_release }}', true)
+  condition: eq('${{ parameters.fresh_install }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     failOnStandardError: True
