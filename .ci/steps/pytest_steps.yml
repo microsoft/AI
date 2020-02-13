@@ -29,7 +29,7 @@ steps:
       pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
       
       jupyter nbconvert --to markdown notebooks/0*.output_ipynb
-      echo "##vso[task.uploadsummary]$(System.DefaultWorkingDirectory)/notebooks/*.md"
+      echo "##vso[task.uploadsummary]$(System.DefaultWorkingDirectory)/notebooks/00_AMLConfiguration.md"
       
       jupyter nbconvert --to python notebooks/0*.ipynb
       
