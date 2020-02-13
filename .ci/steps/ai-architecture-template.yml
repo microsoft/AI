@@ -1,0 +1,58 @@
+# AI Architecture Template TODO: update tile
+#
+# A Github Service Connection must also be created with the name "AIArchitecturesAndPractices-GitHub"
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/process/demands?view=azure-devops&tabs=yaml
+#
+# An Agent_Name Variable must be creating in the Azure DevOps UI.
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables
+#
+# This must point to an Agent Pool, with a Self-Hosted Linux VM with a Docker.
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops
+
+parameters:
+  azureSubscription: ''
+  azure_subscription: ''
+  location: ''
+  azureresourcegroup: ''
+  workspacename: ''
+  azureregion: westus2
+  aksimagename: ''
+  aks_name: ''
+  aks_service_name: myimage
+  conda: ''
+  doCleanup: true
+  python_path: ''
+  flighting_release: false
+  flighting_preview: false
+  flighting_master: false
+
+steps:
+- template: config_conda.yml
+  parameters:
+    conda_location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    flighting_release: ${{parameters.flighting_release}}
+    flighting_preview: ${{parameters.flighting_preview}}
+    flighting_master: ${{parameters.flighting_master}}
+
+- template: azpapermill.yml
+  parameters:
+    notebook:  00_AMLConfiguration.ipynb
+    location: ${{parameters.location}}
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azure_subscription: ${{parameters.azure_subscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: ${{parameters.workspacename}}
+    azureregion: ${{parameters.azureregion}}
+    aksimagename: ${{parameters.aksimagename}}
+
+# Insert more notebook steps here
+
+- template: cleanuptask.yml
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    conda: ${{parameters.conda}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    doCleanup: ${{parameters.doCleanup}}
