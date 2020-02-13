@@ -10,7 +10,7 @@ parameters:
   flighting_master: false
   fresh_install: true
   update_conda: false
-  update_conda_package: false
+  update_conda_package: true
 
 steps:
 - task: AzureCLI@1
