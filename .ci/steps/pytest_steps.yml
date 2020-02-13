@@ -16,12 +16,14 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
       
-      rm -r workspace_conf.yml
+      rm -f workspace_conf.yml
       
       echo "subscription_id:  ${{parameters.azure_subscription}}" >> workspace_conf.yml
       echo "resource_group:  ${{parameters.azureresourcegroup}}" >> workspace_conf.yml
       echo "workspace_name:  ${{parameters.workspacename}}" >> workspace_conf.yml
       echo "workspace_region:  ${{parameters.azureregion}}" >> workspace_conf.yml
+      
+      cat workspace_conf.yml
 
       cd tests
       pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
@@ -32,6 +34,12 @@ steps:
     testResultsFiles: '**/test-*.xml'
     failTaskOnFailedTests: true
   condition: succeededOrFailed()
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
 
 - task: AzureCLI@1
   displayName: "PyLint"
@@ -52,9 +60,3 @@ steps:
     testResultsFiles: '**/pylint-*.xml'
     failTaskOnFailedTests: true
   condition: succeededOrFailed()
-
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
