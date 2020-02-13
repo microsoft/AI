@@ -27,6 +27,13 @@ steps:
 
       cd tests
       pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
+      
+      cd ..
+      jupyter nbconvert --to python ./notebooks/*.ipynb
+      
+      pylint --output-format=junit ./notebooks/*.py >> test-pylint-results.xml
+      pylint ./notebooks/*.py
+
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/test-*.xml'
@@ -40,23 +47,3 @@ steps:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
     reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
-
-- task: AzureCLI@1
-  displayName: "PyLint"
-  inputs:
-    azureSubscription: ${{parameters.azureSubscription}}
-    scriptLocation: 'inlineScript'
-    failOnStderr: True
-    inlineScript: |
-      source activate ${{parameters.conda}}
-      jupyter nbconvert --to python ./notebooks/*.ipynb
-      
-      pylint --output-format=junit ./notebooks/*.py >> pylint-results.xml
-      pylint ./notebooks/*.py
-
-- task: PublishTestResults@2
-  displayName: 'Publish Pylint Results **/pylint-*.xml'
-  inputs:
-    testResultsFiles: '**/pylint-*.xml'
-    failTaskOnFailedTests: true
-  condition: succeededOrFailed()
