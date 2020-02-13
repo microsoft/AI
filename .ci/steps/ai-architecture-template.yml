@@ -52,13 +52,16 @@ steps:
 
 - template: pytest_steps.yml
   parameters:    
-    location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
+    azureresourcegroup: ${{parameters.azureresourcegroup}}
+    workspacename: aiarchtemplate    
     conda: ai-architecture-template    
+    azureregion: ${{parameters.azureregion}}
 
 - template: cleanuptask.yml
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
+    azure_subscription: ${{parameters.azure_subscription}}
     conda: ai-architecture-template
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: ${{parameters.doCleanup}}
