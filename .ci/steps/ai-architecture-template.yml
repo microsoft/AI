@@ -35,6 +35,7 @@ steps:
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     flighting_master: ${{parameters.flighting_master}}
+    fresh: false
 
 - template: azpapermill.yml
   parameters:
