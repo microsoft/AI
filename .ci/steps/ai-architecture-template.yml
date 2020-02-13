@@ -29,7 +29,7 @@ parameters:
 steps:
 - template: config_conda.yml
   parameters:
-    conda_location: ${{parameters.location}}
+    conda_location: .
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ai-architecture-template
     flighting_release: ${{parameters.flighting_release}}
