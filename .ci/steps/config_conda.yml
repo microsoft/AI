@@ -19,13 +19,6 @@ steps:
     scriptLocation: inlineScript
     inlineScript: 'echo "##vso[task.prependpath]$CONDA/bin"'
 
-- task: Cache@2
-  inputs:
-    key: ${{parameters.conda}}
-    restoreKeys: ${{parameters.conda}}
-    path: /data/anaconda/envs/${{parameters.conda}}
-
-
 - task: AzureCLI@1
   displayName: 'Update Conda'
   condition: eq('${{ parameters.update_conda }}', true)
