@@ -30,8 +30,8 @@ steps:
       
       jupyter nbconvert --to python 0*.ipynb
       
-      pylint --output-format=junit 0*.py >> test-pylint-results.xml
-      pylint 0*.py
+      pylint --rcfile=../pylintrc --output-format=junit 0*.py >> test-pylint-results.xml
+      pylint --rcfile=../pylintrc 0*.py
 
 
 - task: PublishTestResults@2
