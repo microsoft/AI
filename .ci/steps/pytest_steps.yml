@@ -12,8 +12,8 @@ steps:
     failOnStderr: True
     inlineScript: |
       source activate ${{parameters.conda}}
-      
-      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
+      cd tests
+      pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/test-*.xml'
