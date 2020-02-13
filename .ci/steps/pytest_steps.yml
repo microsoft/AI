@@ -31,7 +31,7 @@ steps:
       jupyter nbconvert --to python ./notebooks/0*.ipynb
       
       pylint --output-format=junit ./notebooks/0*.py >> test-pylint-results.xml
-      pylint ./notebooks/*.py
+      pylint ./notebooks/0*.py
 
 
 - task: PublishTestResults@2
