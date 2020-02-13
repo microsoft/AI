@@ -17,7 +17,7 @@ steps:
       existResponse=$(az group exists -n ${{parameters.azureresourcegroup}})
       if [ "$existResponse" == "true" ]; then
         echo Deleting project resource group
-        az group delete --name ${{parameters.azureresourcegroup}} --yes
+        az group delete --name ${{parameters.azureresourcegroup}} --yes --no-wait
       else
         echo Project resource group did not exist
       fi
