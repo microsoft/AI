@@ -32,6 +32,13 @@ steps:
       source activate ${{parameters.conda}}
       python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
 
+- task: Cache@2
+  condition: eq('${{ parameters.fresh_install }}', false)
+  inputs:
+    key: ${{parameters.conda}}
+    restoreKeys: ${{parameters.conda}}
+    path: /data/anaconda/envs/${{parameters.conda}}
+
 - task: AzureCLI@1
   displayName: 'Setup Conda'
   condition: eq('${{ parameters.fresh_install }}', false)
