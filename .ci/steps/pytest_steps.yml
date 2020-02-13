@@ -28,10 +28,10 @@ steps:
 
       pytest ../tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml --cov-report=html
       
-      jupyter nbconvert --to python ./notebooks/0*.ipynb
+      jupyter nbconvert --to python 0*.ipynb
       
-      pylint --output-format=junit ./notebooks/0*.py >> test-pylint-results.xml
-      pylint ./notebooks/0*.py
+      pylint --output-format=junit 0*.py >> test-pylint-results.xml
+      pylint 0*.py
 
 
 - task: PublishTestResults@2
