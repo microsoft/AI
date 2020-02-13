@@ -35,7 +35,7 @@ steps:
     conda: ${{parameters.conda}}
     azure_subscription: ${{parameters.azure_subscription}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
-    workspacename: ${{parameters.workspacename}}
+    workspacename: az-ml-realtime-score
     azureregion: ${{parameters.azureregion}}
     aksimagename: ${{parameters.aksimagename}}
 
