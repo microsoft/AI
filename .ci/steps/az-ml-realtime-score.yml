@@ -16,7 +16,7 @@ parameters:
   flighting_release: false
   flighting_preview: false
   flighting_master: false
-  fresh_conda: false
+  update_conda_package: false
 
 steps:
 - template: config_conda.yml
@@ -26,7 +26,7 @@ steps:
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     flighting_master: ${{parameters.flighting_master}}
-    fresh_install: ${{parameters.fresh_conda}}
+    update_conda_package: ${{parameters.update_conda_package}}
 
 - template: pytest_steps.yml
   parameters:
