@@ -35,21 +35,6 @@ steps:
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     flighting_master: ${{parameters.flighting_master}}
-    fresh: false
-
-- template: azpapermill.yml
-  parameters:
-    notebook:  00_AMLConfiguration.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ai-architecture-template
-    azure_subscription: ${{parameters.azure_subscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    workspacename: aiarchtemplate
-    azureregion: ${{parameters.azureregion}}
-    aksimagename: ${{parameters.aksimagename}}
-
-# Insert more notebook steps here
 
 - template: pytest_steps.yml
   parameters:
@@ -67,4 +52,4 @@ steps:
     azure_subscription: ${{parameters.azure_subscription}}
     conda: ai-architecture-template
     azureresourcegroup: ${{parameters.azureresourcegroup}}
-    doCleanup: false
+    doCleanup: ${{parameters.doCleanup}}
