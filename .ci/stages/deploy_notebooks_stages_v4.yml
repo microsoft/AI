@@ -1,0 +1,138 @@
+parameters:  
+  Agent: Hosted Ubuntu 1604
+  Demands: "python3"
+  jobTimeoutInMinutes: 180
+  jobDisplayName: 'defaultDisplayName'
+  TridentWorkloadTypeShort: #
+  DeployLocation: #
+  DefaultWorkingDirectory: #
+  Template: #
+  ProjectLocation: #
+  PythonPath: #
+  workload_vars: #
+  doCleanup: True
+  flighting_release: true
+  flighting_preview: true
+  flighting_master: true
+  sql_server_name: "x"
+  sql_database_name: "x"
+  sql_username: "x"
+  sql_password: "x"
+  TestPostfix: "-stable"
+  data_prep: true
+  train: true
+  post_cleanup: true
+  container_name: "x"
+  account_name: "x"
+  account_key: "x"
+  datastore_rg: "x"
+
+stages:
+- template: ../stage/deploy_notebooks_stage_v2.yml
+  parameters:
+    Agent: ${{parameters.Agent}}
+    Demands: ${{parameters.Demands}}
+    stageName: 'stable'
+    jobDisplayName: ${{parameters.jobDisplayName}}
+    jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+    TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+    DeployLocation: ${{parameters.DeployLocation}}
+    TestPostfix: ${{parameters.TestPostfix}}
+    DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+    Template: ${{parameters.Template}}
+    ProjectLocation: ${{parameters.ProjectLocation}}
+    PythonPath: ${{parameters.PythonPath}}
+    workload_vars: ${{parameters.workload_vars}}
+    doCleanup: ${{parameters.doCleanup}}
+    sql_server_name: ${{parameters.sql_server_name}}
+    sql_database_name: ${{parameters.sql_database_name}}
+    sql_username: ${{parameters.sql_username}}
+    sql_password: ${{parameters.sql_password}}
+    data_prep: ${{parameters.data_prep}}
+    train: ${{parameters.train}}
+    post_cleanup: ${{parameters.post_cleanup}}
+    container_name: ${{parameters.container_name}}
+    account_name: ${{parameters.account_name}}
+    account_key: ${{parameters.account_key}}
+    datastore_rg: ${{parameters.datastore_rg}}
+
+- ${{ if eq(parameters.flighting_release, 'true') }}:
+  - template: ../stage/deploy_notebooks_stage_v2.yml
+    parameters:
+      Agent: ${{parameters.Agent}}
+      Demands: ${{parameters.Demands}}
+      stageName: 'release'
+      jobDisplayName: ${{parameters.jobDisplayName}}
+      TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+      DeployLocation: ${{parameters.DeployLocation}}
+      TestPostfix: "-release"
+      DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+      Template: ${{parameters.Template}}
+      ProjectLocation: ${{parameters.ProjectLocation}}
+      PythonPath: ${{parameters.PythonPath}}
+      flighting_release: true
+      workload_vars: ${{parameters.workload_vars}}
+      doCleanup: ${{parameters.doCleanup}}
+      sql_server_name: ${{parameters.sql_server_name}}
+      sql_database_name: ${{parameters.sql_database_name}}
+      sql_username: ${{parameters.sql_username}}
+      sql_password: ${{parameters.sql_password}}
+      post_cleanup: ${{parameters.post_cleanup}}
+      container_name: ${{parameters.container_name}}
+      account_name: ${{parameters.account_name}}
+      account_key: ${{parameters.account_key}}
+      datastore_rg: ${{parameters.datastore_rg}}
+
+- ${{ if eq(parameters.flighting_preview, 'true') }}:
+  - template: ../stage/deploy_notebooks_stage_v2.yml
+    parameters:
+      Agent: ${{parameters.Agent}}
+      Demands: ${{parameters.Demands}}
+      stageName: 'preview'
+      jobDisplayName: ${{parameters.jobDisplayName}}
+      TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+      DeployLocation: ${{parameters.DeployLocation}}
+      TestPostfix: "-preview"
+      DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+      Template: ${{parameters.Template}}
+      ProjectLocation: ${{parameters.ProjectLocation}}
+      PythonPath: ${{parameters.PythonPath}}
+      flighting_preview: true
+      workload_vars: ${{parameters.workload_vars}}
+      doCleanup: ${{parameters.doCleanup}}
+      sql_server_name: ${{parameters.sql_server_name}}
+      sql_database_name: ${{parameters.sql_database_name}}
+      sql_username: ${{parameters.sql_username}}
+      sql_password: ${{parameters.sql_password}}
+      post_cleanup: ${{parameters.post_cleanup}}      
+      container_name: ${{parameters.container_name}}
+      account_name: ${{parameters.account_name}}
+      account_key: ${{parameters.account_key}}
+      datastore_rg: ${{parameters.datastore_rg}}
+
+- ${{ if eq(parameters.flighting_master, 'true') }}:
+  - template: ../stage/deploy_notebooks_stage_v2.yml
+    parameters:
+      Agent: ${{parameters.Agent}}
+      Demands: ${{parameters.Demands}}
+      stageName: 'master'
+      jobDisplayName: ${{parameters.jobDisplayName}}
+      TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+      DeployLocation: ${{parameters.DeployLocation}}
+      TestPostfix: "-master"
+      DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+      Template: ${{parameters.Template}}
+      ProjectLocation: ${{parameters.ProjectLocation}}
+      PythonPath: ${{parameters.PythonPath}}
+      flighting_master: true
+      workload_vars: ${{parameters.workload_vars}}
+      doCleanup: ${{parameters.doCleanup}}
+      sql_server_name: ${{parameters.sql_server_name}}
+      sql_database_name: ${{parameters.sql_database_name}}
+      sql_username: ${{parameters.sql_username}}
+      sql_password: ${{parameters.sql_password}}
+      post_cleanup: ${{parameters.post_cleanup}}      
+      container_name: ${{parameters.container_name}}
+      account_name: ${{parameters.account_name}}
+      account_key: ${{parameters.account_key}}
+      datastore_rg: ${{parameters.datastore_rg}}
