@@ -31,7 +31,7 @@ steps:
   parameters:
     conda_location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
+    conda: ai-architecture-template
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     flighting_master: ${{parameters.flighting_master}}
@@ -41,10 +41,10 @@ steps:
     notebook:  00_AMLConfiguration.ipynb
     location: ${{parameters.location}}
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
+    conda: ai-architecture-template
     azure_subscription: ${{parameters.azure_subscription}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
-    workspacename: ${{parameters.workspacename}}
+    workspacename: "aiarchtemplate"
     azureregion: ${{parameters.azureregion}}
     aksimagename: ${{parameters.aksimagename}}
 
@@ -53,6 +53,6 @@ steps:
 - template: cleanuptask.yml
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
+    conda: ai-architecture-template
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: ${{parameters.doCleanup}}
