@@ -3,4 +3,4 @@ variables:
   DeployLocation: westus
   ProjectLocation: "notebooks/"
   PythonPath: "."
-  Template: steps/ai-architecture-template.yml # TODO: update file name to project name
+  Template: ai-architecture-template.yml # TODO: update file name to project name
