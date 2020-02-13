@@ -33,6 +33,21 @@ steps:
       python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
 
 - task: AzureCLI@1
+  displayName: 'Setup Conda'
+  condition: eq('${{ parameters.fresh_install }}', false)
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
+    scriptLocation: inlineScript
+    inlineScript: |
+      conda config --set notify_outdated_conda false # should this be used instead of conda update?
+      # conda update --force-reinstall -y -n base -c defaults conda
+      conda env update --file ${{parameters.conda_location}}/environment.yml python=3.6
+      source activate ${{parameters.conda}}
+      python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
+
+
+- task: AzureCLI@1
   displayName: 'Upgrade AML SDK to latest release'
   condition: eq('${{ parameters.flighting_release }}', true)
   inputs:
