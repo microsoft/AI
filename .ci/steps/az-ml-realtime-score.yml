@@ -47,14 +47,6 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     conda: ${{parameters.conda}}
 
-- bash: |
-    mkdir -p ${{parameters.location}}/iotedge/data_folder
-    mkdir -p ${{parameters.location}}/aks/data_folder
-    cd ${{parameters.location}}
-    cp data_folder/*.tsv iotedge/data_folder
-    cp data_folder/*.tsv aks/data_folder
-  displayName: 'Copying data'
-
 - template: azpapermill.yml
   parameters:
     notebook: 02_TrainOnLocal.ipynb
@@ -97,6 +89,7 @@ steps:
     workspacename: az-ml-realtime-score
     conda: ${{parameters.conda}}
     azureregion: ${{parameters.azureregion}}
+    pylint_fail: False
 
 - template: cleanuptask.yml
   parameters:
