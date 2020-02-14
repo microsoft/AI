@@ -30,7 +30,7 @@ steps:
       mv workspace_conf.yml ../
 
 - task: AzureCLI@1
-  displayName: "Pytests"
+  displayName: "pytests - tests"
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: 'inlineScript'
@@ -39,9 +39,22 @@ steps:
       source activate ${{parameters.conda}}
 
       pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
-      
+
+- task: AzureCLI@1
+  displayName: "Upload Output Notebooks"
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: 'inlineScript'
+    failOnStderr: False
+    inlineScript: |
+      source activate ${{parameters.conda}}
+
       jupyter nbconvert --to markdown notebooks/0*.output_ipynb
-      echo "##vso[task.uploadsummary]$(System.DefaultWorkingDirectory)/notebooks/00_AMLConfiguration.md"
+      
+      rm -f all_notebooks.md
+      cat ./notebooks/*.md >> all_notebooks.md
+      
+      echo "##vso[task.uploadsummary]$(System.DefaultWorkingDirectory)/notebooks/all_notebooks.md"
 
 - task: AzureCLI@1
   displayName: "PyLint"
