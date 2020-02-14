@@ -9,7 +9,6 @@ parameters:
   TestPostfix: # "" | "-release" | "-preview"
   Deploy_Location_Short: #
   DefaultWorkingDirectory: #
-  Template: #
   aksimagename: 'myimage'
   ProjectLocation: #
   PythonPath: #
@@ -56,7 +55,7 @@ stages:
     steps:
     - template: ../steps/deploy_notebook_steps_v2.yml
       parameters:
-        template: ${{parameters.Template}}
+        template: conda_pytest_pylint.yml
         azureSubscription: ${{variables.azureSubscription}}
         azure_subscription: ${{variables.azure_subscription}}
         azureresourcegroup: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}${{parameters.TestPostfix}}
