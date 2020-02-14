@@ -44,6 +44,7 @@ steps:
 
 - task: AzureCLI@1
   displayName: "Upload Output Notebooks"
+  condition: succeededOrFailed()
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: 'inlineScript'
