@@ -28,58 +28,29 @@ steps:
     flighting_master: ${{parameters.flighting_master}}
     update_conda_package: ${{parameters.update_conda_package}}
 
-- template: azpapermill.yml
-  parameters:
-    notebook:  00_AMLConfiguration.ipynb
-    location: ${{parameters.location}}
+- task: AzureCLI@1
+  displayName: "Set Vars"
+  inputs:
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    azure_subscription: ${{parameters.azure_subscription}}
-    azureresourcegroup: ${{parameters.azureresourcegroup}}
-    workspacename: az-ml-realtime-score
-    azureregion: ${{parameters.azureregion}}
-    aksimagename: ${{parameters.aksimagename}}
+    scriptLocation: 'inlineScript'
+    failOnStderr: True
+    inlineScript: |
+      source activate ${{parameters.conda}}
 
-- template: azpapermill.yml
-  parameters:
-    notebook: 01_DataPrep.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
+      rm -f workspace_conf.yml
+      
+      echo "subscription_id:  ${{parameters.azure_subscription}}" >> workspace_conf.yml
+      echo "resource_group:  ${{parameters.azureresourcegroup}}" >> workspace_conf.yml
+      echo "workspace_name:  ${{parameters.workspacename}}" >> workspace_conf.yml
+      echo "workspace_region:  ${{parameters.azureregion}}" >> workspace_conf.yml
 
-- template: azpapermill.yml
-  parameters:
-    notebook: 02_TrainOnLocal.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 03_DevelopScoringScript.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 04_CreateImage.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    aksimagename: ${{parameters.aksimagename}}
-
-- template: azpapermill.yml
-  parameters:
-    notebook: 05_DeployOnAKS.ipynb
-    location: ${{parameters.location}}
-    azureSubscription: ${{parameters.azureSubscription}}
-    conda: ${{parameters.conda}}
-    aks_name: ${{parameters.aks_name}}
-    azureregion: ${{parameters.azureregion}}
-    aks_service_name: ${{parameters.aks_service_name}}
-    aksimagename: ${{parameters.aksimagename}}
-    python_path: ${{parameters.python_path}}
+      echo "image_name:  ${{parameters.aksimagename}}" >> workspace_conf.yml
+      echo "aks_service_name:  ${{parameters.aks_service_name}}" >> workspace_conf.yml      
+      echo "aks_name:  ${{parameters.aks_name}}" >> workspace_conf.yml
+      echo "aks_location:  ${{parameters.azureregion}}" >> workspace_conf.yml
+      
+       mv workspace_conf.yml ../
+     
 
 - template: pytest_steps.yml
   parameters:
@@ -90,6 +61,7 @@ steps:
     conda: ${{parameters.conda}}
     azureregion: ${{parameters.azureregion}}
     pylint_fail: False
+    set_vars: False
 
 - template: cleanuptask.yml
   parameters:
