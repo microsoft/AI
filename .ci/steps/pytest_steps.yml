@@ -6,6 +6,7 @@ parameters:
   workspacename: #
   azureregion: #
   location: #
+  pylint_fail: True
 
 steps:
 - task: AzureCLI@1
@@ -30,7 +31,16 @@ steps:
       
       jupyter nbconvert --to markdown notebooks/0*.output_ipynb
       echo "##vso[task.uploadsummary]$(System.DefaultWorkingDirectory)/notebooks/00_AMLConfiguration.md"
-      
+
+- task: AzureCLI@1
+  displayName: "PyLint"
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: 'inlineScript'
+    failOnStderr: ${{parameters.pylint_fail}}
+    inlineScript: |
+      source activate ${{parameters.conda}}
+
       jupyter nbconvert --to python notebooks/0*.ipynb
       
       pylint --output-format=junit notebooks/0*.py >> test-pylint-results.xml
