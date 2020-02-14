@@ -58,6 +58,7 @@ steps:
 
 - task: AzureCLI@1
   displayName: "PyLint"
+  condition: succeededOrFailed()
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: 'inlineScript'
@@ -70,16 +71,15 @@ steps:
       pylint --output-format=junit notebooks/0*.py >> test-pylint-results.xml
       pylint notebooks/0*.py
 
-
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/test-*.xml'
+  condition: succeededOrFailed()
   inputs:
     testResultsFiles: '**/test-*.xml'
     failTaskOnFailedTests: true
-  condition: succeededOrFailed()
 
 - task: PublishCodeCoverageResults@1
+  condition: succeededOrFailed()
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-  condition: succeededOrFailed()
