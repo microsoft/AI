@@ -37,8 +37,10 @@ steps:
     failOnStderr: True
     inlineScript: |
       source activate ${{parameters.conda}}
+      
+      pip install pytest-nunit
 
-      pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
+      pytest tests --doctest-modules --nunit-xml=test-nunitresults.xml --junitxml=junit/test-results.xml --cov=. --cov-report=xml
 
 - task: AzureCLI@1
   displayName: "Upload Output Notebooks"
@@ -70,6 +72,13 @@ steps:
       
       pylint --output-format=junit notebooks/0*.py >> test-pylint-results.xml
       pylint notebooks/0*.py
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: NUnit
+    testResultsFiles: '**/test-nunitresults.xml'
+    failTaskOnFailedTests: true
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/test-*.xml'
