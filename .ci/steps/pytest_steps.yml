@@ -7,10 +7,12 @@ parameters:
   azureregion: #
   location: #
   pylint_fail: True
+  set_vars: true
 
 steps:
 - task: AzureCLI@1
-  displayName: "Pytests"
+  displayName: "Set Vars"
+  condition: eq('${{ parameters.set_vars }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: 'inlineScript'
@@ -26,6 +28,15 @@ steps:
       echo "workspace_region:  ${{parameters.azureregion}}" >> workspace_conf.yml
       
       mv workspace_conf.yml ../
+
+- task: AzureCLI@1
+  displayName: "Pytests"
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    scriptLocation: 'inlineScript'
+    failOnStderr: True
+    inlineScript: |
+      source activate ${{parameters.conda}}
 
       pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
       
