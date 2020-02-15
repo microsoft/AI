@@ -37,8 +37,6 @@ steps:
     failOnStderr: True
     inlineScript: |
       source activate ${{parameters.conda}}
-      
-      pip install pytest-nunit
 
       pytest tests --doctest-modules --nunit-xml=test-nunitresults.xml --cov=. --cov-report=xml
 
