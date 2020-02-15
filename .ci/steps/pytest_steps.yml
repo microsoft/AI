@@ -40,7 +40,7 @@ steps:
       
       pip install pytest-nunit
 
-      pytest tests --doctest-modules --nunit-xml=test-nunitresults.xml --junitxml=junit/test-results.xml --cov=. --cov-report=xml
+      pytest tests --doctest-modules --nunit-xml=test-nunitresults.xml --cov=. --cov-report=xml
 
 - task: AzureCLI@1
   displayName: "PyLint"
