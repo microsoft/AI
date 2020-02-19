@@ -50,10 +50,12 @@ steps:
     inlineScript: |
       source activate ${{parameters.conda}}
 
-      jupyter nbconvert --to python notebooks/0*.ipynb
+      if [ -d "notebooks" ]; then
+        jupyter nbconvert --to python notebooks/0*.ipynb
       
-      pylint --output-format=junit notebooks/0*.py >> test-pylint-results.xml
-      pylint notebooks/0*.py
+        pylint --output-format=junit notebooks/0*.py >> test-pylint-results.xml
+        pylint notebooks/0*.py
+      fi
 
 - task: PublishTestResults@2
   condition: succeededOrFailed()
