@@ -3,7 +3,7 @@ parameters:
   azureSubscription: 'x'
   azure_subscription: 'x'
   azureresourcegroup: 'x'
-  workspacename: 'x'
+  workspacename: 'aiarchtemplate'
   azureregion: 'x'
   aksimagename: 'x'  
   aks_name: "mlaks"
