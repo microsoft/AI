@@ -31,7 +31,7 @@ steps:
   parameters:
     conda_location: .
     azureSubscription: ${{parameters.azureSubscription}}
-    conda: ai-architecture-template
+    conda: ${{parameters.conda}}
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     flighting_master: ${{parameters.flighting_master}}
