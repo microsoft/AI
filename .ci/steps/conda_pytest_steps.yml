@@ -24,7 +24,6 @@ parameters:
   flighting_preview: false
   flighting_master: false
   fresh_install: false
-  conda: ai-architecture-template
 
 steps:
 - template: config_conda.yml
