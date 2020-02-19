@@ -51,7 +51,7 @@ steps:
     azureSubscription: ${{parameters.azureSubscription}}
     azure_subscription: ${{parameters.azure_subscription}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}    
-    workspacename: aiarchtemplate
+    workspacename: ${{parameters.workspacename}}
     conda: ${{parameters.conda}}
     azureregion: ${{parameters.azureregion}}
     sql_server_name: ${{parameters.sql_server_name}}
