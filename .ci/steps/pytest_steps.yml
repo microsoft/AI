@@ -3,7 +3,7 @@ parameters:
   azureSubscription: #
   azure_subscription: #
   azureresourcegroup: #
-  workspacename: #
+  workspacename: defaultworkspacename
   azureregion: #
   location: #
   pylint_fail: True
