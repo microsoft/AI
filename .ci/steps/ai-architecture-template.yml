@@ -43,7 +43,7 @@ steps:
     azure_subscription: ${{parameters.azure_subscription}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}    
     workspacename: aiarchtemplate
-    conda: ai-architecture-template
+    conda: ${{parameters.conda}}
     azureregion: ${{parameters.azureregion}}
 
 - template: cleanuptask.yml
