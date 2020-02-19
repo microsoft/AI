@@ -24,16 +24,10 @@ parameters:
   flighting_preview: false
   flighting_master: false
   fresh_install: false
-  aksimagename: "x"
-  aks_service_name: "x"
-  aks_name: "x"
   sql_server_name: "x"
   sql_database_name: "x"
   sql_username: "x"
   sql_password: "x"
-  aksimagename: 'x'  
-  aks_name: "x"
-  cluster_name: "x"
 
 steps:
 - template: config_conda.yml
@@ -59,7 +53,7 @@ steps:
     sql_username: ${{parameters.sql_username}}
     sql_password: ${{parameters.sql_password}}
     aksimagename: ${{parameters.aksimagename}}
-    aks_service_name: ${{parameters.cluster_name}}
+    aks_service_name: ${{parameters.aks_service_name}}
     aks_name: ${{parameters.aks_name}}
     
 
