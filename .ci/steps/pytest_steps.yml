@@ -37,8 +37,9 @@ steps:
     failOnStderr: True
     inlineScript: |
       source activate ${{parameters.conda}}
-
-      pytest tests --doctest-modules --nunit-xml=test-nunitresults.xml --cov=. --cov-report=xml
+    
+      # --nunit-xml=test-nunitresults.xml
+      pytest tests --doctest-modules --cov=. --cov-report=xml
 
 - task: AzureCLI@1
   displayName: "PyLint"
