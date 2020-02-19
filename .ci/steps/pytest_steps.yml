@@ -8,6 +8,14 @@ parameters:
   location: #
   pylint_fail: True
   set_vars: true
+  aksimagename: "x"
+  aks_service_name: "x"
+  aks_name: "x"
+  sql_server_name: "x"
+  sql_database_name: "x"
+  sql_username: "x"
+  sql_password: "x"
+  
 
 steps:
 - task: AzureCLI@1
@@ -27,6 +35,16 @@ steps:
       echo "workspace_name:  ${{parameters.workspacename}}" >> workspace_conf.yml
       echo "workspace_region:  ${{parameters.azureregion}}" >> workspace_conf.yml
       
+      echo "image_name:  ${{parameters.aksimagename}}" >> workspace_conf.yml
+      echo "aks_service_name:  ${{parameters.aks_service_name}}" >> workspace_conf.yml      
+      echo "aks_name:  ${{parameters.aks_name}}" >> workspace_conf.yml
+      echo "aks_location:  ${{parameters.azureregion}}" >> workspace_conf.yml      
+      
+      echo "sql_server_name:  ${{parameters.sql_server_name}}" >> workspace_conf.yml
+      echo "sql_database_name:  ${{parameters.sql_database_name}}" >> workspace_conf.yml      
+      echo "sql_username:  ${{parameters.sql_username}}" >> workspace_conf.yml
+      echo "sql_password:  ${{parameters.sql_password}}" >> workspace_conf.yml
+    
       cp workspace_conf.yml ../
 
 - task: AzureCLI@1
