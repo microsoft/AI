@@ -25,9 +25,10 @@ parameters:
   account_name: "x"
   account_key: "x"
   datastore_rg: "x"
+  conda: #
 
 stages:
-- template: ../stage/deploy_notebooks_stage_v4.yml
+- template: ../stage/deploy_notebooks_stage_v5.yml
   parameters:
     Agent: ${{parameters.Agent}}
     Demands: ${{parameters.Demands}}
@@ -53,9 +54,10 @@ stages:
     account_name: ${{parameters.account_name}}
     account_key: ${{parameters.account_key}}
     datastore_rg: ${{parameters.datastore_rg}}
+    conda: ${{parameters.conda}}
 
 - ${{ if eq(parameters.flighting_release, 'true') }}:
-  - template: ../stage/deploy_notebooks_stage_v4.yml
+  - template: ../stage/deploy_notebooks_stage_v5.yml
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
@@ -79,9 +81,10 @@ stages:
       account_name: ${{parameters.account_name}}
       account_key: ${{parameters.account_key}}
       datastore_rg: ${{parameters.datastore_rg}}
+      conda: ${{parameters.conda}}
 
 - ${{ if eq(parameters.flighting_preview, 'true') }}:
-  - template: ../stage/deploy_notebooks_stage_v4.yml
+  - template: ../stage/deploy_notebooks_stage_v5.yml
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
@@ -105,9 +108,10 @@ stages:
       account_name: ${{parameters.account_name}}
       account_key: ${{parameters.account_key}}
       datastore_rg: ${{parameters.datastore_rg}}
+      conda: ${{parameters.conda}}
 
 - ${{ if eq(parameters.flighting_master, 'true') }}:
-  - template: ../stage/deploy_notebooks_stage_v4.yml
+  - template: ../stage/deploy_notebooks_stage_v5.yml
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
@@ -131,3 +135,4 @@ stages:
       account_name: ${{parameters.account_name}}
       account_key: ${{parameters.account_key}}
       datastore_rg: ${{parameters.datastore_rg}}
+      conda: ${{parameters.conda}}
