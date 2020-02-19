@@ -27,7 +27,7 @@ steps:
       echo "workspace_name:  ${{parameters.workspacename}}" >> workspace_conf.yml
       echo "workspace_region:  ${{parameters.azureregion}}" >> workspace_conf.yml
       
-      mv workspace_conf.yml ../
+      cp workspace_conf.yml ../
 
 - task: AzureCLI@1
   displayName: "pytests - tests"
