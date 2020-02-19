@@ -6,7 +6,7 @@ parameters:
   TridentWorkloadTypeShort: #
   DeployLocation: #
   DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)
-  Template: #
+  Template: ai-architecture-template.yml
   ProjectLocation: "notebooks/"
   PythonPath: "."
   doCleanup: True
