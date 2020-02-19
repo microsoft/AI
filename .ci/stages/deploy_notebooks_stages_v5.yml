@@ -6,6 +6,7 @@ parameters:
   TridentWorkloadTypeShort: #
   DeployLocation: #
   DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)
+  Template: ai-architecture-template.yml
   ProjectLocation: "notebooks/"
   PythonPath: "."
   doCleanup: True
@@ -26,7 +27,7 @@ parameters:
   datastore_rg: "x"
 
 stages:
-- template: ../stage/deploy_notebooks_stage_v5.yml
+- template: ../stage/deploy_notebooks_stage_v4.yml
   parameters:
     Agent: ${{parameters.Agent}}
     Demands: ${{parameters.Demands}}
@@ -37,6 +38,7 @@ stages:
     DeployLocation: ${{parameters.DeployLocation}}
     TestPostfix: ${{parameters.TestPostfix}}
     DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+    Template: ${{parameters.Template}}
     ProjectLocation: ${{parameters.ProjectLocation}}
     PythonPath: ${{parameters.PythonPath}}
     doCleanup: ${{parameters.doCleanup}}
@@ -53,7 +55,7 @@ stages:
     datastore_rg: ${{parameters.datastore_rg}}
 
 - ${{ if eq(parameters.flighting_release, 'true') }}:
-  - template: ../stage/deploy_notebooks_stage_v5.yml
+  - template: ../stage/deploy_notebooks_stage_v4.yml
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
@@ -63,6 +65,7 @@ stages:
       DeployLocation: ${{parameters.DeployLocation}}
       TestPostfix: "-release"
       DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+      Template: ${{parameters.Template}}
       ProjectLocation: ${{parameters.ProjectLocation}}
       PythonPath: ${{parameters.PythonPath}}
       flighting_release: true
@@ -78,7 +81,7 @@ stages:
       datastore_rg: ${{parameters.datastore_rg}}
 
 - ${{ if eq(parameters.flighting_preview, 'true') }}:
-  - template: ../stage/deploy_notebooks_stage_v5.yml
+  - template: ../stage/deploy_notebooks_stage_v4.yml
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
@@ -88,6 +91,7 @@ stages:
       DeployLocation: ${{parameters.DeployLocation}}
       TestPostfix: "-preview"
       DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+      Template: ${{parameters.Template}}
       ProjectLocation: ${{parameters.ProjectLocation}}
       PythonPath: ${{parameters.PythonPath}}
       flighting_preview: true
@@ -103,7 +107,7 @@ stages:
       datastore_rg: ${{parameters.datastore_rg}}
 
 - ${{ if eq(parameters.flighting_master, 'true') }}:
-  - template: ../stage/deploy_notebooks_stage_v5.yml
+  - template: ../stage/deploy_notebooks_stage_v4.yml
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
@@ -113,6 +117,7 @@ stages:
       DeployLocation: ${{parameters.DeployLocation}}
       TestPostfix: "-master"
       DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+      Template: ${{parameters.Template}}
       ProjectLocation: ${{parameters.ProjectLocation}}
       PythonPath: ${{parameters.PythonPath}}
       flighting_master: true
