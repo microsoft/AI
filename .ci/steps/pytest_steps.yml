@@ -15,6 +15,10 @@ parameters:
   sql_database_name: "x"
   sql_username: "x"
   sql_password: "x"
+  datastore_rg: "x"
+  container_name: "x"
+  account_name: "x"
+  account_key: "x"
   
 
 steps:
@@ -44,7 +48,12 @@ steps:
       echo "sql_database_name:  ${{parameters.sql_database_name}}" >> workspace_conf.yml      
       echo "sql_username:  ${{parameters.sql_username}}" >> workspace_conf.yml
       echo "sql_password:  ${{parameters.sql_password}}" >> workspace_conf.yml
-    
+      
+      echo "datastore_rg:  ${{parameters.datastore_rg}}" >> workspace_conf.yml
+      echo "container_name:  ${{parameters.container_name}}" >> workspace_conf.yml      
+      echo "account_name:  ${{parameters.account_name}}" >> workspace_conf.yml
+      echo "account_key:  ${{parameters.account_key}}" >> workspace_conf.yml
+
       cp workspace_conf.yml ../
 
 - task: AzureCLI@1
