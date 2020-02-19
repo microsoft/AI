@@ -28,6 +28,10 @@ parameters:
   sql_database_name: "x"
   sql_username: "x"
   sql_password: "x"
+  datastore_rg: "x"
+  container_name: "x"
+  account_name: "x"
+  account_key: "x"
 
 steps:
 - template: config_conda.yml
@@ -55,7 +59,10 @@ steps:
     aksimagename: ${{parameters.aksimagename}}
     aks_service_name: ${{parameters.aks_service_name}}
     aks_name: ${{parameters.aks_name}}
-    
+    datastore_rg: ${{parameters.datastore_rg}}
+    container_name: ${{parameters.container_name}}
+    account_name: ${{parameters.account_name}}
+    account_key: ${{parameters.account_key}}
 
 - template: cleanuptask.yml
   parameters:
