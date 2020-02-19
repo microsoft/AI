@@ -24,6 +24,7 @@ parameters:
   flighting_preview: false
   flighting_master: false
   fresh_install: false
+  conda: ai-architecture-template
 
 steps:
 - template: config_conda.yml
@@ -49,6 +50,6 @@ steps:
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
     azure_subscription: ${{parameters.azure_subscription}}
-    conda: ai-architecture-template
+    conda: ${{parameters.conda}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: ${{parameters.doCleanup}}
