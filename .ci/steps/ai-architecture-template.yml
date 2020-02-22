@@ -18,13 +18,12 @@ parameters:
   aksimagename: ''
   aks_name: ''
   aks_service_name: myimage
-  conda: ''
+  conda: ai-architecture-template
   doCleanup: true
   flighting_release: false
   flighting_preview: false
   flighting_master: false
   fresh_install: false
-  conda: ai-architecture-template
 
 steps:
 - template: config_conda.yml
