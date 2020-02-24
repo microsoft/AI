@@ -78,10 +78,10 @@ steps:
       source activate ${{parameters.conda}}
 
       if [ -d "notebooks" ]; then
-        jupyter nbconvert --to python notebooks/0*.ipynb
+        jupyter nbconvert --to python notebooks/*.ipynb
       
-        pylint --output-format=junit notebooks/0*.py >> test-pylint-results.xml
-        pylint notebooks/0*.py
+        pylint --output-format=junit notebooks/*.py >> test-pylint-results.xml
+        pylint notebooks/*.py
       fi
 
 - task: PublishTestResults@2
