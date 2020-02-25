@@ -73,7 +73,7 @@ steps:
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: 'inlineScript'
-    failOnStderr: ${{parameters.pylint_fail}}
+    continueOnError: true
     inlineScript: |
       source activate ${{parameters.conda}}
 
@@ -93,8 +93,7 @@ steps:
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/test-*.xml'
-  condition: succeededOrFailed()
-  continueOnError: true
+  condition: succeededOrFailed()  
   inputs:
     testResultsFiles: '**/test-*.xml'
 
