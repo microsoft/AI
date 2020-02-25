@@ -94,9 +94,9 @@ steps:
 - task: PublishTestResults@2
   displayName: 'Publish Test Results **/test-*.xml'
   condition: succeededOrFailed()
+  continueOnError: true
   inputs:
     testResultsFiles: '**/test-*.xml'
-    failTaskOnFailedTests: true
 
 - task: PublishCodeCoverageResults@1
   condition: succeededOrFailed()
