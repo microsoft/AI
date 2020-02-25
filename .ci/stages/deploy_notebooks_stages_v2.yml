@@ -63,7 +63,7 @@ stages:
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
-      stageName: 'stable-eastus'
+      stageName: 'stable_eastus'
       jobDisplayName: ${{parameters.jobDisplayName}}
       jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
       TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
@@ -92,7 +92,7 @@ stages:
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
-      stageName: 'stable-eastus2'
+      stageName: 'stable_eastus2'
       jobDisplayName: ${{parameters.jobDisplayName}}
       jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
       TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
