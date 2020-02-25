@@ -55,6 +55,37 @@ steps:
       echo "account_key:  ${{parameters.account_key}}" >> workspace_conf.yml
 
       cp workspace_conf.yml ../
+      
+      rm -f project.yml
+      
+      echo "project_name: AI Default Project"  >> project.yml
+      echo "settings:"  >> project.yml
+      echo "- subscription_id:"  >> project.yml
+      echo "  - description: Azure Subscription Id"  >> project.yml
+      echo "  - value: ${{parameters.azure_subscription}}"  >> project.yml
+      echo "- resource_group:"  >> project.yml
+      echo "  - description: Azure Resource Group Name"  >> project.yml
+      echo "  - value: ${{parameters.azureresourcegroup}}"  >> project.yml
+      echo "- workspace_name:"  >> project.yml
+      echo "  - description: Azure ML Workspace Name"  >> project.yml
+      echo "  - value: ${{parameters.workspacename}}"  >> project.yml
+      echo "- workspace_region:"  >> project.yml
+      echo "  - description: Azure ML Workspace Region"  >> project.yml
+      echo "  - value: ${{parameters.azureregion}}"  >> project.yml
+      echo "- image_name:"  >> project.yml
+      echo "  - description: Docker Container Image Name"  >> project.yml
+      echo "  - value:  ${{parameters.aksimagename}}"  >> project.yml
+      echo "- aks_service_name:"  >> project.yml
+      echo "  - description: AKS Service Name"  >> project.yml
+      echo "  - value: ${{parameters.aks_service_name}}"  >> project.yml
+      echo "- aks_name:"  >> project.yml
+      echo "  - description: AKS Cluster Name"  >> project.yml
+      echo "  - value: ${{parameters.aks_name}}"  >> project.yml
+      echo "- aks_location:"  >> project.yml
+      echo "  - description: AKS Azure Region"  >> project.yml
+      echo "  - value: ${{parameters.azureregion}}"  >> project.yml
+      
+      cp project.yml ../
 
 - task: AzureCLI@1
   displayName: "pytests - tests"
