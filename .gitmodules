@@ -85,3 +85,6 @@
 [submodule "ai200-architectures/MLHyperparameterTuning"]
 	path = ai200-architectures/MLHyperparameterTuning
 	url = https://github.com/microsoft/MLHyperparameterTuning
+[submodule "ai100-samples/botframework-solutions"]
+	path = ai100-samples/botframework-solutions
+	url = https://github.com/microsoft/botframework-solutions
