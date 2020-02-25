@@ -26,6 +26,8 @@ parameters:
   account_name: "x"
   account_key: "x"
   datastore_rg: "x"
+  multi_region_1: true
+  multi_region_2: true
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
@@ -55,6 +57,64 @@ stages:
     account_name: ${{parameters.account_name}}
     account_key: ${{parameters.account_key}}
     datastore_rg: ${{parameters.datastore_rg}}
+
+- ${{ if eq(parameters.multi_region_1, 'true') }}:
+  - template: ../stage/deploy_notebooks_stage_v2.yml
+    parameters:
+      Agent: ${{parameters.Agent}}
+      Demands: ${{parameters.Demands}}
+      stageName: 'stable-eastus'
+      jobDisplayName: ${{parameters.jobDisplayName}}
+      jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+      TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+      DeployLocation: eastus
+      TestPostfix: ${{parameters.TestPostfix}}
+      DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+      Template: ${{parameters.Template}}
+      ProjectLocation: ${{parameters.ProjectLocation}}
+      PythonPath: ${{parameters.PythonPath}}
+      workload_vars: ${{parameters.workload_vars}}
+      doCleanup: ${{parameters.doCleanup}}
+      sql_server_name: ${{parameters.sql_server_name}}
+      sql_database_name: ${{parameters.sql_database_name}}
+      sql_username: ${{parameters.sql_username}}
+      sql_password: ${{parameters.sql_password}}
+      data_prep: ${{parameters.data_prep}}
+      train: ${{parameters.train}}
+      post_cleanup: ${{parameters.post_cleanup}}
+      container_name: ${{parameters.container_name}}
+      account_name: ${{parameters.account_name}}
+      account_key: ${{parameters.account_key}}
+      datastore_rg: ${{parameters.datastore_rg}}
+
+- ${{ if eq(parameters.multi_region_2, 'true') }}:
+  - template: ../stage/deploy_notebooks_stage_v2.yml
+    parameters:
+      Agent: ${{parameters.Agent}}
+      Demands: ${{parameters.Demands}}
+      stageName: 'stable-eastus2'
+      jobDisplayName: ${{parameters.jobDisplayName}}
+      jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+      TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
+      DeployLocation: eastus2
+      TestPostfix: ${{parameters.TestPostfix}}
+      DefaultWorkingDirectory: ${{parameters.DeployLocation}}
+      Template: ${{parameters.Template}}
+      ProjectLocation: ${{parameters.ProjectLocation}}
+      PythonPath: ${{parameters.PythonPath}}
+      workload_vars: ${{parameters.workload_vars}}
+      doCleanup: ${{parameters.doCleanup}}
+      sql_server_name: ${{parameters.sql_server_name}}
+      sql_database_name: ${{parameters.sql_database_name}}
+      sql_username: ${{parameters.sql_username}}
+      sql_password: ${{parameters.sql_password}}
+      data_prep: ${{parameters.data_prep}}
+      train: ${{parameters.train}}
+      post_cleanup: ${{parameters.post_cleanup}}
+      container_name: ${{parameters.container_name}}
+      account_name: ${{parameters.account_name}}
+      account_key: ${{parameters.account_key}}
+      datastore_rg: ${{parameters.datastore_rg}}
 
 - ${{ if eq(parameters.flighting_release, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v2.yml
