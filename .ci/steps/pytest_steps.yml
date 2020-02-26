@@ -30,6 +30,7 @@ steps:
     scriptLocation: 'inlineScript'
     failOnStderr: True
     inlineScript: |
+      pwd
       source activate ${{parameters.conda}}
 
       rm -f workspace_conf.yml
@@ -85,6 +86,7 @@ steps:
       echo "  - description: AKS Azure Region"  >> project.yml
       echo "  - value: ${{parameters.azureregion}}"  >> project.yml
       
+      cat project.yml
       cp project.yml ../
 
 - task: AzureCLI@1
