@@ -26,42 +26,20 @@ steps:
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     flighting_master: ${{parameters.flighting_master}}
-    update_conda_package: ${{parameters.update_conda_package}}
-
-- task: AzureCLI@1
-  displayName: "Set Vars"
-  inputs:
-    azureSubscription: ${{parameters.azureSubscription}}
-    scriptLocation: 'inlineScript'
-    failOnStderr: True
-    inlineScript: |
-      source activate ${{parameters.conda}}
-
-      rm -f workspace_conf.yml
-      
-      echo "subscription_id:  ${{parameters.azure_subscription}}" >> workspace_conf.yml
-      echo "resource_group:  ${{parameters.azureresourcegroup}}" >> workspace_conf.yml
-      echo "workspace_name:  ${{parameters.workspacename}}" >> workspace_conf.yml
-      echo "workspace_region:  ${{parameters.azureregion}}" >> workspace_conf.yml
-
-      echo "image_name:  ${{parameters.aksimagename}}" >> workspace_conf.yml
-      echo "aks_service_name:  ${{parameters.aks_service_name}}" >> workspace_conf.yml      
-      echo "aks_name:  ${{parameters.aks_name}}" >> workspace_conf.yml
-      echo "aks_location:  ${{parameters.azureregion}}" >> workspace_conf.yml
-      
-       mv workspace_conf.yml ../
-     
+    update_conda_package: ${{parameters.update_conda_package}}    
 
 - template: pytest_steps.yml
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
     azure_subscription: ${{parameters.azure_subscription}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}    
-    workspacename: az-ml-realtime-score
-    conda: ${{parameters.conda}}
+    workspacename: ${{parameters.workspacename}}
     azureregion: ${{parameters.azureregion}}
+    aksimagename: ${{parameters.aksimagename}}
+    aks_service_name: ${{parameters.aks_service_name}}
+    aks_name: ${{parameters.aks_name}}
+    conda: ${{parameters.conda}}
     pylint_fail: False
-    set_vars: False
 
 - template: cleanuptask.yml
   parameters:
