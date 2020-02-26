@@ -3,4 +3,4 @@ variables:
   DeployLocation: westus
   ProjectLocation: "notebooks/"
   PythonPath: "."
-  Template: ai-architecture-template.yml
+  Template: az-ml-realtime-score.yml
