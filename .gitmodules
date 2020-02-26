@@ -85,9 +85,6 @@
 [submodule "ai100-samples/botframework-solutions"]
 	path = ai100-samples/botframework-solutions
 	url = https://github.com/microsoft/botframework-solutions
-[submodule "ai200-architectures/az-ml-realtime-score"]
-	path = ai200-architectures/az-ml-realtime-score
-	url = https://github.com/microsoft/az-ml-realtime-score
 [submodule "ai200-architectures/ai201_az-ml-realtime-score"]
 	path = ai200-architectures/ai201_az-ml-realtime-score
 	url = https://github.com/microsoft/az-ml-realtime-score
