@@ -4,9 +4,10 @@ parameters:
   azure_subscription: 'x'
   azureresourcegroup: 'x'
   workspacename: 'aiarchtemplate'
-  azureregion: 'x'
-  aksimagename: 'x'  
-  aks_name: "mlaks"
+  azureregion: 'westus'
+  aksimagename: 'myimage'  
+  aks_name: "akscluster"
+  aks_service_name: "aksservice"
   location: "" #Root Dir of Project
   python_path: "" #Root Dir of Python Env
   cluster_name: "-"
@@ -39,6 +40,7 @@ steps:
     azureregion: ${{parameters.azureregion}}
     aksimagename: ${{parameters.aksimagename}}    
     aks_name: ${{parameters.aks_name}}
+    aks_service_name: ${{parameters.aks_service_name}}
     location: ${{parameters.location}}
     python_path: ${{parameters.python_path}}
     cluster_name: ${{parameters.cluster_name}}
