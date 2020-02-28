@@ -45,7 +45,7 @@ steps:
     flighting_release: ${{parameters.flighting_release}}
     flighting_preview: ${{parameters.flighting_preview}}
     flighting_master: ${{parameters.flighting_master}}
-    doCleanup: ${{parameters.doCleanup}}
+    doCleanup: ${{parameters.post_cleanup}}
     sql_server_name: ${{parameters.sql_server_name}}
     sql_database_name: ${{parameters.sql_database_name}}
     sql_username: ${{parameters.sql_username}}
