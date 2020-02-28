@@ -15,9 +15,9 @@ parameters:
   azureresourcegroup: ''
   workspacename: ''
   azureregion: westus2
-  aksimagename: ''
-  aks_name: ''
-  aks_service_name: myimage
+  aksimagename: myimage
+  aks_name: akscluster
+  aks_service_name: aksservice
   conda: ''
   doCleanup: true
   flighting_release: false
