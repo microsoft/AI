@@ -11,6 +11,9 @@ parameters:
   aksimagename: "x"
   aks_service_name: "x"
   aks_name: "x"
+  deep_aksimagename: "mydeepimage"
+  deep_aks_service_name: "deepaksservice"
+  deep_aks_name: "deepakscluster"
   sql_server_name: "x"
   sql_database_name: "x"
   sql_username: "x"
@@ -83,6 +86,18 @@ steps:
       echo "  - description: AKS Cluster Name"  >> project.yml
       echo "  - value: ${{parameters.aks_name}}"  >> project.yml
       echo "- aks_location:"  >> project.yml
+      echo "  - description: AKS Azure Region"  >> project.yml
+      echo "  - value: ${{parameters.azureregion}}"  >> project.yml
+      echo "- deep_image_name:"  >> project.yml
+      echo "  - description: Docker Container Image Name"  >> project.yml
+      echo "  - value:  ${{parameters.deep_aksimagename}}"  >> project.yml
+      echo "- deep_aks_service_name:"  >> project.yml
+      echo "  - description: AKS Service Name"  >> project.yml
+      echo "  - value: ${{parameters.deep_aks_service_name}}"  >> project.yml
+      echo "- deep_aks_name:"  >> project.yml
+      echo "  - description: AKS Cluster Name"  >> project.yml
+      echo "  - value: ${{parameters.deep_aks_name}}"  >> project.yml
+      echo "- deep_aks_location:"  >> project.yml
       echo "  - description: AKS Azure Region"  >> project.yml
       echo "  - value: ${{parameters.azureregion}}"  >> project.yml
       
