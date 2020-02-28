@@ -26,6 +26,9 @@ parameters:
   account_key: "x"
   datastore_rg: "x"
   conda: #
+  aksimagename: 'myimage'  
+  aks_name: "akscluster"
+  aks_service_name: "aksservice"
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v5.yml
@@ -55,6 +58,9 @@ stages:
     account_key: ${{parameters.account_key}}
     datastore_rg: ${{parameters.datastore_rg}}
     conda: ${{parameters.conda}}
+    aksimagename: ${{parameters.aksimagename}}
+    aks_service_name: ${{parameters.aks_service_name}}
+    aks_name: ${{parameters.aks_name}}
 
 - ${{ if eq(parameters.flighting_release, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v5.yml
@@ -82,6 +88,10 @@ stages:
       account_key: ${{parameters.account_key}}
       datastore_rg: ${{parameters.datastore_rg}}
       conda: ${{parameters.conda}}
+      aksimagename: ${{parameters.aksimagename}}
+      aks_service_name: ${{parameters.aks_service_name}}
+      aks_name: ${{parameters.aks_name}}
+
 
 - ${{ if eq(parameters.flighting_preview, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v5.yml
@@ -109,6 +119,10 @@ stages:
       account_key: ${{parameters.account_key}}
       datastore_rg: ${{parameters.datastore_rg}}
       conda: ${{parameters.conda}}
+      aksimagename: ${{parameters.aksimagename}}
+      aks_service_name: ${{parameters.aks_service_name}}
+      aks_name: ${{parameters.aks_name}}
+
 
 - ${{ if eq(parameters.flighting_master, 'true') }}:
   - template: ../stage/deploy_notebooks_stage_v5.yml
@@ -136,3 +150,6 @@ stages:
       account_key: ${{parameters.account_key}}
       datastore_rg: ${{parameters.datastore_rg}}
       conda: ${{parameters.conda}}
+      aksimagename: ${{parameters.aksimagename}}
+      aks_service_name: ${{parameters.aks_service_name}}
+      aks_name: ${{parameters.aks_name}}
