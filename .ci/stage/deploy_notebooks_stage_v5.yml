@@ -10,7 +10,9 @@ parameters:
   Deploy_Location_Short: #
   DefaultWorkingDirectory: #
   Template: #
-  aksimagename: 'myimage'
+  aksimagename: 'myimage'  
+  aks_name: "akscluster"
+  aks_service_name: "aksservice"
   ProjectLocation: #
   PythonPath: #
   cluster_name: #
@@ -64,7 +66,8 @@ stages:
         workspacename: ${{parameters.TridentWorkloadTypeShort}}-${{parameters.DeployLocation}}
         azureregion: ${{parameters.DeployLocation}}
         aksimagename: ${{parameters.aksimagename}}
-        aks_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
+        aks_service_name: ${{parameters.aks_service_name}}
+        aks_name: ${{parameters.aks_name}}
         location: ${{parameters.ProjectLocation}}
         python_path: ${{parameters.DefaultWorkingDirectory}}${{parameters.PythonPath}}
         cluster_name: ${{parameters.TridentWorkloadTypeShort}}${{parameters.TestPostfix}}
