@@ -118,10 +118,10 @@ steps:
 - task: AzureCLI@1
   displayName: "PyLint"
   condition: succeededOrFailed()
+  continueOnError: true
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
-    scriptLocation: 'inlineScript'
-    continueOnError: true
+    scriptLocation: 'inlineScript'    
     inlineScript: |
       source activate ${{parameters.conda}}
 
