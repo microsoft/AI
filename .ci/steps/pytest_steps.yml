@@ -116,7 +116,7 @@ steps:
       pytest tests --doctest-modules --nunit-xml=test-nunitresults.xml --cov=. --cov-report=xml
 
 - task: AzureCLI@1
-  displayName: "PyLint"
+  displayName: "PyLint Notebooks Check"
   condition: succeededOrFailed()
   continueOnError: true
   inputs:
