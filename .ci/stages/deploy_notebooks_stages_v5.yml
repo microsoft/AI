@@ -69,11 +69,11 @@ stages:
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
-      stageName: 'stablewest'
+      stageName: 'stablewest2'
       jobDisplayName: ${{parameters.jobDisplayName}}
       jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
       TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
-      DeployLocation: westus
+      DeployLocation: westus2
       TestPostfix: ${{parameters.TestPostfix}}
       DefaultWorkingDirectory: ${{parameters.DeployLocation}}
       Template: ${{parameters.Template}}
