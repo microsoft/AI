@@ -69,7 +69,7 @@ stages:
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
-      stageName: 'stable'
+      stageName: 'stablewest'
       jobDisplayName: ${{parameters.jobDisplayName}}
       jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
       TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
@@ -101,7 +101,7 @@ stages:
     parameters:
       Agent: ${{parameters.Agent}}
       Demands: ${{parameters.Demands}}
-      stageName: 'stable'
+      stageName: 'stableeast2'
       jobDisplayName: ${{parameters.jobDisplayName}}
       jobTimeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
       TridentWorkloadTypeShort: ${{parameters.TridentWorkloadTypeShort}}
