@@ -112,7 +112,7 @@ steps:
     failOnStderr: True
     inlineScript: |
       source activate ${{parameters.conda}}
-    
+      pip install -U .
       pytest tests --doctest-modules --nunit-xml=test-nunitresults.xml --cov=. --cov-report=xml
 
 - task: AzureCLI@1
