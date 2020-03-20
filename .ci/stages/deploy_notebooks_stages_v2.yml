@@ -26,8 +26,8 @@ parameters:
   account_name: "x"
   account_key: "x"
   datastore_rg: "x"
-  multi_region_1: true
-  multi_region_2: true
+  multi_region_1: false
+  multi_region_2: false
 
 stages:
 - template: ../stage/deploy_notebooks_stage_v2.yml
