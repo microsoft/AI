@@ -54,7 +54,7 @@ steps:
     inlineScript: |
       conda config --set notify_outdated_conda false
 
-      conda env update --file ${{parameters.conda_location}}/environment.yml --prune python=3.6
+      conda env update --file ${{parameters.conda_location}}/environment.yml --prune python=3.7.4
       source activate ${{parameters.conda}}
       python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
 
