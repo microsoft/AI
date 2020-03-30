@@ -15,7 +15,7 @@ parameters:
   off: false
 
 steps:
-- bash: echo "##vso[task.prependpath]$CONDA/bin"
+- bash: echo "##vso[task.prependpath]/anaconda/bin"
   displayName: Add conda to PATH
 
 - task: AzureCLI@1
