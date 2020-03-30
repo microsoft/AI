@@ -11,6 +11,8 @@ parameters:
   fresh_install: true
   update_conda: false
   update_conda_package: true
+  ubuntu18: true
+  off: true
 
 steps:
 - task: AzureCLI@1
@@ -18,9 +20,7 @@ steps:
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
-    inlineScript: |
-      echo "##vso[task.prependpath]$CONDA/bin"
-      echo "##vso[task.prependpath]/anaconda/condabin/conda"
+    inlineScript: 'echo "##vso[task.prependpath]$CONDA/bin"'
 
 - task: AzureCLI@1
   displayName: 'Update Conda'
@@ -34,7 +34,7 @@ steps:
       
 - task: AzureCLI@1
   displayName: 'Create New Conda'
-  condition: eq('${{ parameters.fresh_install }}', true)
+  condition: eq('${{ parameters.off }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     failOnStandardError: True
@@ -48,7 +48,7 @@ steps:
 
 - task: AzureCLI@1
   displayName: 'Upgrade Existing or Create New Conda'
-  condition: eq('${{ parameters.update_conda_package }}', true)
+  condition: eq('${{ parameters.off }}', true)
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     failOnStandardError: True
@@ -56,7 +56,21 @@ steps:
     inlineScript: |
       conda config --set notify_outdated_conda false
       conda env create --force --file ${{parameters.conda_location}}/environment.yml python=3.7.4
-      conda activate ${{parameters.conda}}
+      source activate ${{parameters.conda}}
+      python -m ipykernel install --prefix=/data/anaconda/envs/${{parameters.conda}} --name ${{parameters.conda}}
+
+- task: AzureCLI@1
+  displayName: 'U18 Upgrade Existing or Create New Conda'
+  condition: eq('${{ parameters.ubuntu18 }}', true)
+  inputs:
+    azureSubscription: ${{parameters.azureSubscription}}
+    failOnStandardError: True
+    scriptLocation: inlineScript
+    inlineScript: |
+      /anaconda/condabin/conda config --set notify_outdated_conda false
+      /anaconda/condabin/conda env create --force --file ${{parameters.conda_location}}/environment.yml python=3.7.4
+      /anaconda/condabin/conda activate ${{parameters.conda}}
+
 
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to latest release'
