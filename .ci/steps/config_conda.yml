@@ -70,7 +70,7 @@ steps:
     inlineScript: |
       conda config --set notify_outdated_conda false
       conda env create --force --file ${{parameters.conda_location}}/environment.yml python=3.7.4
-      source activate /anaconda/envs/${{parameters.conda}}
+      source activate ${{parameters.conda}}
 
 
 - task: AzureCLI@1
