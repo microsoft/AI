@@ -18,7 +18,9 @@ steps:
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
-    inlineScript: 'echo "##vso[task.prependpath]$CONDA/bin"'
+    inlineScript: |
+      echo "##vso[task.prependpath]$CONDA/bin"
+      echo "##vso[task.prependpath]/anaconda/condabin/conda"
 
 - task: AzureCLI@1
   displayName: 'Update Conda'
@@ -52,9 +54,9 @@ steps:
     failOnStandardError: True
     scriptLocation: inlineScript
     inlineScript: |
-      /anaconda/condabin/conda config --set notify_outdated_conda false
-      /anaconda/condabin/conda env create --force --file ${{parameters.conda_location}}/environment.yml python=3.7.4
-      source activate ${{parameters.conda}}
+      conda config --set notify_outdated_conda false
+      conda env create --force --file ${{parameters.conda_location}}/environment.yml python=3.7.4
+      conda activate ${{parameters.conda}}
 
 - task: AzureCLI@1
   displayName: 'Upgrade AML SDK to latest release'
