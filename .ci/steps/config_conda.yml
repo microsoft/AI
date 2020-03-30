@@ -20,7 +20,9 @@ steps:
   inputs:
     azureSubscription: ${{parameters.azureSubscription}}
     scriptLocation: inlineScript
-    inlineScript: 'echo "##vso[task.prependpath]$CONDA/bin"'
+    inlineScript: |
+      echo "##vso[task.prependpath]$CONDA/bin"
+      source ~/.bashrc
 
 - task: AzureCLI@1
   displayName: 'Update Conda'
