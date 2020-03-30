@@ -16,7 +16,7 @@ parameters:
 
 steps:
 - bash: echo "##vso[task.prependpath]$CONDA/bin"
-displayName: Add conda to PATH
+  displayName: Add conda to PATH
 
 - task: AzureCLI@1
   displayName: 'Update Conda'
