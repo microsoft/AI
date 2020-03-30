@@ -22,7 +22,6 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       echo "##vso[task.prependpath]$CONDA/bin"
-      source ~/.bashrc
 
 - task: AzureCLI@1
   displayName: 'Update Conda'
