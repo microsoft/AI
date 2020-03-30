@@ -12,7 +12,7 @@ parameters:
   update_conda: false
   update_conda_package: true
   ubuntu18: true
-  off: true
+  off: false
 
 steps:
 - task: AzureCLI@1
