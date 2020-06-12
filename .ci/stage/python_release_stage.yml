@@ -51,7 +51,7 @@ stages:
             displayName: 'Upload wheel'
   - deployment: Release_Health_Testing
     environment:  ${{parameters.environment}}
-    dependsOn: package_and_publish
+    dependsOn: package_and_publish_release
     timeoutInMinutes: 5 # how long to run the job before automatically cancelling
     pool:
       name: $(Agent_Name)
