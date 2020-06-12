@@ -37,7 +37,7 @@ stages:
             displayName: 'Install dependencies'
           - task: TwineAuthenticate@1
             inputs:
-              artifactFeed: $(candidate)
+              artifactFeed: $(repo)/$(candidate)
             displayName: 'Twine Authenticate'
           - script: |                        
               python setup.py sdist bdist_wheel
@@ -45,7 +45,7 @@ stages:
             env:
               VERSION: $(Build.BuildNumber)
           - script: |
-              python -m twine upload -r dciborow-test-1 --config-file $(PYPIRC_PATH) dist/*.whl --verbose
+              python -m twine upload -r $(candidate) --config-file $(PYPIRC_PATH) dist/*.whl --verbose
             displayName: 'Upload wheel'
 
   - deployment: Integration_Testing
