@@ -78,7 +78,7 @@ stages:
               continueOnError: true
             - script: |
                 pip install $(module)
-                pytest tests
+                pytest tests/integration --durations 0 --junitxml=junit/test-results.xml --cov=cdm2ai --cov-report=xml
               displayName: 'pytest'
             - task: PublishTestResults@2
               condition: succeededOrFailed()
