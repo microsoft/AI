@@ -1,0 +1,85 @@
+parameters:
+  Agent: Hosted Ubuntu 1604
+  Demands: "python3"
+  stageName: 'defaultStageName'
+  jobDisplayName: 'defaultDisplayName'
+  jobTimeoutInMinutes: 10
+  DefaultWorkingDirectory: #
+  pypi_artifactFeeds: #
+  pypi_pythonDownloadServiceConnections: #
+  module: src
+  candidate: #
+  dependsOn: []
+  environment: #
+
+stages:
+- stage: ${{parameters.stageName}}
+  dependsOn: ${{parameters.dependsOn}}
+  jobs:
+  - deployment: package_and_publish
+    environment:  ${{parameters.environment}} 
+    pool:
+      name: $(Agent_Name)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: UsePythonVersion@0
+            displayName: 'Use Python 3.7'
+            inputs:
+              versionSpec: 3.7
+          - script: |
+              pip install --upgrade pip
+            displayName: 'Update Pip'
+          - script: |
+              pip install wheel twine keyring artifacts-keyring
+            displayName: 'Install dependencies'
+          - task: TwineAuthenticate@1
+            inputs:
+              artifactFeed: $(candidate)
+            displayName: 'Twine Authenticate'
+          - script: |                        
+              python setup.py sdist bdist_wheel
+            displayName: 'Build wheel'
+            env:
+              VERSION: $(Build.BuildNumber)
+          - script: |
+              python -m twine upload -r dciborow-test-1 --config-file $(PYPIRC_PATH) dist/*.whl --verbose
+            displayName: 'Upload wheel'
+  - deployment: Integration_Testing
+    environment:  ${{parameters.environment}}
+    dependsOn: package_and_publish
+    timeoutInMinutes: 5 # how long to run the job before automatically cancelling
+    pool:
+      name: $(Agent_Name)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+            - task: UsePythonVersion@0
+              displayName: 'Use Python 3.7'
+              inputs:
+                versionSpec: 3.7            
+            - task: PipAuthenticate@1
+              inputs:
+                artifactFeeds: $(pypi_artifactFeeds)
+                pythonDownloadServiceConnections: $(pypi_pythonDownloadServiceConnections)
+                onlyAddExtraIndex: true
+            - script: |
+                pip install --upgrade pip
+              displayName: 'Update Pip'
+            - script: |
+                pip install pytest pytest-azurepipelines pytest-nunit pytest-cov keyring artifacts-keyring commondatamodel-objectmodel
+              displayName: 'Install dependencies'
+              continueOnError: true
+            - script: |
+                pip install $(module)
+                pytest tests
+              displayName: 'pytest'
+            - task: PublishTestResults@2
+              condition: succeededOrFailed()
+              inputs:
+                testResultsFiles: '**/test-*.xml'
+                testRunTitle: 'Publish test results for Python $(python.version)'
