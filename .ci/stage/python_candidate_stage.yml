@@ -11,7 +11,7 @@ parameters:
   candidate: #
   dependsOn: []
   environment: #
-  after: #
+  before: #
 
 stages:
 - stage: ${{parameters.stageName}}
@@ -77,8 +77,8 @@ stages:
               displayName: 'Install dependencies'
               continueOnError: true
             # allow user to run global before
-            - ${{ if parameters.after }}:
-              - ${{ parameters.after }}
+            - ${{ if parameters.before }}:
+              - ${{ parameters.before }}
             - script: |
                 pip install $(module)
                 pytest tests/integration --durations 0 --junitxml=junit/test-results.xml --cov=$(module) --cov-report=xml
