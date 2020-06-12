@@ -76,6 +76,9 @@ stages:
                 pip install pytest pytest-azurepipelines pytest-nunit pytest-cov keyring artifacts-keyring commondatamodel-objectmodel databricks-connect==6.4.* 
               displayName: 'Install dependencies'
               continueOnError: true
+            # allow user to run global before
+            - ${{ if parameters.after }}:
+              - ${{ parameters.after }}
             - script: |
                 pip install $(module)
                 pytest tests/integration --durations 0 --junitxml=junit/test-results.xml --cov=$(module) --cov-report=xml
@@ -90,6 +93,3 @@ stages:
               inputs:
                 codeCoverageTool: Cobertura
                 summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-            # allow user to run global before
-            - ${{ if parameters.after }}:
-              - ${{ parameters.after }}
