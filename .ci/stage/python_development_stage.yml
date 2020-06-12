@@ -14,7 +14,7 @@
 # Step 8: Publish Test Results to Azure DevOps
 # Step 9: Publish Code Coverage Results to Azure DevOps
 #
-# Author: dciborow@microsoft.om
+# Author: dciborow@microsoft.com
 
 parameters:
   Agent: Hosted Ubuntu 1604
