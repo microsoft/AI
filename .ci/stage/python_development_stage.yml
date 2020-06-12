@@ -70,6 +70,12 @@ stages:
         pylint --output-format=junit ./${{parameters.module}} >> test-pylint-results.xml
       displayName: PyLint
       continueOnError: true
+    - task: ComponentGovernanceComponentDetection@0
+      inputs:
+        scanType: 'LogOnly'
+        verbosity: 'Verbose'
+        alertWarningLevel: 'High'
+        failOnAlert: false
     - task: PublishTestResults@2
       condition: succeededOrFailed()
       inputs:
