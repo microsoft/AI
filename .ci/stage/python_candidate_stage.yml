@@ -9,10 +9,11 @@ parameters:
   pypi_pythonDownloadServiceConnections: #
   module: src
   candidate: #
+  dependsOn: []
 
 stages:
 - stage: ${{parameters.stageName}}
-  dependsOn: []    
+  dependsOn: ${{parameters.dependsOn}}
   jobs:
   - deployment: package_and_publish
     environment: retail-staging
