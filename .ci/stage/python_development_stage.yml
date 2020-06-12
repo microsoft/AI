@@ -1,3 +1,21 @@
+# Deploy Python Development Stage
+#
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+#
+# Job: Run Unit Tests and Static Code Analysis
+#
+# Step 1: Install Python Version 3.7
+# Step 2: Authenticate with Private Pypi
+# Step 3: Update Pip
+# Step 4: Install Tox
+# Step 5: Use Tox to run tests from tox.ini
+# Step 6: Run PyLint for Static Code Anlaysis and Linting
+# Step 8: Publish Test Results to Azure DevOps
+# Step 9: Publish Code Coverage Results to Azure DevOps
+#
+# Author: dciborow@microsoft.om
+
 parameters:
   Agent: Hosted Ubuntu 1604
   Demands: "python3"
