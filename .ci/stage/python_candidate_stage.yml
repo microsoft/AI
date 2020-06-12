@@ -3,7 +3,7 @@ parameters:
   Demands: "python3"
   stageName: 'defaultStageName'
   jobDisplayName: 'defaultDisplayName'
-  jobTimeoutInMinutes: 10
+  jobTimeoutInMinutes: 15
   DefaultWorkingDirectory: #
   pypi_artifactFeeds: #
   pypi_pythonDownloadServiceConnections: #
@@ -52,7 +52,7 @@ stages:
   - deployment: Integration_Testing
     environment:  ${{parameters.environment}}
     dependsOn: package_and_publish
-    timeoutInMinutes: 5 # how long to run the job before automatically cancelling
+    timeoutInMinutes: 15 # how long to run the job before automatically cancelling
     pool:
       name: $(Agent_Name)
     strategy:
