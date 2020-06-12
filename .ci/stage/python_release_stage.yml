@@ -3,7 +3,7 @@ parameters:
   Demands: "python3"
   stageName: 'defaultStageName'
   jobDisplayName: 'defaultDisplayName'
-  jobTimeoutInMinutes: 10
+  jobTimeoutInMinutes: 30
   DefaultWorkingDirectory: #
   pypi_artifactFeeds: #
   pypi_pythonDownloadServiceConnections: #
