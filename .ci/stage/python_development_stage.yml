@@ -1,5 +1,12 @@
 parameters:
   Agent: Hosted Ubuntu 1604
+  Demands: "python3"
+  stageName: 'defaultStageName'
+  jobDisplayName: 'defaultDisplayName'
+  jobTimeoutInMinutes: 180
+  DefaultWorkingDirectory: #
+  pypi_artifactFeeds: #
+  pypi_pythonDownloadServiceConnections: #
 
 stages:
 - stage: ${{parameters.stageName}}
