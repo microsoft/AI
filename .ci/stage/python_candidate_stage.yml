@@ -63,8 +63,8 @@ stages:
                 versionSpec: 3.7            
             - task: PipAuthenticate@1
               inputs:
-                artifactFeeds: $(pypi_artifactFeeds)
-                pythonDownloadServiceConnections: $(pythonDownloadServiceConnections)
+                artifactFeeds: ${{parameters.pypi_artifactFeeds}}
+                pythonDownloadServiceConnections: ${{parameters.pythonDownloadServiceConnections}}
                 onlyAddExtraIndex: true
             - script: |
                 pip install --upgrade pip
