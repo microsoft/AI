@@ -10,13 +10,14 @@ parameters:
   module: src
   candidate: #
   dependsOn: []
+  environment: #
 
 stages:
 - stage: ${{parameters.stageName}}
   dependsOn: ${{parameters.dependsOn}}
   jobs:
   - deployment: package_and_publish
-    environment: retail-staging
+    environment:  ${{parameters.environment}} 
     pool:
       name: $(Agent_Name)
     strategy:
@@ -48,7 +49,7 @@ stages:
             displayName: 'Upload wheel'
 
   - deployment: Integration_Testing
-    environment: retail-staging
+    environment:  ${{parameters.environment}}
     dependsOn: package_and_publish
     timeoutInMinutes: 5 # how long to run the job before automatically cancelling
     pool:
