@@ -8,12 +8,14 @@ parameters:
   pypi_artifactFeeds: #
   pypi_pythonDownloadServiceConnections: #
   module: src
-  candidate: #
+  repo: #
+  release: #
   dependsOn: []
   environment: #
 
 stages:
 - stage: ${{parameters.stageName}}
+  condition: and(succeeded(), and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest')))
   dependsOn: ${{parameters.dependsOn}}
   jobs:
   - deployment: package_and_publish
@@ -45,7 +47,7 @@ stages:
             env:
               VERSION: $(Build.BuildNumber)
           - script: |
-              python -m twine upload -r dciborow-test-1 --config-file $(PYPIRC_PATH) dist/*.whl --verbose
+              python -m twine upload -r $(release) --config-file $(PYPIRC_PATH) dist/*.whl --verbose
             displayName: 'Upload wheel'
   - deployment: Integration_Testing
     environment:  ${{parameters.environment}}
