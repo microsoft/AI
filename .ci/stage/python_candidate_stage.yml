@@ -11,6 +11,7 @@ parameters:
   candidate: #
   dependsOn: []
   environment: #
+  after: #
 
 stages:
 - stage: ${{parameters.stageName}}
@@ -88,3 +89,6 @@ stages:
               inputs:
                 codeCoverageTool: Cobertura
                 summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+            # allow user to run global before
+            - ${{ if parameters.after }}:
+              - ${{ parameters.after }}
