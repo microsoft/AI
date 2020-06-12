@@ -65,7 +65,7 @@ stages:
             - task: PipAuthenticate@1
               inputs:
                 artifactFeeds: $(pypi_artifactFeeds)
-                pythonDownloadServiceConnections: commondatamodel_pypu
+                pythonDownloadServiceConnections: $(pypi_pythonDownloadServiceConnections)
                 onlyAddExtraIndex: true
             - script: |
                 pip install --upgrade pip
