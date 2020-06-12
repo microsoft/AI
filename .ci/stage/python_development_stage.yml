@@ -47,8 +47,8 @@ stages:
         VERSION: $(Build.BuildNumber)
     - script: |
         pip install pylint junit-xml pylint-junit
-        pylint ./cdm2ai
-        pylint --output-format=junit ./cdm2ai >> test-pylint-results.xml
+        pylint ./*
+        pylint --output-format=junit ./* >> test-pylint-results.xml
       displayName: PyLint
       continueOnError: true
     - task: PublishTestResults@2
