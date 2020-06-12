@@ -12,7 +12,7 @@ parameters:
   release: #
   dependsOn: []
   environment: #
-  after: #
+  before: #
 
 stages:
 - stage: ${{parameters.stageName}}
@@ -77,6 +77,9 @@ stages:
                 pip install pytest pytest-azurepipelines pytest-nunit pytest-cov keyring artifacts-keyring commondatamodel-objectmodel
               displayName: 'Install dependencies'
               continueOnError: true
+            # allow user to run global before
+            - ${{ if parameters.before }}:
+              - ${{ parameters.before }}
             - script: |
                 pip install $(module)
                 pytest tests/integration --durations 0 --junitxml=junit/test-results.xml --cov=cdm2ai --cov-report=xml
@@ -90,6 +93,3 @@ stages:
               inputs:
                 codeCoverageTool: Cobertura
                 summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-            # allow user to run global before
-            - ${{ if parameters.after }}:
-              - ${{ parameters.after }}
