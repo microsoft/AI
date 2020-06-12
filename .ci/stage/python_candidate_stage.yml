@@ -1,0 +1,63 @@
+parameters:
+  Agent: Hosted Ubuntu 1604
+  Demands: "python3"
+  stageName: 'defaultStageName'
+  jobDisplayName: 'defaultDisplayName'
+  jobTimeoutInMinutes: 180
+  DefaultWorkingDirectory: #
+  pypi_artifactFeeds: #
+  pypi_pythonDownloadServiceConnections: #
+  module: src
+
+stages:
+- stage: ${{parameters.stageName}}
+  dependsOn: []    
+  jobs:
+  - job: Development
+    displayName: ${{parameters.jobDisplayName}}
+
+    pool:
+      name: ${{parameters.Agent}}
+      demands: ${{parameters.Demands}}
+ 
+    timeoutInMinutes: ${{parameters.jobTimeoutInMinutes}}
+ 
+    workspace:
+      clean: all
+
+    steps:
+    - task: UsePythonVersion@0
+      displayName: 'Use Python 3.7'
+      inputs:
+        versionSpec: 3.7
+    - task: PipAuthenticate@1
+      inputs:
+        artifactFeeds: $(pypi_artifactFeeds)
+        pythonDownloadServiceConnections: ${{parameters.pypi_pythonDownloadServiceConnections}}
+        onlyAddExtraIndex: true
+    - script: |
+        pip install --upgrade pip
+      displayName: 'Update Pip'
+    - script: |
+        pip install tox
+      displayName: 'Install Tox'
+    - script: |
+        tox -e py
+      displayName: "Run Tox"
+      env:
+        VERSION: $(Build.BuildNumber)
+    - script: |
+        pip install pylint junit-xml pylint-junit
+        pylint ./${{parameters.module}}
+        pylint --output-format=junit ./${{parameters.module}} >> test-pylint-results.xml
+      displayName: PyLint
+      continueOnError: true
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFiles: '**/test-*.xml'
+        testRunTitle: 'Publish test results for Python 3.7'
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
