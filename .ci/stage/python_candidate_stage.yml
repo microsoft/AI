@@ -77,6 +77,14 @@ stages:
               displayName: 'Install dependencies'
               continueOnError: true
             - script: |
+                pip install tox
+              displayName: 'Install Tox'
+            - script: |
+                tox -e py37-candidate
+              displayName: "Run Tox"
+              env:
+                VERSION: $(Build.BuildNumber)
+            - script: |
                 pip install $(module)
                 pytest tests/integration --durations 0 --junitxml=junit/test-results.xml --cov=$(module) --cov-report=xml
               displayName: 'pytest'
