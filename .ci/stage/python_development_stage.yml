@@ -7,6 +7,7 @@ parameters:
   DefaultWorkingDirectory: #
   pypi_artifactFeeds: #
   pypi_pythonDownloadServiceConnections: #
+  module: src
 
 stages:
 - stage: ${{parameters.stageName}}
@@ -47,8 +48,8 @@ stages:
         VERSION: $(Build.BuildNumber)
     - script: |
         pip install pylint junit-xml pylint-junit
-        pylint ./*
-        pylint --output-format=junit ./* >> test-pylint-results.xml
+        pylint ./${{parameters.module}}
+        pylint --output-format=junit ./${{parameters.module}} >> test-pylint-results.xml
       displayName: PyLint
       continueOnError: true
     - task: PublishTestResults@2
