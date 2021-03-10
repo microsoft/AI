@@ -16,6 +16,13 @@
     },
     "location": {
       "type": "string"
+    },
+    "keyVaultKeyUri": {
+      "type": "string",
+      "metadata": {
+        "description": "The uri to a key in your Key Vault to add a second layer of encryption on top of what is provided by default"
+      },
+      "defaultValue": ""
     }
   },
   "resources": [
@@ -31,43 +38,48 @@
             "locationName": "[parameters('location')]"
           }
         ],
-        "databaseAccountOfferType": "Standard"
-      }
-    },
-    {
-      "name": "[parameters('databaseName')]",
-      "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
-      "apiVersion": "2020-04-01",
-      "dependsOn": [
-        "[parameters('accountName')]"
-      ],
-      "properties": {
-        "resource": {
-          "id": "[parameters('databaseName')]"
-        },
-        "options": {
-          "throughput": 400
+        "databaseAccountOfferType": "Standard",
+        "keyVaultKeyUri": "[parameters('keyVaultKeyUri')]"
+      },
+      "resources": [
+        {
+          "name": "[parameters('databaseName')]",
+          "type": "sqlDatabases",
+          "apiVersion": "2020-04-01",
+          "dependsOn": [
+            "[parameters('accountName')]"
+          ],
+          "properties": {
+            "resource": {
+              "id": "[parameters('databaseName')]"
+            },
+            "options": {
+              "throughput": 400
+            }
+          },
+          "resources": [
+            {
+              "name": "[parameters('containerName')]",
+              "type": "containers",
+              "apiVersion": "2020-04-01",
+              "dependsOn": [
+                "[parameters('databaseName')]"
+              ],
+              "properties": {
+                "resource": {
+                  "id": "[parameters('containerName')]",
+                  "partitionKey": {
+                    "paths": [
+                      "[parameters('partitionKey')]"
+                    ],
+                    "kind": "Hash"
+                  }
+                }
+              }
+            }
+          ]
         }
-      }
-    },
-    {
-      "name": "[parameters('containerName')]",
-      "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
-      "apiVersion": "2020-04-01",
-      "dependsOn": [
-        "[parameters('databaseName')]"
-      ],
-      "properties": {
-        "resource": {
-          "id": "[parameters('containerName')]",
-          "partitionKey": {
-            "paths": [
-              "[parameters('partitionKey')]"
-            ],
-            "kind": "Hash"
-          }
-        }
-      }
+      ]
     }
   ],
   "outputs": {
