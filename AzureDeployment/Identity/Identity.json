@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "delegateIdentity": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "identityName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "contributor": "[concat(subscription().id, '/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+    "identity": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName'))]",
+    "roleAssignmentName": "[guid(resourceGroup().id, parameters('identityName'))]",
+    "delegatedRoleAssignmentName": "[guid(resourceGroup().id, parameters('identityName'), 'delegated')]"
+  },
+  "resources": [
+    {
+      "comments": "User-assigned managed identity used by deployment script",
+      "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+      "apiVersion": "2018-11-30",
+      "name": "[parameters('identityName')]",
+      "location": "[parameters('location')]"
+    },
+    {
+      "condition": "[not(parameters('delegateIdentity'))]",
+      "comments": "Grant user-assigned managed identity permission on the scope of resource group",
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2020-04-01-preview",
+      "name": "[variables('roleAssignmentName')]",
+      "dependsOn": [
+        "[variables('identity')]"
+      ],
+      "properties": {
+        "roleDefinitionId": "[variables('contributor')]",
+        "principalId": "[reference(parameters('identityName')).principalId]",
+        "principalType": "ServicePrincipal",
+        "scope": "[resourceGroup().id]"
+      }
+    },
+    {
+      "condition": "[parameters('delegateIdentity')]",
+      "comments": "Grant user-assigned managed identity permission on the scope of resource group",
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2020-04-01-preview",
+      "name": "[variables('delegatedRoleAssignmentName')]",
+      "dependsOn": [
+        "[variables('identity')]"
+      ],
+      "properties": {
+        "roleDefinitionId": "[variables('contributor')]",
+        "principalId": "[reference(parameters('identityName')).principalId]",
+        "principalType": "ServicePrincipal",
+        "scope": "[resourceGroup().id]",
+        "delegatedManagedIdentityResourceId": "[variables('identity')]"
+      }
+    }
+  ],
+  "outputs": {
+    "resourceId": {
+      "type": "string",
+      "value": "[variables('identity')]"
+    },
+    "principalId": {
+      "type": "string",
+      "value": "[reference(parameters('identityName')).principalId]"
+    }
+  }
+}
