@@ -1,0 +1,86 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "accountName": {
+      "type": "string"
+    },
+    "databaseName": {
+      "type": "string"
+    },
+    "containerName": {
+      "type": "string"
+    },
+    "partitionKey": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "keyVaultKeyUri": {
+      "type": "string",
+      "metadata": {
+        "description": "The uri to a key in your Key Vault to add a second layer of encryption on top of what is provided by default"
+      },
+      "defaultValue": ""
+    }
+  },
+  "resources": [
+    {
+      "comments": "Create a Cosmos DB account, database and container.",
+      "name": "[parameters('accountName')]",
+      "type": "Microsoft.DocumentDB/databaseAccounts",
+      "apiVersion": "2020-04-01",
+      "location": "[parameters('location')]",
+      "properties": {
+        "locations": [
+          {
+            "locationName": "[parameters('location')]"
+          }
+        ],
+        "databaseAccountOfferType": "Standard",
+        "keyVaultKeyUri": "[parameters('keyVaultKeyUri')]"
+    },
+    {
+      "name": "[parameters('databaseName')]",
+      "type": "Microsoft.DocumentDB/sqlDatabases",
+      "apiVersion": "2020-04-01",
+      "dependsOn": [
+        "[parameters('accountName')]"
+      ],
+      "properties": {
+        "resource": {
+          "id": "[parameters('databaseName')]"
+        },
+        "options": {
+          "throughput": 400
+        }
+      }
+    }
+    {
+      "name": "[parameters('containerName')]",
+      "type": "Microsoft.DocumentDB/containers",
+      "apiVersion": "2020-04-01",
+      "dependsOn": [
+        "[parameters('databaseName')]"
+      ],
+      "properties": {
+        "resource": {
+          "id": "[parameters('containerName')]",
+          "partitionKey": {
+            "paths": [
+              "[parameters('partitionKey')]"
+            ],
+            "kind": "Hash"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "resourceId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('accountName'))]"
+    }
+  }
+}
