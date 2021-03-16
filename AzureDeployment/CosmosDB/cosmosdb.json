@@ -40,46 +40,41 @@
         ],
         "databaseAccountOfferType": "Standard",
         "keyVaultKeyUri": "[parameters('keyVaultKeyUri')]"
-      },
-      "resources": [
-        {
-          "name": "[parameters('databaseName')]",
-          "type": "sqlDatabases",
-          "apiVersion": "2020-04-01",
-          "dependsOn": [
-            "[parameters('accountName')]"
-          ],
-          "properties": {
-            "resource": {
-              "id": "[parameters('databaseName')]"
-            },
-            "options": {
-              "throughput": 400
-            }
-          },
-          "resources": [
-            {
-              "name": "[parameters('containerName')]",
-              "type": "containers",
-              "apiVersion": "2020-04-01",
-              "dependsOn": [
-                "[parameters('databaseName')]"
-              ],
-              "properties": {
-                "resource": {
-                  "id": "[parameters('containerName')]",
-                  "partitionKey": {
-                    "paths": [
-                      "[parameters('partitionKey')]"
-                    ],
-                    "kind": "Hash"
-                  }
-                }
-              }
-            }
-          ]
+    },
+    {
+      "name": "[parameters('databaseName')]",
+      "type": "Microsoft.DocumentDB/sqlDatabases",
+      "apiVersion": "2020-04-01",
+      "dependsOn": [
+        "[parameters('accountName')]"
+      ],
+      "properties": {
+        "resource": {
+          "id": "[parameters('databaseName')]"
+        },
+        "options": {
+          "throughput": 400
         }
-      ]
+      }
+    }
+    {
+      "name": "[parameters('containerName')]",
+      "type": "Microsoft.DocumentDB/containers",
+      "apiVersion": "2020-04-01",
+      "dependsOn": [
+        "[parameters('databaseName')]"
+      ],
+      "properties": {
+        "resource": {
+          "id": "[parameters('containerName')]",
+          "partitionKey": {
+            "paths": [
+              "[parameters('partitionKey')]"
+            ],
+            "kind": "Hash"
+          }
+        }
+      }
     }
   ],
   "outputs": {
