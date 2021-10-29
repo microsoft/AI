@@ -52,7 +52,11 @@
           "type": "string"
         },
         "keywords"           : {
-          "type": "object"
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxLength": 3
         },
         "listing_contacts"   : {
           "type": "list"
