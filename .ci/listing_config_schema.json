@@ -1,0 +1,230 @@
+{
+  "$schema"    : "https://json-schema.org/draft/2020-12/schema",
+  "$id"        : "https://example.com/product.schema.json",
+  "title"      : "Azure Partner Center Listing Configurations",
+  "description": "A configuration for a product in the Azure Partner Center",
+  "type"       : "object",
+  "properties" : {
+    "offer_setup"            : {
+      "description": "Azure Partner Center Submission Offer Setup settings",
+      "type"       : "object",
+      "properties" : {
+        "alias"    : {
+          "type": "string"
+        },
+        "testDrive": {
+          "type": "boolean"
+        },
+        "crm"      : {
+          "type": "string"
+        }
+      },
+      "required"   : [
+        "alias"
+      ]
+    },
+    "property_settings"      : {
+      "description": "Azure Partner Center Submission Property Settings",
+      "type"       : "object",
+      "properties" : {
+        "categories": {
+          "type" : "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "offer_listing"          : {
+      "description": "Azure Partner Center Submission Offer Listing Settings",
+      "type"       : "object",
+      "properties" : {
+        "name"               : {
+          "type": "string"
+        },
+        "summary"            : {
+          "type": "string"
+        },
+        "short_description"  : {
+          "type": "string"
+        },
+        "description"        : {
+          "type": "string"
+        },
+        "keywords"           : {
+          "type": "object"
+        },
+        "listing_contacts"   : {
+          "type": "list"
+        },
+        "listing_uris"       : {
+          "type": "list"
+        },
+        "listing_logos"      : {
+          "type": "list"
+        },
+        "listing_screenshots": {
+          "type": "list"
+        },
+        "listing_videos"     : {
+          "type": "list"
+        }
+      },
+      "required"   : [
+        "name",
+        "summary",
+        "description",
+        "keywords",
+        "listing_contacts",
+        "listing_uris",
+        "listing_logos"
+      ]
+    },
+    "preview_audience"       : {
+      "description": "Azure Partner Center Submission Preview Audience Settings",
+      "type"       : "object",
+      "properties" : {
+        "subscriptions": {
+          "type"       : "array",
+          "items"      : {
+            "type": "string"
+          },
+          "minItems"   : 1,
+          "maxItems"   : 10,
+          "uniqueItems": true
+        }
+      },
+      "required"   : [
+        "subscriptions"
+      ]
+    },
+    "technical_configuration": {
+      "description": "Azure Partner Center Submission Technical Configuration Settings",
+      "type"       : "object",
+      "properties" : {
+        "tenant_id"     : {
+          "type": "string"
+        },
+        "application_id": {
+          "type": "string"
+        }
+      }
+    },
+    "plan_overview"          : {
+      "description": "Azure Partner Center Submission Plan Overview Settings",
+      "type"       : "object",
+      "properties" : {
+        "type" : "array",
+        "items": {
+          "type"      : "object",
+          "properties": {
+            "plan_listing"            : {
+              "type"      : "object",
+              "properties": {
+                "title"      : {
+                  "type": "string"
+                },
+                "summary"    : {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "pricing_and_availability": {
+              "type"      : "object",
+              "properties": {
+                "visibility": {
+                  "type": "string",
+                  "enum": [
+                    "private",
+                    "public"
+                  ]
+                },
+                "azure_private_subscriptions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ID": {
+                        "type": "string"
+                      },
+                      "Description": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["ID"]
+                  }
+                }
+              }
+            },
+            "technical_configuration" : {
+              "type": "object",
+              "properties": {
+                "version": {
+                  "type": "string"
+                },
+                "allowedCustomerActions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxLength": 1
+                },
+                "allowedDataActions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxLength": 1
+                },
+                "tenant_id": {
+                  "type": "string"
+                },
+                "authorizations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string",
+                        "enum": ["Owner", "Contributor"]
+                      }
+                    }
+                  },
+                  "minLength": 1,
+                  "maxLength": 10
+                },
+                "policy_settings": {
+                  "type": "array"
+                }
+              },
+              "required": ["version"]
+            }
+          }
+        }
+      }
+    },
+    "co-sell"                : {
+      "description": "Azure Partner Center Submission Co-sell Settings",
+      "type"       : "object",
+      "properties" : {}
+    },
+    "resell"                 : {
+      "description": "Azure Partner Center Submission Resell Settings",
+      "type"       : "object",
+      "properties" : {}
+    }
+  },
+  "required"   : [
+    "offer_setup",
+    "property_settings",
+    "offer_listing",
+    "preview_audience",
+    "plan_overview"
+  ]
+}
