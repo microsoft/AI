@@ -52,8 +52,8 @@
           "type": "string"
         },
         "keywords"           : {
-          "type": "array",
-          "items": {
+          "type"     : "array",
+          "items"    : {
             "type": "string"
           },
           "maxLength": 3
@@ -116,7 +116,112 @@
     },
     "plan_overview"          : {
       "description": "Azure Partner Center Submission Plan Overview Settings",
-      "type"       : "object",
+      "type"       : "array",
+      "items"      : {
+        "type"      : "object",
+        "properties": {
+          "type" : "array",
+          "items": {
+            "type"      : "object",
+            "properties": {
+              "plan_listing"            : {
+                "type"      : "object",
+                "properties": {
+                  "title"      : {
+                    "type": "string"
+                  },
+                  "summary"    : {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              },
+              "pricing_and_availability": {
+                "type"      : "object",
+                "properties": {
+                  "visibility"                 : {
+                    "type": "string",
+                    "enum": [
+                      "private",
+                      "public"
+                    ]
+                  },
+                  "azure_private_subscriptions": {
+                    "type" : "array",
+                    "items": {
+                      "type"      : "object",
+                      "properties": {
+                        "ID"         : {
+                          "type": "string"
+                        },
+                        "Description": {
+                          "type": "string"
+                        }
+                      },
+                      "required"  : [
+                        "ID"
+                      ]
+                    }
+                  }
+                }
+              },
+              "technical_configuration" : {
+                "type"      : "object",
+                "properties": {
+                  "version"               : {
+                    "type": "string"
+                  },
+                  "allowedCustomerActions": {
+                    "type"     : "array",
+                    "items"    : {
+                      "type": "string"
+                    },
+                    "maxLength": 1
+                  },
+                  "allowedDataActions"    : {
+                    "type"     : "array",
+                    "items"    : {
+                      "type": "string"
+                    },
+                    "maxLength": 1
+                  },
+                  "tenant_id"             : {
+                    "type": "string"
+                  },
+                  "authorizations"        : {
+                    "type"     : "array",
+                    "items"    : {
+                      "type"      : "object",
+                      "properties": {
+                        "id"  : {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "Owner",
+                            "Contributor"
+                          ]
+                        }
+                      }
+                    },
+                    "minLength": 1,
+                    "maxLength": 10
+                  },
+                  "policy_settings"       : {
+                    "type": "array"
+                  }
+                },
+                "required"  : [
+                  "version"
+                ]
+              }
+            }
+          }
+        }
+      },
       "properties" : {
         "type" : "array",
         "items": {
@@ -139,7 +244,7 @@
             "pricing_and_availability": {
               "type"      : "object",
               "properties": {
-                "visibility": {
+                "visibility"                 : {
                   "type": "string",
                   "enum": [
                     "private",
@@ -147,67 +252,74 @@
                   ]
                 },
                 "azure_private_subscriptions": {
-                  "type": "array",
+                  "type" : "array",
                   "items": {
-                    "type": "object",
+                    "type"      : "object",
                     "properties": {
-                      "ID": {
+                      "ID"         : {
                         "type": "string"
                       },
                       "Description": {
                         "type": "string"
                       }
                     },
-                    "required": ["ID"]
+                    "required"  : [
+                      "ID"
+                    ]
                   }
                 }
               }
             },
             "technical_configuration" : {
-              "type": "object",
+              "type"      : "object",
               "properties": {
-                "version": {
+                "version"               : {
                   "type": "string"
                 },
                 "allowedCustomerActions": {
-                  "type": "array",
-                  "items": {
+                  "type"     : "array",
+                  "items"    : {
                     "type": "string"
                   },
                   "maxLength": 1
                 },
-                "allowedDataActions": {
-                  "type": "array",
-                  "items": {
+                "allowedDataActions"    : {
+                  "type"     : "array",
+                  "items"    : {
                     "type": "string"
                   },
                   "maxLength": 1
                 },
-                "tenant_id": {
+                "tenant_id"             : {
                   "type": "string"
                 },
-                "authorizations": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
+                "authorizations"        : {
+                  "type"     : "array",
+                  "items"    : {
+                    "type"      : "object",
                     "properties": {
-                      "id": {
+                      "id"  : {
                         "type": "string"
                       },
                       "role": {
                         "type": "string",
-                        "enum": ["Owner", "Contributor"]
+                        "enum": [
+                          "Owner",
+                          "Contributor"
+                        ]
                       }
                     }
                   },
                   "minLength": 1,
                   "maxLength": 10
                 },
-                "policy_settings": {
+                "policy_settings"       : {
                   "type": "array"
                 }
               },
-              "required": ["version"]
+              "required"  : [
+                "version"
+              ]
             }
           }
         }
