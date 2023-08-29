@@ -10,10 +10,6 @@ Artificial Intelligence has several applications, some of which include:
  
 Since its inception as an academic study in around 1956, artificial intelligence has gone through multiple phases of optimism, disappointment, and funding loss (dubbed AI winter"), followed by new approaches, success, and renewed investment.Numerous approaches to AI research have been tried and rejected, including replicating the brain, modelling human problem solving, formal logic, massive databases of information, and mimicking animal behaviour. In the first decades of the twenty-first century, highly mathematical and statistical machine learning dominated the subject, and this technique proved extremely successful, assisting in the resolution of many difficult problems in industry and academia.
 
-The numerous subfields of AI study are centred on specific aims and the usage of certain methods. Traditional AI research aims include reasoning, knowledge representation, planning, learning, natural language processing, perception, and object movement and manipulation. One of the field's long-term goals is general intelligence (the capacity to solve any problem). AI researchers have adapted and incorporated a wide range of problem-solving techniques, such as search and mathematical optimisation, formal logic, artificial neural networks, and methodologies based on statistics, probability, and economics, to solve these difficulties. AI also makes use of computer science, psychology, linguistics, philosophy, and a variety of other disciplines.
-
-
-
 # Samples, Reference Architectures & Best Practices
 
 This repository is meant to organize Microsoft's Open Source AI based repositories.
