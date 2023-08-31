@@ -5,6 +5,6 @@ resource: repository
 where: 
 configuration:
   platformContext:
-    active: false
+    active: true
 onFailure: 
 onSuccess:
