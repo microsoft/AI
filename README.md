@@ -11,7 +11,7 @@ The various sub-fields of AI research are centered around particular goals and t
 
 
 
-# Samples, Reference Architectures & Best Practices
+
 
 This repository is meant to organize Microsoft's Open Source AI based repositories.
 
