@@ -73,7 +73,7 @@ Our reference architectures are arranged by scenario. Each architecture includes
 | [Train Distributed Deep Leaning Model](https://github.com/Azure/DistributedDeepLearning/)         				   | Python | GPU  | Training | Distributed training of ResNet50 model using Batch AI |                                                                                                                                                                                  |
 
 # AI300 - Best Practices <a name="ai300"></a>
-Our best practices are arranged by topic. Each best pratice repository includes open source methods, along with considerations for scalability, availability, manageability, and security.
+Our best practices are arranged by topic. Each best practice repository includes open source methods, along with considerations for scalability, availability, manageability, and security.
 
 | Title | Description | 
 |-------|-------------|
