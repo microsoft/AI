@@ -1,3 +1,6 @@
+> 📌 **New User Note:**  
+> This repository is a curated collection of resources, samples, and best practices related to artificial intelligence (AI) using Microsoft tools and platforms. If you're new to AI or this repository, start by exploring the **"Getting Started"** section below. This will help you understand how to download and use the tutorials effectively. For beginners, we recommend starting with **AI100 - Samples** before moving on to the more complex **AI200** and **AI300** sections.
+
 # AI Introduction
 Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to intelligence of humans and other animals. Example tasks in which this is done include speech recognition, computer vision, translation between (natural) languages, as well as other mappings of inputs.
 
