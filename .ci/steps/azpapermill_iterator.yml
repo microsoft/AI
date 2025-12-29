@@ -1,5 +1,3 @@
-
-
 parameters:
   notebooks: 01_DataPrep.ipynb  # defaults for any parameters that aren't specified
   location: "x"

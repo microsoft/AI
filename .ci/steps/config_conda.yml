@@ -1,4 +1,3 @@
-  
 parameters:
   conda_location: .
   azureSubscription: #
@@ -105,4 +104,3 @@ steps:
 
       pip install -U "azureml-core<0.1.5" "azureml-contrib-services<0.1.5" "azureml-pipeline<0.1.5" \
         --extra-index-url https://azuremlsdktestpypi.azureedge.net/sdk-release/master/588E708E0DF342C4A80BD954289657CF
-

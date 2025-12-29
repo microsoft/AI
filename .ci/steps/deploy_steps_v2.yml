@@ -85,4 +85,3 @@ steps:
     ScriptArguments: '-resourceGroupName ''${{parameters.azureresourcegroup}}'' -tagId ''deployment-id'' -deploymentId ''${{parameters.deploymentguidtag}}'''
     azurePowerShellVersion: 'LatestVersion'
   displayName: 'Tag All Resources'
-  
