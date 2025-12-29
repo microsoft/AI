@@ -22,4 +22,3 @@ steps:
         echo Project resource group did not exist
       fi
       echo Done Cleanup
-
