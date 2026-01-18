@@ -105,3 +105,24 @@ venv.bak/
 
 # Visual Studio
 /.vs
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+.vite/
+dist-ssr/
+
+# Environment files
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db

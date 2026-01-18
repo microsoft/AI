@@ -9,8 +9,6 @@ Artificial intelligence was founded as an academic discipline in 1956, and in th
 
 The various sub-fields of AI research are centered around particular goals and the use of particular tools. The traditional goals of AI research include reasoning, knowledge representation, planning, learning, natural language processing, perception, and the ability to move and manipulate objects. General intelligence (the ability to solve an arbitrary problem) is among the field's long-term goals. To solve these problems, AI researchers have adapted and integrated a wide range of problem-solving techniques, including search and mathematical optimization, formal logic, artificial neural networks, and methods based on statistics, probability, and economics. AI also draws upon computer science, psychology, linguistics, philosophy, and many other fields.
 
-
-
 # Samples, Reference Architectures & Best Practices
 
 This repository is meant to organize Microsoft's Open Source AI based repositories.
@@ -23,7 +21,7 @@ batch scoring, realtime scoring, model training, MLOps, Azure Machine Learning, 
 2. [AI100 - Samples](#ai100)
 3. [AI200 - Reference Architectures](#ai200)
 4. [AI300 - Best Practices](#ai300)
-6. [Contributing](#Contributing)
+5. [Contributing](#Contributing)
 
 # Getting Started <a name="Getting-Started"></a>
 This repository is arranged as submodules so you can either pull all the tutorials or simply the ones you want. 
@@ -70,7 +68,7 @@ Our reference architectures are arranged by scenario. Each architecture includes
 | [Deploy R ML Model on Kubernetes](https://github.com/Azure/RealtimeRDeployment)         							   | R | CPU | Real-Time Scoring       | Deploy ML model for _real-time_ scoring on Kubernetes |  |
 | [Deploy R ML Model on Batch](https://github.com/Azure/RBatchScoring)         										   | R | CPU  | Scoring     | Deploy forecasting model for _batch_ scoring using Azure Batch and doAzureParallel |  | 
 | [Deploy Spark ML Model on Databricks](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance)         	   | Python | Spark  | Batch Scoring | Deploy a classification model for _batch_ scoring using Databricks |                                                                                                                                                                                 |
-| [Train Distributed Deep Leaning Model](https://github.com/Azure/DistributedDeepLearning/)         				   | Python | GPU  | Training | Distributed training of ResNet50 model using Batch AI |                                                                                                                                                                                  |
+| [Train Distributed Deep Learning Model](https://github.com/Azure/DistributedDeepLearning/)         				   | Python | GPU  | Training | Distributed training of ResNet50 model using Batch AI |                                                                                                                                                                                  |
 
 # AI300 - Best Practices <a name="ai300"></a>
 Our best practices are arranged by topic. Each best practice repository includes open source methods, along with considerations for scalability, availability, manageability, and security.
