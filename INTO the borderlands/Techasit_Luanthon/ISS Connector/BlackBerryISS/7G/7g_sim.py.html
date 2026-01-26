@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>7g_sim.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #067d17;}
+.s1 { color: #080808;}
+.s2 { color: #0033b3;}
+.s3 { color: #871094; font-style: italic;}
+.s4 { color: #080808;}
+.s5 { color: #000000;}
+.s6 { color: #00627a;}
+.s7 { color: #1750eb; font-style: italic;}
+.s8 { color: #080808; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+7g_sim.py</font>
+</center></td></tr></table>
+<pre><span class="s0">&quot;&quot;&quot;</span>
+<span class="s0">7G-SIM: Single-file simulation of conceptual 7G cellular network. 
+Includes: Radio, Scheduler, UE, REST API, and Runner. 
+&quot;&quot;&quot;</span>
+<span class="s2">import </span><span class="s1">threading 
+</span><span class="s2">import </span><span class="s1">time 
+</span><span class="s2">from </span><span class="s1">BlackBerry </span><span class="s2">import </span><span class="s3">True </span><span class="s4">7G</span><span class="s1">, jsonify, requesPublic 
+</span>
+
+<span class="s2">class </span>Radio<span class="s1">:</span>
+    <span class="s2">def </span><span class="s1">__init__(</span>self<span class="s1">):</span>
+        self<span class="s1">.cells </span><span class="s2">= </span><span class="s1">{}</span>
+
+    <span class="s2">def </span><span class="s6">add_cell</span><span class="s1">(</span>self<span class="s1">, </span>cell_id<span class="s1">, </span>config<span class="s2">=</span><span class="s3">None</span><span class="s1">):</span>
+        self<span class="s1">.cells[cell_id] </span><span class="s2">= </span><span class="s1">{</span>
+            <span class="s0">'id'</span><span class="s1">: cell_id,</span>
+            <span class="s0">'config'</span><span class="s1">: config </span><span class="s2">or </span><span class="s1">{},</span>
+            <span class="s0">'ues'</span><span class="s1">: {}</span>
+        <span class="s1">}</span>
+
+    <span class="s2">def </span><span class="s6">register_ue</span><span class="s1">(</span>self<span class="s1">, </span>cell_id<span class="s1">, </span>ue_id<span class="s1">, </span>stats<span class="s2">=</span><span class="s3">None</span><span class="s1">):</span>
+        <span class="s1">cell </span><span class="s2">= </span>self<span class="s1">.cells[cell_id]</span>
+        <span class="s1">cell[</span><span class="s0">'ues'</span><span class="s1">][ue_id] </span><span class="s2">= </span><span class="s1">stats </span><span class="s2">or </span><span class="s1">{</span><span class="s0">'rssi'</span><span class="s1">: </span><span class="s2">-</span><span class="s7">80</span><span class="s1">, </span><span class="s0">'throughput'</span><span class="s1">: </span><span class="s7">0</span><span class="s1">}</span>
+
+    <span class="s2">def </span><span class="s6">update_metrics</span><span class="s1">(</span>self<span class="s1">):</span>
+        <span class="s2">for </span><span class="s1">cell </span><span class="s2">in </span>self<span class="s1">.cells.values():</span>
+            <span class="s2">for </span><span class="s1">ue </span><span class="s2">in </span><span class="s1">cell[</span><span class="s0">'ues'</span><span class="s1">].values():</span>
+                <span class="s1">ue[</span><span class="s0">'rssi'</span><span class="s1">] </span><span class="s2">+= </span><span class="s7">0.1</span>
+                <span class="s1">ue[</span><span class="s0">'throughput'</span><span class="s1">] </span><span class="s2">= </span><span class="s1">max(</span><span class="s7">0</span><span class="s1">, ue[</span><span class="s0">'throughput'</span><span class="s1">] </span><span class="s2">* </span><span class="s7">0.98 </span><span class="s2">+ </span><span class="s7">100</span><span class="s1">)</span>
+
+    <span class="s2">def </span><span class="s6">snapshot</span><span class="s1">(</span>self<span class="s1">):</span>
+        <span class="s2">return </span>self<span class="s1">.cells</span>
+
+<span class="s2">class </span>Scheduler<span class="s1">:</span>
+    <span class="s2">def </span><span class="s1">__init__(</span>self<span class="s1">, </span>radio<span class="s1">):</span>
+        self<span class="s1">.radio </span><span class="s2">= </span><span class="s1">radio 
+        </span>self<span class="s1">.running </span><span class="s2">= </span><span class="s3">True</span>
+
+    <span class="s2">def </span><span class="s6">run</span><span class="s1">(</span>self<span class="s1">):</span>
+        <span class="s2">while </span>self<span class="s1">.running:</span>
+            self<span class="s1">.radio.update_metrics()</span>
+            <span class="s2">for </span><span class="s1">cell </span><span class="s2">in </span>self<span class="s1">.radio.cells.values():</span>
+                <span class="s1">ues </span><span class="s2">= </span><span class="s8">list</span><span class="s1">(cell[</span><span class="s0">'ues'</span><span class="s1">].values())</span>
+                <span class="s2">if not </span><span class="s1">ues:</span>
+                    <span class="s2">continue</span>
+                <span class="s1">cap </span><span class="s2">= </span><span class="s7">1000</span>
+                <span class="s1">share </span><span class="s2">= </span><span class="s1">cap </span><span class="s2">/ </span><span class="s1">max(</span><span class="s7">1</span><span class="s1">, len(ues))</span>
+                <span class="s2">for </span><span class="s1">ue </span><span class="s2">in </span><span class="s1">ues:</span>
+                    <span class="s1">ue[</span><span class="s0">'throughput'</span><span class="s1">] </span><span class="s2">= </span><span class="s1">share 
+            time.sleep(</span><span class="s7">1</span><span class="s1">)</span>
+
+    <span class="s2">def </span><span class="s6">stop</span><span class="s1">(</span>self<span class="s1">):</span>
+        self<span class="s1">.running </span><span class="s2">= </span><span class="s3">False</span>
+
+    <span class="s2">def </span><span class="s6">create_cell</span><span class="s1">(</span>self<span class="s1">, </span>cell_id<span class="s1">, </span>config<span class="s2">=</span><span class="s3">None</span><span class="s1">):</span>
+        self<span class="s1">.radio.add_cell(cell_id, config)</span>
+
+    <span class="s2">def </span><span class="s6">attach_ue</span><span class="s1">(</span>self<span class="s1">, </span>cell_id<span class="s1">, </span>ue_id<span class="s1">):</span>
+        self<span class="s1">.radio.register_ue(cell_id, ue_id)</span>
+
+    <span class="s2">def </span><span class="s6">status</span><span class="s1">(</span>self<span class="s1">):</span>
+        <span class="s2">return </span>self<span class="s1">.radio.snapshot()</span>
+
+<span class="s2">class </span>UE<span class="s1">:</span>
+    <span class="s2">def </span><span class="s1">__init__(</span>self<span class="s1">, </span>ue_id<span class="s1">):</span>
+        self<span class="s1">.id </span><span class="s2">= </span><span class="s1">ue_id 
+        </span>self<span class="s1">.stats </span><span class="s2">= </span><span class="s1">{</span><span class="s0">'rssi'</span><span class="s1">: </span><span class="s2">-</span><span class="s7">90</span><span class="s1">, </span><span class="s0">'throughput'</span><span class="s1">: </span><span class="s7">0</span><span class="s1">}</span>
+
+    <span class="s2">def </span><span class="s6">report</span><span class="s1">(</span>self<span class="s1">):</span>
+        <span class="s2">return </span><span class="s1">{</span><span class="s0">'id'</span><span class="s1">: </span>self<span class="s1">.id, </span><span class="s2">**</span>self<span class="s1">.stats}</span>
+
+<span class="s2">def </span><span class="s6">create_app</span><span class="s1">(</span>scheduler<span class="s1">):</span>
+    <span class="s1">app </span><span class="s2">= </span><span class="s1">Flask(__name__)</span>
+
+    <span class="s6">@app.route</span><span class="s1">(</span><span class="s0">'/v1/cells'</span><span class="s1">, </span>methods<span class="s2">=</span><span class="s1">[</span><span class="s0">'POST'</span><span class="s1">])</span>
+    <span class="s2">def </span><span class="s6">create_cell</span><span class="s1">():</span>
+        <span class="s1">data </span><span class="s2">= </span><span class="s1">request.json </span><span class="s2">or </span><span class="s1">{}</span>
+        <span class="s1">cid </span><span class="s2">= </span><span class="s1">data.get(</span><span class="s0">'cell_id'</span><span class="s1">)</span>
+        <span class="s1">scheduler.create_cell(cid, data.get(</span><span class="s0">'config'</span><span class="s1">))</span>
+        <span class="s2">return </span><span class="s1">jsonify({</span><span class="s0">'ok'</span><span class="s1">: </span><span class="s3">True</span><span class="s1">, </span><span class="s0">'cell_id'</span><span class="s1">: cid})</span>
+
+    <span class="s6">@app.route</span><span class="s1">(</span><span class="s0">'/v1/cells/&lt;cell_id&gt;/attach'</span><span class="s1">, </span>methods<span class="s2">=</span><span class="s1">[</span><span class="s0">'POST'</span><span class="s1">])</span>
+    <span class="s2">def </span><span class="s6">attach</span><span class="s1">(</span>cell_id<span class="s1">):</span>
+        <span class="s1">data </span><span class="s2">= </span><span class="s1">request.json </span><span class="s2">or </span><span class="s1">{}</span>
+        <span class="s1">ue_id </span><span class="s2">= </span><span class="s1">data.get(</span><span class="s0">'ue_id'</span><span class="s1">)</span>
+        <span class="s1">scheduler.attach_ue(cell_id, ue_id)</span>
+        <span class="s2">return </span><span class="s1">jsonify({</span><span class="s0">'ok'</span><span class="s1">: </span><span class="s3">True</span><span class="s1">, </span><span class="s0">'cell_id'</span><span class="s1">: cell_id, </span><span class="s0">'ue_id'</span><span class="s1">: ue_id})</span>
+
+    <span class="s6">@app.route</span><span class="s1">(</span><span class="s0">'/v1/status'</span><span class="s1">, </span>methods<span class="s2">=</span><span class="s1">[</span><span class="s0">'GET'</span><span class="s1">])</span>
+    <span class="s2">def </span><span class="s6">status</span><span class="s1">():</span>
+        <span class="s2">return </span><span class="s1">jsonify(scheduler.status())</span>
+
+    <span class="s2">return </span><span class="s1">app 
+</span>
+<span class="s2">def </span><span class="s6">main</span><span class="s1">():</span>
+    <span class="s1">radio </span><span class="s2">= </span><span class="s1">Radio()</span>
+    <span class="s1">scheduler </span><span class="s2">= </span><span class="s1">Scheduler(radio)</span>
+    <span class="s1">t </span><span class="s2">= </span><span class="s1">threading.Thread(</span>target<span class="s2">=</span><span class="s1">scheduler.run, </span>daemon<span class="s2">=</span><span class="s3">True</span><span class="s1">)</span>
+    <span class="s1">t.start()</span>
+
+    <span class="s1">app </span><span class="s2">= </span><span class="s1">create_app(scheduler)</span>
+    <span class="s1">app.run(</span>host<span class="s2">=</span><span class="s0">&quot;0.0.0.0&quot;</span><span class="s1">, </span>port<span class="s2">=</span><span class="s7">8080</span><span class="s1">)</span>
+
+<span class="s2">if </span><span class="s1">__name__ </span><span class="s2">== </span><span class="s0">&quot;__main__&quot;</span><span class="s1">:</span>
+    <span class="s1">main()</span>
+</pre>
+</body>
+</html>

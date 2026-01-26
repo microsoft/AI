@@ -1,0 +1,10 @@
+{
+  "name": "blackberry-iss",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "helmet": "^7.0.0"
+  }
+}

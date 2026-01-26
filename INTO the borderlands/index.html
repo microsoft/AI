@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Facebook Group Web App</title>
+  <meta name="description" content="Simple web app embedding a Facebook Group for GitHub deployment" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+      background: #f4f6f8;
+      color: #1c1e21;
+    }
+    header {
+      background: #1877f2;
+      color: #fff;
+      padding: 1rem 1.5rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+    main {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      padding: 1rem;
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #65676b;
+    }
+    @media (min-width: 900px) {
+      main {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Facebook SDK -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0">
+  </script>
+
+  <header>
+    <h1>Facebook Group Web App</h1>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Community Feed</h2>
+      <!-- Facebook Group Plugin -->
+      <div class="fb-group"
+        data-href="https://www.facebook.com/groups/733485410864473"
+        data-width="100%"
+        data-show-social-context="true"
+        data-show-metadata="false">
+      </div>
+    </section>
+
+    <aside class="card">
+      <h2>About This App</h2>
+      <p>
+        This is a lightweight web application designed for GitHub upload and static hosting
+        (GitHub Pages, Netlify, Vercel).
+      </p>
+      <ul>
+        <li>Pure HTML/CSS</li>
+        <li>No backend required</li>
+        <li>Responsive layout</li>
+        <li>Official Facebook Group Plugin</li>
+      </ul>
+      <p>
+        Replace the group URL if you want to reuse this app for another community.
+      </p>
+    </aside>
+  </main>
+
+  <footer>
+    © 2025 Facebook Group Web App · Ready for GitHub
+  </footer>
+</body>
+</html>

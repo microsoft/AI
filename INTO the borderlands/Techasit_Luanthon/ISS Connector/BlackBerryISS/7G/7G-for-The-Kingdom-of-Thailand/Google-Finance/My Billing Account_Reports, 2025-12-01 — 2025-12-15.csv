@@ -1,0 +1,7 @@
+Service description,Service ID,SKU description,SKU ID,Usage amount,Usage unit,Cost (฿),Savings programs (฿),Other savings (฿),Unrounded subtotal (฿),Subtotal (฿),Percent change in subtotal compared to previous period
+Maps API,1934-AA85-20F9,Dynamic Maps,FAF4-3B2D-51B2,2,count,0.00,0.00,0.00,0.000000,0.00,0%
+Cloud Logging,5490-F7B7-8DF6,Log Storage cost,143F-A1B0-E0BE,0,gibibyte,0.00,0.00,0.00,0.000000,0.00,0%
+Cloud Storage,95FF-2EF5-5EA1,Standard Storage US Multi-region,0D5D-6E23-4250,0,gibibyte month,0.00,0.00,0.00,0.000000,0.00,0%
+,,,,,,,,Subtotal,0.000000,0.00
+,,,,,,,,Tax,0.000000,0.00
+,,,,,,,,Filtered total,0.000000,0.00
