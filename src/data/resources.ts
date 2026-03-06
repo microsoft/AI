@@ -1,4 +1,4 @@
-import { BookOpen, Code2, Layers, Cpu, Database, Cloud, Terminal, BrainCircuit } from 'lucide-react';
+import { BookOpen, Code2, Layers, Cpu, Database, Cloud, Terminal, BrainCircuit, GraduationCap } from 'lucide-react';
 
 export interface ResourceItem {
   id: string;
@@ -61,6 +61,14 @@ export const resources: ResourceCategory[] = [
         url: 'https://github.com/microsoft/seismic-deeplearning/',
         tags: ['Deep Learning', 'Seismic', 'Imaging'],
         icon: ActivityIcon
+      },
+      {
+        id: 'ml-for-beginners',
+        title: 'ML For Beginners',
+        description: 'A 12-week curriculum covering classic machine learning topics with hands-on lessons and quizzes.',
+        url: 'https://github.com/microsoft/ML-For-Beginners',
+        tags: ['Python', 'Education', 'Curriculum', 'Beginner'],
+        icon: GraduationCap
       }
     ]
   },
@@ -124,6 +132,22 @@ export const resources: ResourceCategory[] = [
         url: 'https://github.com/Azure/BatchSparkScoringPredictiveMaintenance',
         tags: ['Python', 'Spark', 'Batch Scoring', 'Databricks'],
         icon: Database
+      },
+      {
+        id: 'r-ml-batch',
+        title: 'Deploy R ML Model on Batch',
+        description: 'Deploy a forecasting model for batch scoring using Azure Batch and doAzureParallel.',
+        url: 'https://github.com/Azure/RBatchScoring',
+        tags: ['R', 'CPU', 'Batch Scoring', 'Azure Batch'],
+        icon: Terminal
+      },
+      {
+        id: 'distributed-dl',
+        title: 'Train Distributed Deep Learning Model',
+        description: 'Distributed training of ResNet50 model using Batch AI across multiple GPU nodes.',
+        url: 'https://github.com/Azure/DistributedDeepLearning/',
+        tags: ['Python', 'GPU', 'Training', 'Distributed'],
+        icon: Cpu
       }
     ]
   },
