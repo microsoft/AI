@@ -1,5 +1,3 @@
-
-
 parameters:
   azureSubscription: ''
   azure_subscription: ''

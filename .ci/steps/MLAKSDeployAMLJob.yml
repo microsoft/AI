@@ -1,5 +1,3 @@
-
-
 parameters:
   azureSubscription: ''
   azure_subscription: ''
@@ -93,4 +91,3 @@ steps:
     conda: ${{parameters.conda}}
     azureresourcegroup: ${{parameters.azureresourcegroup}}
     doCleanup: ${{parameters.doCleanup}}
-

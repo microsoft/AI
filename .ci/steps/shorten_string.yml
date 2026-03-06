@@ -1,4 +1,3 @@
-
 parameters:
   Input_String: ""
   Output_Variable: ""
