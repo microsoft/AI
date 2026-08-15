@@ -23,7 +23,6 @@ dependencies:
     - matplotlib==3.1.1
     - nest_asyncio>=0.9.10
     - nbconvert==5.4.1                
-    - nest_asyncio>=0.9.10
     - papermill==0.19.1
     - Pillow==6.1.0
     - prompt-toolkit>=2.0.7
