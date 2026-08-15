@@ -23,7 +23,7 @@ batch scoring, realtime scoring, model training, MLOps, Azure Machine Learning, 
 2. [AI100 - Samples](#ai100)
 3. [AI200 - Reference Architectures](#ai200)
 4. [AI300 - Best Practices](#ai300)
-6. [Contributing](#Contributing)
+5. [Contributing](#Contributing)
 
 # Getting Started <a name="Getting-Started"></a>
 This repository is arranged as submodules so you can either pull all the tutorials or simply the ones you want. 
@@ -70,7 +70,7 @@ Our reference architectures are arranged by scenario. Each architecture includes
 | [Deploy R ML Model on Kubernetes](https://github.com/Azure/RealtimeRDeployment)         							   | R | CPU | Real-Time Scoring       | Deploy ML model for _real-time_ scoring on Kubernetes |  |
 | [Deploy R ML Model on Batch](https://github.com/Azure/RBatchScoring)         										   | R | CPU  | Scoring     | Deploy forecasting model for _batch_ scoring using Azure Batch and doAzureParallel |  | 
 | [Deploy Spark ML Model on Databricks](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance)         	   | Python | Spark  | Batch Scoring | Deploy a classification model for _batch_ scoring using Databricks |                                                                                                                                                                                 |
-| [Train Distributed Deep Leaning Model](https://github.com/Azure/DistributedDeepLearning/)         				   | Python | GPU  | Training | Distributed training of ResNet50 model using Batch AI |                                                                                                                                                                                  |
+| [Train Distributed Deep Learning Model](https://github.com/Azure/DistributedDeepLearning/)         				   | Python | GPU  | Training | Distributed training of ResNet50 model using Batch AI |                                                                                                                                                                                  |
 
 # AI300 - Best Practices <a name="ai300"></a>
 Our best practices are arranged by topic. Each best practice repository includes open source methods, along with considerations for scalability, availability, manageability, and security.
