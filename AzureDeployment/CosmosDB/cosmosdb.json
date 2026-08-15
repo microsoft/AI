@@ -40,10 +40,11 @@
         ],
         "databaseAccountOfferType": "Standard",
         "keyVaultKeyUri": "[parameters('keyVaultKeyUri')]"
+      }
     },
     {
-      "name": "[parameters('databaseName')]",
-      "type": "Microsoft.DocumentDB/sqlDatabases",
+      "name": "[concat(parameters('accountName'), '/', parameters('databaseName'))]",
+      "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
       "apiVersion": "2020-04-01",
       "dependsOn": [
         "[parameters('accountName')]"
@@ -56,13 +57,13 @@
           "throughput": 400
         }
       }
-    }
+    },
     {
-      "name": "[parameters('containerName')]",
-      "type": "Microsoft.DocumentDB/containers",
+      "name": "[concat(parameters('accountName'), '/', parameters('databaseName'), '/', parameters('containerName'))]",
+      "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
       "apiVersion": "2020-04-01",
       "dependsOn": [
-        "[parameters('databaseName')]"
+        "[concat(parameters('accountName'), '/', parameters('databaseName'))]"
       ],
       "properties": {
         "resource": {
