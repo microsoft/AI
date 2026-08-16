@@ -40,7 +40,7 @@ steps:
       source activate ${{parameters.conda}}
       export PYTHONPATH=${{parameters.python_path}}:${PYTHONPATH}      
       cd ${{parameters.location}}
-      echo Execute ${{parameters.notebook}}
+      echo Execute ${{parameters.notebooks}}
       for notebook in ${{parameters.notebooks}}; do papermill $notebook output.ipynb \
         --log-output \
         --no-progress-bar \
