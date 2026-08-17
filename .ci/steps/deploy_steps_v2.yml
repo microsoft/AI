@@ -19,6 +19,7 @@ parameters:
   location: "" #Root Dir of Project
   python_path: "" #Root Dir of Python Env
   python_secret_root: "./"
+  conda: 'deployment_aml'
 
 steps:
 
