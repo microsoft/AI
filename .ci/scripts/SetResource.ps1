@@ -34,6 +34,7 @@ function UpdateLoop
         {
             Write-Host("Failed to write resource update - ")
             Write-Host($_.Exception.Message)
+            $iterator++
             Start-Sleep -Seconds 5
         }
     }
